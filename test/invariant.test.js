@@ -182,7 +182,10 @@ test("invariant: the operations verdict matches the measured utilisation", () =>
   const ops = derived.operations;
   if (ops.capacity_utilisation >= 1) {
     assert.equal(ops.constraint, "operaciones");
-    assert.match(ops.verdict, /cuello de botella NO es la conversión/);
+    assert.match(ops.verdict, /supera la capacidad de instalación/);
+    // Framed as a system hypothesis needing internal validation, never as an
+    // asserted diagnosis of Somos — see descubrimientos brief, correction 25.
+    assert.match(ops.verdict, /hipótesis de sistema|requiere validación/);
   } else {
     assert.equal(ops.constraint, "demanda");
   }

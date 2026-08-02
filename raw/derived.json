@@ -30,7 +30,7 @@
     "capacity_utilisation": 1.19,
     "backlog_days_recent": 14.9,
     "constraint": "operaciones",
-    "verdict": "La demanda agendada (166/día) supera la capacidad de instalación (139/día). El cuello de botella NO es la conversión: es operaciones. Subir la conversión sin ampliar capacidad alarga la lista de espera (2558 pendientes) y empeora la experiencia.",
+    "verdict": "En el modelo, la demanda agendada (166/día) supera la capacidad de instalación (139/día): una hipótesis de sistema, no un diagnóstico de Somos. Si se confirma con datos internos, subir la conversión sin ampliar capacidad alargaría la lista de espera (2558 pendientes) en vez de mejorar el resultado — requiere validación.",
     "note": "Este es el chequeo que decide si una propuesta de CRO tiene sentido AHORA. Ver descubrimientos/07-propuestas-priorizadas.md, sección de advertencia."
   },
   "backlog": [

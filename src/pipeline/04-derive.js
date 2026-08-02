@@ -147,8 +147,8 @@ function analyzeOperations(operations) {
     constraint: utilisation >= 1 ? "operaciones" : "demanda",
     verdict:
       utilisation >= 1
-        ? `La demanda agendada (${avgScheduled.toFixed(0)}/día) supera la capacidad de instalación (${avgCapacity.toFixed(0)}/día). El cuello de botella NO es la conversión: es operaciones. Subir la conversión sin ampliar capacidad alarga la lista de espera (${finalBacklog} pendientes) y empeora la experiencia.`
-        : `La capacidad de instalación (${avgCapacity.toFixed(0)}/día) todavía absorbe la demanda agendada (${avgScheduled.toFixed(0)}/día). La conversión sigue siendo la palanca correcta.`,
+        ? `En el modelo, la demanda agendada (${avgScheduled.toFixed(0)}/día) supera la capacidad de instalación (${avgCapacity.toFixed(0)}/día): una hipótesis de sistema, no un diagnóstico de Somos. Si se confirma con datos internos, subir la conversión sin ampliar capacidad alargaría la lista de espera (${finalBacklog} pendientes) en vez de mejorar el resultado — requiere validación.`
+        : `En el modelo, la capacidad de instalación (${avgCapacity.toFixed(0)}/día) todavía absorbe la demanda agendada (${avgScheduled.toFixed(0)}/día): la conversión seguiría siendo la palanca correcta, sujeto a validación con datos internos.`,
     note:
       "Este es el chequeo que decide si una propuesta de CRO tiene sentido AHORA. Ver descubrimientos/07-propuestas-priorizadas.md, sección de advertencia.",
   };
