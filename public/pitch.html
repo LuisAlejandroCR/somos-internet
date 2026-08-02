@@ -84,10 +84,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <span class="orb lg"></span>
       <div>
         <div class="eyebrow">Somos CRO Lab</div>
-        <h1>Un embudo con <mark>espacio real</mark> de mejora.<br>Y la forma de probarlo.</h1>
+        <h1>Ideas con <mark>nombre propio</mark>.<br>Y un método para probarlas.</h1>
         <p class="lead">
-          Pipeline reproducible: simula el embudo público de Somos, corre experimentos A/B con
-          métrica primaria, métrica de guardia y criterio de descarte, y prioriza el backlog con ICE.
+          No vengo a construir otro dashboard: traigo hipótesis creativas con investigación detrás,
+          y el pipeline que las convierte en decisiones — métrica primaria, guardia y criterio de parada.
         </p>
         <div class="tags">
           <span class="tag">Node sin dependencias</span>
@@ -100,97 +100,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 2 -->
   <section class="slide">
-    <div class="eyebrow">El punto de partida</div>
-    <h1>El home ya eligió: <em>WhatsApp primero.</em></h1>
-    <p class="lead">
-      El CTA principal de somosinternet.com no lleva a un formulario — es un enlace directo a WhatsApp
-      con texto de venta prellenado. En Colombia, WhatsApp tiene ~75% de penetración y 98% de tasa de
-      apertura contra 21,5% del email. La pregunta no es si usar el canal: es si se está midiendo.
-    </p>
-    <div class="pgrid">
-      <div class="pcard mint"><div class="n mint" data-m="waShare"></div><div class="t">del tráfico entra por WhatsApp</div><div class="s">El canal de mayor volumen del embudo simulado</div></div>
-      <div class="pcard"><div class="n cream" data-m="waResponse"></div><div class="t">primera respuesta promedio</div><div class="s">Cada minuto de más erosiona la conversión</div></div>
-      <div class="pcard"><div class="n" data-m="waQualLoss"></div><div class="t">se pierde en la calificación</div><div class="s">El asesor filtra en vez de cerrar</div></div>
-    </div>
-  </section>
-
-  <!-- 3 -->
-  <section class="slide">
-    <div class="eyebrow">El embudo web</div>
-    <h1>Dónde se cae la gente.</h1>
-    <div class="pfunnel" id="pf"></div>
-    <p class="lead" style="margin-top:22px">
-      El paso del celular pierde <span data-m="phoneLoss"></span>. Ahí vive un selector de
-      <b style="color:var(--pink)">~200 países</b> en un servicio que solo opera en Colombia.
-    </p>
-  </section>
-
-  <!-- 4 -->
-  <section class="slide">
-    <div class="eyebrow">El hallazgo más incómodo</div>
-    <div class="giant pink" data-m="wasteLate"></div>
-    <h1 style="margin-top:22px;font-size:clamp(24px,3.2vw,42px)">personas entregaron nombre, celular y correo<br>para que <em>después</em> se les dijera que su edificio no califica.</h1>
-    <p class="lead">
-      Somos solo conecta edificios con portería o administración — es un filtro real. Pero hoy se
-      pregunta al final del formulario, no al principio. Es fricción evitable y son datos personales
-      capturados sin necesidad.
-    </p>
-  </section>
-
-  <!-- 5 -->
-  <section class="slide">
-    <div class="eyebrow"><span data-m="expCount"></span> experimentos leídos</div>
-    <h1>Un experimento no es una idea:<br>es una <em>decisión con criterio de parada.</em></h1>
-    <div class="term"><span class="c">$ npm run run-all</span><br><span id="term-lines"></span><span class="c">&nbsp;&nbsp;&nbsp;prueba z de dos proporciones · IC 95% · MDE <span data-m="mde"></span> · potencia <span data-m="power"></span></span></div>
-    <p class="lead" style="margin-top:20px" data-m="expSummary"></p>
-  </section>
-
-  <!-- 6 -->
-  <section class="slide">
-    <div class="eyebrow">Por qué hay ganadores que no se lanzan</div>
-    <h1>La métrica de guardia manda,<br>aunque la primaria haya <em>ganado</em>.</h1>
-    <div class="pgrid" id="blocked-cards"></div>
-    <p class="lead" style="margin-top:26px">
-      Es el patrón de Duolingo: mataron un experimento que subía suscripciones porque bajaba el
-      engagement diario. Ganar la métrica primaria no es suficiente.
-    </p>
-  </section>
-
-  <!-- 7 -->
-  <section class="slide">
-    <div class="eyebrow">La conclusión que cambia el plan</div>
-    <div class="giant cream" data-m="utilisation"></div>
-    <h1 style="margin-top:20px;font-size:clamp(26px,3.6vw,46px)">de uso de capacidad de instalación.<br>El cuello de botella <em>no es la conversión.</em></h1>
-    <p class="lead" data-m="opsVerdict"></p>
-    <p class="lead" style="color:var(--mint)">
-      Antes de proponer un solo experimento más: ¿el cuello de botella hoy está en generar demanda,
-      o en poder atenderla?
-    </p>
-  </section>
-
-  <!-- 8 -->
-  <section class="slide">
-    <div class="eyebrow">Cómo trabajo</div>
-    <h1>Hipótesis → métrica → guardia → <em>decisión documentada.</em></h1>
-    <div class="pgrid">
-      <div class="pcard mint"><div class="n mint" data-m="backlogCount"></div><div class="t">hipótesis priorizadas con ICE</div><div class="s">Cada una citando el documento de investigación del que salió</div></div>
-      <div class="pcard"><div class="n mint" data-m="testCount2"></div><div class="t">tests: unit, fuzz, invariantes</div><div class="s">Encontraron 3 bugs reales durante la construcción</div></div>
-      <div class="pcard"><div class="n mint">0</div><div class="t">dependencias externas</div><div class="s">Node puro — el pipeline corre con <span class="mono">npm run run-all</span></div></div>
-    </div>
-    <ol class="backlog-rank" id="backlog-rank"></ol>
-    <p class="lead" style="margin-top:30px">
-      Los datos son sintéticos y reproducibles con semilla fija. La estructura del embudo, el mercado
-      y la competencia sí vienen de investigación real con fuente citada.
-    </p>
-    <div class="tags">
-      <span class="tag"><span class="orb sm"></span> Luis Cárdenas · Growth &amp; Data Analytics</span>
-      <span class="tag">Dashboard en <span class="mono">/</span></span>
-    </div>
-  </section>
-
-  <!-- 9 -->
-  <section class="slide">
-    <div class="eyebrow">Propuestas propias</div>
+    <div class="eyebrow">Mis hipótesis para Somos</div>
     <h1>No solo leo el embudo:<br>traigo <em>ideas con nombre propio.</em></h1>
     <div class="pgrid">
       <div class="pcard">
@@ -210,8 +120,99 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       </div>
     </div>
     <p class="lead" style="margin-top:30px">
-      Cada idea tiene investigación con fuente citada y sus límites declarados — no son hipótesis de salón.
+      Estas son mis hipótesis para el negocio, cada una con investigación y límites declarados.
+      El resto del deck es el método que las probaría con datos — no el al revés.
     </p>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="eyebrow">La evidencia · canal WhatsApp</div>
+    <h1>El home ya eligió: <em>WhatsApp primero.</em></h1>
+    <p class="lead">
+      El CTA principal de somosinternet.com no lleva a un formulario — es un enlace directo a WhatsApp
+      con texto de venta prellenado. En Colombia, WhatsApp tiene ~75% de penetración y 98% de tasa de
+      apertura contra 21,5% del email. La pregunta no es si usar el canal: es si se está midiendo.
+    </p>
+    <div class="pgrid">
+      <div class="pcard mint"><div class="n mint" data-m="waShare"></div><div class="t">del tráfico entra por WhatsApp</div><div class="s">El canal de mayor volumen del embudo simulado</div></div>
+      <div class="pcard"><div class="n cream" data-m="waResponse"></div><div class="t">primera respuesta promedio</div><div class="s">Cada minuto de más erosiona la conversión</div></div>
+      <div class="pcard"><div class="n" data-m="waQualLoss"></div><div class="t">se pierde en la calificación</div><div class="s">El asesor filtra en vez de cerrar</div></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="eyebrow">El embudo web</div>
+    <h1>Dónde se cae la gente.</h1>
+    <div class="pfunnel" id="pf"></div>
+    <p class="lead" style="margin-top:22px">
+      El paso del celular pierde <span data-m="phoneLoss"></span>. Ahí vive un selector de
+      <b style="color:var(--pink)">~200 países</b> en un servicio que solo opera en Colombia.
+    </p>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="eyebrow">El hallazgo más incómodo</div>
+    <div class="giant pink" data-m="wasteLate"></div>
+    <h1 style="margin-top:22px;font-size:clamp(24px,3.2vw,42px)">personas entregaron nombre, celular y correo<br>para que <em>después</em> se les dijera que su edificio no califica.</h1>
+    <p class="lead">
+      Somos solo conecta edificios con portería o administración — es un filtro real. Pero hoy se
+      pregunta al final del formulario, no al principio. Es fricción evitable y son datos personales
+      capturados sin necesidad.
+    </p>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="eyebrow"><span data-m="expCount"></span> experimentos leídos</div>
+    <h1>Un experimento no es una idea:<br>es una <em>decisión con criterio de parada.</em></h1>
+    <div class="term"><span class="c">$ npm run run-all</span><br><span id="term-lines"></span><span class="c">&nbsp;&nbsp;&nbsp;prueba z de dos proporciones · IC 95% · MDE <span data-m="mde"></span> · potencia <span data-m="power"></span></span></div>
+    <p class="lead" style="margin-top:20px" data-m="expSummary"></p>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <div class="eyebrow">Por qué hay ganadores que no se lanzan</div>
+    <h1>La métrica de guardia manda,<br>aunque la primaria haya <em>ganado</em>.</h1>
+    <div class="pgrid" id="blocked-cards"></div>
+    <p class="lead" style="margin-top:26px">
+      Es el patrón de Duolingo: mataron un experimento que subía suscripciones porque bajaba el
+      engagement diario. Ganar la métrica primaria no es suficiente.
+    </p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="eyebrow">La conclusión que cambia el plan</div>
+    <div class="giant cream" data-m="utilisation"></div>
+    <h1 style="margin-top:20px;font-size:clamp(26px,3.6vw,46px)">de uso de capacidad de instalación.<br>El cuello de botella <em>no es la conversión.</em></h1>
+    <p class="lead" data-m="opsVerdict"></p>
+    <p class="lead" style="color:var(--mint)">
+      Antes de proponer un solo experimento más: ¿el cuello de botella hoy está en generar demanda,
+      o en poder atenderla?
+    </p>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide">
+    <div class="eyebrow">Cómo trabajo</div>
+    <h1>No soy un analista de dashboards:<br>cierro el loop <em>entre el dato y la decisión.</em></h1>
+    <div class="pgrid">
+      <div class="pcard mint"><div class="n mint" data-m="backlogCount"></div><div class="t">hipótesis priorizadas con ICE</div><div class="s">Cada una citando el documento de investigación del que salió</div></div>
+      <div class="pcard"><div class="n mint" data-m="testCount2"></div><div class="t">tests: unit, fuzz, invariantes</div><div class="s">Encontraron 3 bugs reales durante la construcción</div></div>
+      <div class="pcard"><div class="n mint">0</div><div class="t">dependencias externas</div><div class="s">Node puro — el pipeline corre con <span class="mono">npm run run-all</span></div></div>
+    </div>
+    <ol class="backlog-rank" id="backlog-rank"></ol>
+    <p class="lead" style="margin-top:30px">
+      Los datos son sintéticos y reproducibles con semilla fija. La estructura del embudo, el mercado
+      y la competencia sí vienen de investigación real con fuente citada.
+    </p>
+    <div class="tags">
+      <span class="tag"><span class="orb sm"></span> Luis Cárdenas · Growth &amp; Data Analytics</span>
+      <span class="tag">Dashboard en <span class="mono">/</span></span>
+    </div>
   </section>
 
 </div>
