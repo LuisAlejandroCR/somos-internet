@@ -262,7 +262,7 @@ function renderCapacity(operations) {
   const line = (key) =>
     daily.map((d, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(" ");
   const grid = [0.25, 0.5, 0.75, 1]
-    .map((f) => `<line x1="${PAD}" x2="${W - PAD}" y1="${y(maxDemand * f)}" y2="${y(maxDemand * f)}" stroke="#1f1f26" stroke-width="1"/>`)
+    .map((f) => `<line x1="${PAD}" x2="${W - PAD}" y1="${y(maxDemand * f)}" y2="${y(maxDemand * f)}" stroke="var(--border)" stroke-width="1"/>`)
     .join("");
 
   el("cap-chart").innerHTML = SVG(
@@ -270,8 +270,8 @@ function renderCapacity(operations) {
     H,
     `Gráfico de línea: la demanda de agendamientos supera a la capacidad de instalación desde el tercer día`,
     grid +
-      `<path d="${line("capacity")}" fill="none" stroke="#565664" stroke-width="2"/>` +
-      `<path d="${line("scheduled")}" fill="none" stroke="#f0b95c" stroke-width="2.5"/>`
+      `<path d="${line("capacity")}" fill="none" stroke="var(--text-3)" stroke-width="2"/>` +
+      `<path d="${line("scheduled")}" fill="none" stroke="var(--warn)" stroke-width="2.5"/>`
   );
 
   const maxBacklog = Math.max(...daily.map((d) => d.backlog_end_of_day));
@@ -283,7 +283,7 @@ function renderCapacity(operations) {
     daily
       .map((d, i) => {
         const h = (d.backlog_end_of_day / maxBacklog) * (H - PAD * 2);
-        return `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(H - PAD - h).toFixed(1)}" width="${Math.max(bw - 1.5, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="#ff6ee7" opacity="0.85"><title>Día ${d.day_index + 1}: ${num(d.backlog_end_of_day)} pendientes</title></rect>`;
+        return `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(H - PAD - h).toFixed(1)}" width="${Math.max(bw - 1.5, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--brand-pink)" opacity="0.85"><title>Día ${d.day_index + 1}: ${num(d.backlog_end_of_day)} pendientes</title></rect>`;
       })
       .join("")
   );

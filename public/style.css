@@ -8,16 +8,17 @@
    El estado (ok/warn/danger/info) es un sistema semántico independiente.
    ───────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Neutros — superficies, tablas, estructura, la mayoría de los gráficos */
-  --bg: #000000;
-  --bg-2: #060608;
-  --surface: #0a0a0c;
-  --surface-2: #141418;
-  --border: #1f1f26;
-  --border-2: #2e2e38;
+  /* Neutros — superficies, tablas, estructura, la mayoría de los gráficos.
+     Nada de negro puro: la página vive sobre #050507 con halos de ambiente. */
+  --bg: #050507;
+  --bg-2: #0c0c12;
+  --surface: #12121a;
+  --surface-2: #1c1c26;
+  --border: #26262e;
+  --border-2: #3a3a46;
   --text: #ffffff;
-  --text-2: #a8a8b3;
-  --text-3: #74747f;
+  --text-2: #b2b2be;
+  --text-3: #82828f;
 
   /* Marca Somos — nav, acciones primarias, highlights, momentos del pitch */
   --brand-mint: #56f5bb;
@@ -31,10 +32,21 @@
 
   /* El detalle que define el look de Somos: halo de color detrás de las
      tarjetas. Valores tomados literalmente de las tarjetas de precios. */
-  --glow-mint: 0 0 20px 10px rgba(0, 74, 77, 0.6);
-  --glow-pink: 0 0 20px 10px rgba(62, 1, 73, 0.6);
-  --glow-cream: 0 0 20px 10px rgba(74, 62, 0, 0.55);
-  --glow-neutral: 0 0 18px 6px rgba(255, 255, 255, 0.035);
+  --glow-mint: 0 0 24px 12px rgba(0, 74, 77, 0.72);
+  --glow-pink: 0 0 24px 12px rgba(62, 1, 73, 0.72);
+  --glow-cream: 0 0 24px 12px rgba(74, 62, 0, 0.65);
+  --glow-neutral: 0 0 18px 8px rgba(255, 255, 255, 0.05);
+
+  /* Alias — compatibilidad con la nomenclatura previa del pitch (pitch.html
+     usa --mint/--pink/--cream/--card/--muted). Un solo origen de verdad. */
+  --mint: var(--brand-mint);
+  --pink: var(--brand-pink);
+  --cream: var(--brand-cream);
+  --blue: var(--brand-blue);
+  --card: var(--surface);
+  --card-2: var(--surface-2);
+  --muted: var(--text-2);
+  --muted-2: var(--text-3);
 
   /* Semánticos — estados de experimentos y avisos. Independientes de la marca:
      el menta de la marca no significa "ganó", ni el rosa "perdió". */
@@ -54,7 +66,12 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 640px at 88% -12%, rgba(86, 245, 187, 0.06), transparent 62%),
+    radial-gradient(1000px 520px at -8% 26%, rgba(255, 110, 231, 0.045), transparent 55%),
+    radial-gradient(1100px 560px at 50% 118%, rgba(248, 226, 148, 0.04), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   font-family: "Poppins", "Century Gothic", "Avant Garde", system-ui, sans-serif;
   font-size: 15px;
@@ -97,7 +114,7 @@ a.link:hover { text-decoration: underline; }
 /* ── Header / nav ── */
 header {
   border-bottom: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(5, 5, 7, 0.85);
   position: sticky; top: 0; z-index: 30;
   backdrop-filter: blur(10px);
 }
@@ -214,7 +231,7 @@ h3.block-title { font-size: 16px; font-weight: 600; margin: 26px 0 8px; letter-s
 .fbar-track { background: var(--surface-2); border-radius: 7px; height: 32px; overflow: hidden; position: relative; }
 .fbar {
   height: 100%; border-radius: 7px;
-  background: linear-gradient(90deg, #3a3a45, #565664);
+  background: linear-gradient(90deg, var(--surface-2), var(--border-2));
   display: flex; align-items: center; padding-left: 11px;
   font-size: 11.5px; font-weight: 700; color: var(--text); min-width: 4px;
 }
@@ -325,8 +342,8 @@ td .small { font-size: 11.5px; color: var(--text-3); }
 .seg-row { display: grid; grid-template-columns: 96px 1fr 120px; gap: 12px; align-items: center; }
 .seg-row .nm { font-size: 12.5px; color: var(--text-2); text-transform: capitalize; font-weight: 600; }
 .seg-bar-track { background: var(--surface-2); border-radius: 6px; height: 22px; overflow: hidden; }
-.seg-bar { height: 100%; background: linear-gradient(90deg, #3a3a45, #6a6a78); border-radius: 6px; min-width: 3px; }
-.seg-bar.best { background: linear-gradient(90deg, #3d7a5f, var(--ok)); }
+.seg-bar { height: 100%; background: linear-gradient(90deg, var(--surface-2), var(--border-2)); border-radius: 6px; min-width: 3px; }
+.seg-bar.best { background: linear-gradient(90deg, var(--ok-dim), var(--ok)); }
 .seg-num { font-size: 11.5px; color: var(--text-2); text-align: right; font-family: "JetBrains Mono", monospace; }
 .seg-num b { color: var(--text); }
 .seg-note { margin-top: 14px; padding: 11px 14px; background: var(--bg-2); border-radius: 11px; font-size: 12.5px; color: var(--text-2); border: 1px solid var(--border); line-height: 1.6; }
