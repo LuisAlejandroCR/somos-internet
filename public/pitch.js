@@ -47,12 +47,12 @@ Promise.all([
   .then(([overview, funnel, experiments, backlog]) => {
     const ops = overview.operations;
 
-    // Slide 1
+    // Slide 1 — portada (sin datos)
     set("seed", overview.generated.seed);
     set("testCount", overview.headline.test_count ?? "—");
     set("testCount2", overview.headline.test_count ?? "—");
 
-    // Slide 2 — todo derivado del embudo real
+    // Slide 5 — WhatsApp: chips simulados
     const totalLanding = funnel.totals.sessions;
     const waLanding = funnel.totals.wa_sessions;
     set("waShare", pct(waLanding / totalLanding, 0));
@@ -63,7 +63,7 @@ Promise.all([
     const qualStep = funnel.whatsapp.find((s) => s.step === "wa_qualified");
     set("waQualLoss", qualStep ? pct(qualStep.drop_off_rate, 0) : "—");
 
-    // Slide 3
+    // Slide 9 — embudo modelado
     const phoneStep = funnel.web.find((s) => s.step === "phone");
     set("phoneLoss", phoneStep ? `~${(phoneStep.drop_off_rate * 100).toFixed(0)}%` : "—");
     document.getElementById("pf").innerHTML = funnel.web
@@ -78,10 +78,10 @@ Promise.all([
       })
       .join("");
 
-    // Slide 4
+    // Slide 4 — elegibilidad: chip simulado
     set("wasteLate", num(funnel.eligibility_waste.filtered_late));
 
-    // Slide 5 — la "terminal" se arma desde los resultados reales
+    // Slide 9 — terminal: se arma desde los resultados reales
     set("expCount", experiments.results.length);
     set("mde", pct(experiments.target_mde, 0));
     set("power", experiments.power);
@@ -103,7 +103,7 @@ Promise.all([
       `${shipped} se lanza. ${blocked} ganaron en la métrica primaria y aun así se bloquean. ${killed} se descarta y se documenta.`
     );
 
-    // Slide 6 — tarjetas de los bloqueados, generadas desde los datos
+    // Slide 10 — motor de decisiones: tarjetas de los bloqueados
     document.getElementById("blocked-cards").innerHTML = experiments.results
       .filter((r) => r.guardrail?.breached)
       .map((r) => {
@@ -118,11 +118,11 @@ Promise.all([
       })
       .join("");
 
-    // Slide 7
+    // Slide 12 — apéndice: ranking ICE — capacidad: simulación como guardrail
     set("utilisation", pct(ops.capacity_utilisation, 0));
     set("opsVerdict", ops.verdict);
 
-    // Slide 8
+    // Slide 12 — apéndice: ranking ICE
     set("backlogCount", backlog.items.length);
     document.getElementById("backlog-rank").innerHTML = backlog.items
       .slice(0, 4)
