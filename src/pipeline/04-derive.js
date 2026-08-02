@@ -103,6 +103,18 @@ const BACKLOG = [
     ease: 7,
     experiment_id: null,
   },
+  {
+    id: "P8",
+    title: "Trabajo de calle y pasacalles como canal formal de demanda",
+    doc: "descubrimientos/10-concepto-identidad-hiperlocal.md",
+    hypothesis: "Las activaciones de calle ya demostraron tracción (pasacalles); formalizarlas como canal con métricas propias — leads, costo por lead, conversión a instalación — las vuelve escalables y optimizables.",
+    primary_metric: "qualified_lead_rate",
+    guardrail: "Costo por lead vs. canales digitales",
+    impact: 9,
+    confidence: 7,
+    ease: 8,
+    experiment_id: null,
+  },
 ];
 
 /**

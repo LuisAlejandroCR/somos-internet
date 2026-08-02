@@ -177,6 +177,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="pcard"><div class="n mint" data-m="testCount2"></div><div class="t">tests: unit, fuzz, invariantes</div><div class="s">Encontraron 3 bugs reales durante la construcción</div></div>
       <div class="pcard"><div class="n mint">0</div><div class="t">dependencias externas</div><div class="s">Node puro — el pipeline corre con <span class="mono">npm run run-all</span></div></div>
     </div>
+    <ol class="backlog-rank" id="backlog-rank"></ol>
     <p class="lead" style="margin-top:30px">
       Los datos son sintéticos y reproducibles con semilla fija. La estructura del embudo, el mercado
       y la competencia sí vienen de investigación real con fuente citada.
@@ -320,6 +321,13 @@ Promise.all([
 
     // Slide 8
     set("backlogCount", backlog.items.length);
+    document.getElementById("backlog-rank").innerHTML = backlog.items
+      .slice(0, 4)
+      .map(
+        (b, i) =>
+          `<li><span class="rank-n">${i + 1}</span><b>${b.id}</b> ${b.title} <span class="mono rank-ice">ICE ${b.ice.toFixed(1)}</span></li>`
+      )
+      .join("");
   })
   .catch((err) => {
     document.getElementById("pf").innerHTML = `<div class="lead">No se pudo cargar la data (${err.message}). Corré <span class="mono">npm run run-all</span>.</div>`;

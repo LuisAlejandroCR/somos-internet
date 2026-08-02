@@ -212,6 +212,13 @@ td.num, th.num { text-align: right; font-family: "JetBrains Mono", ui-monospace,
 .rationale b { color: var(--text); }
 .guard { margin-top: 12px; font-size: 13px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
 
+/* Ranking priorizado del backlog (slide 8 del pitch) */
+.backlog-rank { list-style: none; margin: 26px auto 0; padding: 0; max-width: 880px; display: grid; gap: 8px; }
+.backlog-rank li { display: flex; align-items: baseline; gap: 12px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 11px; padding: 11px 14px; font-size: 13.5px; color: var(--muted); }
+.backlog-rank b { color: var(--text); }
+.rank-n { font-family: "JetBrains Mono", monospace; color: var(--mint); font-weight: 700; }
+.rank-ice { margin-left: auto; color: var(--cream); font-size: 12.5px; white-space: nowrap; }
+
 /* ── Utilidades ── */
 .row { display: flex; gap: 13px; flex-wrap: wrap; }
 .row > * { flex: 1 1 300px; }
