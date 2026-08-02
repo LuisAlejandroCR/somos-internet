@@ -25,7 +25,7 @@ const MIME = {
 // /pitch.html is canonicalized by the platform to /pitch (which serves the
 // deck). A _redirects "200 rewrite" from /pitch looped, so it was removed —
 // the clean URL is the canonical one and this rewrite mirrors it locally.
-const REWRITES = { "/": "/index.html", "/pitch": "/pitch.html" };
+const REWRITES = { "/": "/index.html", "/pitch": "/pitch.html", "/metodologia": "/metodologia.html" };
 
 // Same policy the Cloudflare Function applies.
 const limiter = createRateLimiter({ capacity: 60, refillPerSecond: 1 });

@@ -1,99 +1,522 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Somos CRO Lab — embudo y experimentos</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Somos CRO Lab — Mis hipótesis para mejorar la conversión de Somos</title>
+  <meta name="description" content="Ejercicio de candidatura para el rol de CRO en Somos Internet: hipótesis, evidencia, experimentos y decisiones. Todos los datos son sintéticos.">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <a href="#contenido" style="position:absolute;left:-999px;top:0">Saltar al contenido</a>
 
-<div class="synthetic-banner">
-  ⚠ <b>DATOS 100% SINTÉTICOS</b> — generados con semilla fija para este ejercicio. No provienen de Somos Internet ni de ningún sistema real.
-</div>
-
-<header>
-  <div class="container nav">
-    <div class="brand"><span class="orb"></span> Somos <span style="color:var(--muted-2);font-weight:400">CRO Lab</span></div>
-    <nav class="nav-links">
-      <a href="/" class="active">Dashboard</a>
-      <a href="/pitch">Pitch</a>
-      <a href="/api/overview">API</a>
+  <header>
+    <nav class="nav" aria-label="Principal">
+      <a href="/" class="brand" aria-label="Somos CRO Lab — inicio">
+        <span class="orb" aria-hidden="true"></span>
+        <span>Somos</span><span class="lab">CRO Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="active" aria-current="page">Análisis</a>
+        <a href="/pitch">Pitch</a>
+        <a href="/metodologia">Metodología</a>
+      </div>
+      <div class="nav-util">
+        <a href="/api/overview" title="Respuesta JSON del API">API</a>
+        <span aria-hidden="true">·</span>
+        <span class="mono">datos sintéticos</span>
+      </div>
     </nav>
-    <div class="nav-right mono" id="window-label">—</div>
-  </div>
-</header>
+  </header>
 
-<main>
-  <div class="container">
+  <main id="contenido">
+    <div class="container">
 
-    <div class="eyebrow">Embudo de conversión · datos simulados</div>
-    <h1>Dónde se pierde la gente, y qué experimento lo prueba.</h1>
-    <p class="sub">
-      Un pipeline reproducible que simula el embudo público de Somos (home → WhatsApp o checkout web → elegibilidad → instalación),
-      corre experimentos A/B con métrica primaria, métrica de guardia y criterio de descarte, y prioriza el backlog con ICE.
-      La estructura del embudo viene de inspección pública del sitio; los números son sintéticos.
-    </p>
+      <!-- ── Tesis ── -->
+      <section aria-labelledby="tesis-title">
+        <p class="eyebrow">Ejercicio de candidatura · Rol CRO en Somos Internet</p>
+        <h1 id="tesis-title">Mis hipótesis para <em>mejorar la conversión</em> de Somos.</h1>
+        <p class="sub" style="max-width:860px">
+          En los datos públicos del embudo hay 86.806 sesiones que se convierten a una tasa del 17,2%:
+          14.905 agendamientos. Mi trabajo sería convertir esa estructura en un sistema de hipótesis,
+          experimentos y decisiones. Aquí están las cinco hipótesis que yo empezaría por probar — con la
+          evidencia que las sustenta y el método para decidir.
+        </p>
+        <div class="row" id="overview-stats" style="margin-top:26px;gap:13px" aria-label="Resumen de la simulación">
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:60%"></div><div class="k">Cargando…</div></div>
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:60%"></div><div class="k">Cargando…</div></div>
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:60%"></div><div class="k">Cargando…</div></div>
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:60%"></div><div class="k">Cargando…</div></div>
+        </div>
+      </section>
 
-    <div class="kpis" id="kpis"></div>
+      <!-- ── Aviso de datos sintéticos ── -->
+      <div class="disclosure" role="note">
+        <span class="orb sm" aria-hidden="true"></span>
+        <div class="disc-body">
+          <b>DATOS SINTÉTICOS</b>
+          Ejercicio de candidatura basado en la estructura pública del embudo de Somos Internet.
+          No contiene información interna de la empresa. Cada número está etiquetado: lo observado,
+          lo supuesto, lo simulado y lo que requiere validación interna.
+          <a class="link" href="/metodologia">Ver metodología →</a>
+        </div>
+      </div>
 
-    <div id="ops-alert"></div>
+      <!-- ── 01 · Hipótesis ── -->
+      <section id="hipotesis" aria-labelledby="hip-title">
+        <h2 class="section-title"><span class="sec-no">01</span><span id="hip-title">Las hipótesis</span></h2>
+        <p class="section-intro">
+          Cinco preguntas, ordenadas por lo que me gustaría probar primero. Cada una tiene su
+          evidencia, su experimento y su guardia. Las tres principales abren el análisis;
+          las otras dos están a un scroll.
+        </p>
 
-    <h2 class="section-title">Embudo — checkout web</h2>
-    <div class="card">
-      <div class="card-title">De la visita al agendamiento</div>
-      <div class="card-sub">El ancho de la barra es el % que sobrevive respecto al paso anterior. A la derecha, cuánta gente se pierde ahí.</div>
-      <div class="funnel" id="funnel-web"></div>
+        <div class="hyp-grid">
+          <article class="hyp-card lead" aria-labelledby="h1-q">
+            <div class="n">01</div>
+            <h3 class="q" id="h1-q">¿Estamos pidiendo la elegibilidad demasiado tarde?</h3>
+            <p class="mech">
+              La fricción más grande del embudo web no está en el formulario: el 58,4% de las visitas
+              al home ni siquiera lo abre. Y entre los que avanzan, <b>1.929 personas</b> entregaron
+              nombre, celular y correo antes de descubrir que su edificio no califica — datos capturados
+              en vano, y leads que se enfadan.
+            </p>
+            <details>
+              <summary>El experimento</summary>
+              <div class="hyp-meta">
+                <div class="m"><span class="k">Qué probaría</span><span class="v">Control: el orden actual (datos personales primero). Variante: filtro de portería/administración antes de pedir datos personales.</span></div>
+                <div class="m"><span class="k">Métrica principal</span><span class="v prim" data-metric="elegibilidad.prim">—</span></div>
+                <div class="m"><span class="k">Guardia</span><span class="v" data-metric="elegibilidad.guardrail">—</span></div>
+                <div class="m"><span class="k">Resultado</span><span class="v" data-metric="elegibilidad.result">—</span></div>
+                <div class="m"><span class="k">Decisión</span><span class="v" data-metric="elegibilidad.decision">—</span></div>
+              </div>
+            </details>
+            <div class="hyp-cta">
+              <a class="btn primary small" href="#evidencia">Ver evidencia</a>
+              <a class="btn small" href="#experimentos">Ver experimento</a>
+            </div>
+          </article>
+
+          <article class="hyp-card" aria-labelledby="h2-q">
+            <div class="n">02</div>
+            <h3 class="q" id="h2-q">¿El problema de WhatsApp es el tiempo, no el copy?</h3>
+            <p class="mech">
+              El canal de WhatsApp captura más agendamientos que el formulario (10.739 vs 4.166), pero
+              pierde al <b>47,2%</b> de los que escriben: la fuga está entre el primer mensaje y la
+              calificación del asesor. Si el cuello es la respuesta, optimizar textos apenas mueve la aguja.
+            </p>
+            <details>
+              <summary>El experimento</summary>
+              <div class="hyp-meta">
+                <div class="m"><span class="k">Qué probaría</span><span class="v">No tocar el copy: medir minutos hasta la primera respuesta con datos de WhatsApp Business API y comparar con el límite operativo real del equipo de asesores.</span></div>
+                <div class="m"><span class="k">Métrica principal</span><span class="v prim" data-metric="waResponse.prim">—</span></div>
+                <div class="m"><span class="k">Guardia</span><span class="v" data-metric="waResponse.guardrail">—</span></div>
+                <div class="m"><span class="k">Resultado</span><span class="v" data-metric="waResponse.result">—</span></div>
+                <div class="m"><span class="k">Decisión</span><span class="v" data-metric="waResponse.decision">—</span></div>
+              </div>
+            </details>
+            <div class="hyp-cta">
+              <a class="btn primary small" href="#evidencia">Ver evidencia</a>
+              <a class="btn small" href="#experimentos">Ver experimento</a>
+            </div>
+          </article>
+
+          <article class="hyp-card" aria-labelledby="h3-q">
+            <div class="n">03</div>
+            <h3 class="q" id="h3-q">¿Estamos optimizando conversiones o resultados reales?</h3>
+            <p class="mech">
+              Un agendamiento que no se instala no es conversión real: hoy <b>2.558 agendamientos están
+              en cola</b> (14,9 días de espera). Un experimento que sube la conversión pero alarga la
+              cola cambia un número por una mala experiencia.
+            </p>
+            <details>
+              <summary>El experimento</summary>
+              <div class="hyp-meta">
+                <div class="m"><span class="k">Qué probaría</span><span class="v">Medir resultado final (instalaciones servidas sobre demanda) además de agendamientos, y cruzar cada experimento de conversión con el estado de la cola.</span></div>
+                <div class="m"><span class="k">Métrica principal</span><span class="v prim" data-metric="wf_experience.prim">—</span></div>
+                <div class="m"><span class="k">Guardia</span><span class="v" data-metric="wf_experience.guardrail">—</span></div>
+                <div class="m"><span class="k">Resultado</span><span class="v" data-metric="wf_experience.result">—</span></div>
+                <div class="m"><span class="k">Decisión</span><span class="v" data-metric="wf_experience.decision">—</span></div>
+              </div>
+            </details>
+            <div class="hyp-cta">
+              <a class="btn primary small" href="#guardrail">Ver guardrail</a>
+              <a class="btn small" href="#experimentos">Ver experimento</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- 04 y 05: bajo el pliegue -->
+        <div class="hlist" style="margin-top:22px">
+          <article class="hrow" aria-labelledby="h4-t">
+            <div class="n">04</div>
+            <div>
+              <div class="t" id="h4-t">¿Cuánta conversión se pierde en el selector de países?</div>
+              <div class="w">El paso más frágil del formulario es el celular: <b>3.192 personas</b> se van ahí (29,5% de los que llegan). En simulación, un selector simplificado con prefijo +57 por defecto sube la completitud del paso 1 un 12%.</div>
+              <details>
+                <summary>Detalle del experimento</summary>
+                <div class="hrow-detail">
+                  <div class="m"><span class="k">Qué probaría</span><span class="v">Reemplazar el selector de ~200 países por un prefijo fijo +57 (Colombia-first).</span></div>
+                  <div class="m"><span class="k">Métrica principal</span><span class="v" data-metric="tel.prim">—</span></div>
+                  <div class="m"><span class="k">Guardia</span><span class="v" data-metric="tel.guardrail">—</span></div>
+                  <div class="m"><span class="k">Decisión</span><span class="v" data-metric="tel.decision">—</span></div>
+                </div>
+              </details>
+            </div>
+            <div class="meta">
+              <span class="lbl hyp">HIPÓTESIS</span><br>
+              <a class="link" href="#evidencia" style="font-size:12px">evidencia →</a>
+            </div>
+          </article>
+
+          <article class="hrow" aria-labelledby="h5-t">
+            <div class="n">05</div>
+            <div>
+              <div class="t" id="h5-t">¿La capacidad instalada es el guardrail de todo lo anterior?</div>
+              <div class="w">La demanda simulada (166 agendamientos/día) supera la capacidad de instalación (139/día) desde el tercer día. Ninguna hipótesis de conversión convierte si operaciones no absorbe la demanda. Esto <b>no es un diagnóstico</b>: es la validación interna que pido primero.</div>
+              <details>
+                <summary>Detalle</summary>
+                <div class="hrow-detail">
+                  <div class="m"><span class="k">Qué probaría</span><span class="v">Piloto de capacidad (contratación/contratistas de instalación) en una ciudad antes de escalar hipótesis de conversión.</span></div>
+                  <div class="m"><span class="k">Dato clave</span><span class="v">Uso de capacidad 119% · 2.558 en cola · 14,9 días de espera</span></div>
+                  <div class="m"><span class="k">Estado</span><span class="v">Requiere datos internos de operaciones para confirmarse</span></div>
+                </div>
+              </details>
+            </div>
+            <div class="meta">
+              <span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span><br>
+              <a class="link" href="#guardrail" style="font-size:12px">guardrail →</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Backlog completo -->
+        <h3 class="block-title" style="margin-top:44px">Backlog completo · priorizado</h3>
+        <p class="muted small" style="max-width:760px">
+          Las siete propuestas del backlog, con su puntuación ICE. Puntaje de priorización
+          <span class="mono">(Impact + Confidence + Ease) / 3</span>, no un dato de Somos.
+        </p>
+        <div class="table-wrap" style="margin-top:14px">
+          <table aria-describedby="backlog-note">
+            <caption id="backlog-note" class="visually-hidden">Backlog de hipótesis priorizado por ICE</caption>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Hipótesis</th>
+                <th>Métrica primaria</th>
+                <th>Guardia</th>
+                <th class="num sortable" data-sort="impact">I <span class="arr"></span></th>
+                <th class="num sortable" data-sort="confidence">C <span class="arr"></span></th>
+                <th class="num sortable" data-sort="ease">E <span class="arr"></span></th>
+                <th class="num sortable" data-sort="ice">ICE <span class="arr"></span></th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="ice-body">
+              <tr><td colspan="9"><div class="skeleton skel-line" style="height:20px"></div><div class="skeleton skel-line" style="height:20px;width:80%"></div><div class="skeleton skel-line" style="height:20px;width:70%"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── 02 · Evidencia ── -->
+      <section id="evidencia" aria-labelledby="ev-title">
+        <h2 class="section-title"><span class="sec-no">02</span><span id="ev-title">La evidencia: dos embudos, una fricción</span></h2>
+        <p class="section-intro">
+          El embudo real tiene dos carriles: el formulario y WhatsApp. Cada barra compara contra el
+          paso anterior — la fuga se ve cuando la barra se acorta. El dato público está observado;
+          la interpretación es hipótesis.
+        </p>
+
+        <div class="evidence-grid">
+          <section class="evidence" aria-labelledby="ev-web-title">
+            <h3 class="ev-title" id="ev-web-title">Evidencia del funnel web</h3>
+            <p class="ev-purpose">Formulario: 32.624 visitas → 4.166 agendamientos</p>
+            <div class="rel-chips">
+              <span class="muted-2 small">Relacionado con:</span>
+              <a href="#hipotesis">01 · Elegibilidad</a>
+              <a href="#hipotesis">04 · Selector de países</a>
+            </div>
+            <div class="funnel" id="funnel-web">
+              <div class="skeleton skel-bar"></div>
+              <div class="skeleton skel-bar"></div>
+              <div class="skeleton skel-bar"></div>
+            </div>
+            <div class="funnel-insight" id="funnel-web-insight">
+              <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
+              <b>El cuello no es el formulario: es el campo de celular.</b>
+              −3.192 personas (29,5% de los que llegan) se van en el selector de país.
+              Además, 1.929 entregaron datos personales antes de saber que su edificio no califica.
+            </div>
+          </section>
+
+          <section class="evidence" aria-labelledby="ev-wa-title">
+            <h3 class="ev-title" id="ev-wa-title">Evidencia del canal WhatsApp</h3>
+            <p class="ev-purpose">Conversacional: 54.182 visitas → 10.739 agendamientos</p>
+            <div class="rel-chips">
+              <span class="muted-2 small">Relacionado con:</span>
+              <a href="#hipotesis">02 · Tiempo de respuesta</a>
+              <a href="#hipotesis">03 · Resultado real</a>
+            </div>
+            <div class="wa-flow" id="wa-flow" aria-label="Flujo conversacional">
+              <span class="skeleton" style="width:110px;height:30px;border-radius:999px"></span>
+              <span class="skeleton" style="width:110px;height:30px;border-radius:999px"></span>
+              <span class="skeleton" style="width:110px;height:30px;border-radius:999px"></span>
+            </div>
+            <div class="funnel" id="funnel-wa">
+              <div class="skeleton skel-bar"></div>
+              <div class="skeleton skel-bar"></div>
+              <div class="skeleton skel-bar"></div>
+            </div>
+            <div class="funnel-insight" id="funnel-wa-insight">
+              <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
+              <b>La fuga está entre el primer mensaje y la calificación:</b>
+              −12.665 personas (47,2% de los que escriben). El asesor no da abasto — o la primera
+              respuesta llega tarde.
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ── 03 · Experimentación ── -->
+      <section id="experimentos" aria-labelledby="exp-title">
+        <h2 class="section-title"><span class="sec-no">03</span><span id="exp-title">Cómo convertir hipótesis en decisiones</span></h2>
+        <p class="section-intro">
+          Cuatro experimentos simulados sobre el embudo sintético. Cada fila responde a una hipótesis,
+          mide una métrica primaria, vigila una guardia y termina en una decisión.
+          <b>Todos los resultados son simulados</b> <span class="lbl sim">RESULTADO SIMULADO</span> —
+          demuestran el método, no la realidad de Somos.
+        </p>
+        <div class="muted-2 small mono" id="exp-meta" style="margin-top:12px">α · poder · MDE · n requerida</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Hipótesis</th>
+                <th>Métrica primaria</th>
+                <th class="num">Control → Variante</th>
+                <th class="num">Lift</th>
+                <th>Guardia</th>
+                <th>Decisión simulada</th>
+              </tr>
+            </thead>
+            <tbody id="exp-table-body">
+              <tr><td colspan="6"><div class="skeleton skel-line"></div><div class="skeleton skel-line" style="width:75%"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wa-two" style="margin-top:18px">
+          <div class="wa-col" id="wa-avail">
+            <h4>Disponible en la simulación</h4>
+            <ul>
+              <li id="wa-avail-1">·</li>
+              <li id="wa-avail-2">·</li>
+              <li id="wa-avail-3">·</li>
+            </ul>
+          </div>
+          <div class="wa-col rec" id="wa-rec">
+            <h4>Instrumentación recomendada</h4>
+            <ul>
+              <li id="wa-rec-1">·</li>
+              <li id="wa-rec-2">·</li>
+              <li id="wa-rec-3">·</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · Motor de decisiones ── -->
+      <section id="decisiones" aria-labelledby="dec-title">
+        <h2 class="section-title"><span class="sec-no">04</span><span id="dec-title">El motor de decisiones</span></h2>
+        <p class="section-intro">
+          Un experimento sin regla de salida no es un experimento. Antes de lanzar, defino qué
+          resultado lleva a cada decisión — y el sistema la calcula con la misma data que ve la página.
+        </p>
+        <div class="outcomes">
+          <div class="ocard ship">
+            <h3>SHIP</h3>
+            <ul>
+              <li>El lift es significativo y el intervalo de confianza queda por encima del MDE.</li>
+              <li>Las guardias no se rompen (volumen, validez, tiempos de respuesta).</li>
+            </ul>
+          </div>
+          <div class="ocard iterate">
+            <h3>ITERATE</h3>
+            <ul>
+              <li>Hay señal, pero el efecto está bajo el MDE o la guardia se acerca al límite.</li>
+              <li>Se rediseña la variante y se vuelve a medir antes de escalar.</li>
+            </ul>
+          </div>
+          <div class="ocard stop">
+            <h3>STOP</h3>
+            <ul>
+              <li>El efecto es negativo o nulo, o la guardia se rompe: el costo supera el beneficio.</li>
+              <li>Se documenta el hallazgo y se libera el tráfico para la siguiente hipótesis.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="chart" style="margin-top:20px;border-color:rgba(86,245,187,0.25)">
+          <h4>Siguiente experimento en la cola</h4>
+          <p class="cap-sub" id="next-exp">Cargando planificación…</p>
+          <div class="chart-summary" id="next-exp-summary"></div>
+        </div>
+      </section>
+
+      <!-- ── 05 · Contexto ── -->
+      <section id="segmentacion" aria-labelledby="seg-title">
+        <h2 class="section-title"><span class="sec-no">05</span><span id="seg-title">¿Cambian las oportunidades según el contexto?</span></h2>
+        <p class="section-intro">
+          Con 86.806 sesiones hay espacio para segmentar sin perder significancia. La conversión
+          varía poco entre ciudades (16–18%); la fuente de tráfico, mucho más. Los tamaños de
+          muestra acompañan cada barra.
+        </p>
+        <div class="seg-grid">
+          <section class="seg" aria-labelledby="seg-city-title">
+            <h3 id="seg-city-title">Ciudad</h3>
+            <p class="seg-sub">5 ciudades · conversión por segmento</p>
+            <div class="seg-bars" id="seg-city">
+              <div class="skeleton skel-bar"></div><div class="skeleton skel-bar"></div>
+            </div>
+            <div class="seg-note" id="seg-city-note"></div>
+          </section>
+          <section class="seg" aria-labelledby="seg-source-title">
+            <h3 id="seg-source-title">Fuente de tráfico</h3>
+            <p class="seg-sub">5 fuentes · conversión por segmento</p>
+            <div class="seg-bars" id="seg-source">
+              <div class="skeleton skel-bar"></div><div class="skeleton skel-bar"></div>
+            </div>
+            <div class="seg-note" id="seg-source-note"></div>
+          </section>
+          <section class="seg" aria-labelledby="seg-estrato-title">
+            <h3 id="seg-estrato-title">Estrato</h3>
+            <p class="seg-sub">2 grupos de estrato · conversión por segmento</p>
+            <div class="seg-bars" id="seg-estrato">
+              <div class="skeleton skel-bar"></div><div class="skeleton skel-bar"></div>
+            </div>
+            <div class="seg-note" id="seg-estrato-note"></div>
+          </section>
+          <section class="seg" aria-labelledby="seg-device-title">
+            <h3 id="seg-device-title">Dispositivo</h3>
+            <p class="seg-sub">2 dispositivos · conversión por segmento</p>
+            <div class="seg-bars" id="seg-device">
+              <div class="skeleton skel-bar"></div><div class="skeleton skel-bar"></div>
+            </div>
+            <div class="seg-note" id="seg-device-note"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ── 06 · Guardrail downstream ── -->
+      <section id="guardrail" aria-labelledby="cap-title">
+        <h2 class="section-title"><span class="sec-no">06</span><span id="cap-title">Capacidad: el guardrail downstream</span></h2>
+        <p class="section-intro">
+          Esto no es el titular de la página: es el límite que vigila todos los titulares. Si la
+          demanda supera la capacidad de instalación, cualquier hipótesis que suba conversión se
+          topa con operaciones antes de convertirse en instalaciones.
+          <span class="lbl req" style="margin-left:8px">REQUIERE VALIDACIÓN INTERNA</span>
+        </p>
+        <div class="cap-stats" id="cap-stats">
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:55%"></div><div class="k">Cargando…</div></div>
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:55%"></div><div class="k">Cargando…</div></div>
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:55%"></div><div class="k">Cargando…</div></div>
+          <div class="cstat"><div class="v skeleton" style="height:30px;width:55%"></div><div class="k">Cargando…</div></div>
+        </div>
+        <div class="charts">
+          <figure class="chart" aria-labelledby="cap-chart-title">
+            <h4 id="cap-chart-title">Demanda vs capacidad de instalación</h4>
+            <p class="cap-sub">Agendamientos y capacidad por día (90 días simulados)</p>
+            <div id="cap-chart"><div class="skeleton" style="height:220px"></div></div>
+            <figcaption class="chart-legend">
+              <span><span class="sw" style="background:var(--warn)"></span>Demanda (agendamientos/día)</span>
+              <span><span class="sw" style="background:var(--text-3)"></span>Capacidad de instalación</span>
+            </figcaption>
+          </figure>
+          <figure class="chart" aria-labelledby="backlog-chart-title">
+            <h4 id="backlog-chart-title">Cola de instalaciones pendientes</h4>
+            <p class="cap-sub">Backlog acumulado: 0 → 2.558 agendamientos</p>
+            <div id="backlog-chart"><div class="skeleton" style="height:220px"></div></div>
+            <figcaption class="chart-legend">
+              <span><span class="sw" style="background:var(--brand-pink)"></span>Pendientes al cierre del día</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="funnel-insight" style="border-left-color:var(--warn)" id="cap-insight">
+          <span class="lbl hyp">HIPÓTESIS DE SISTEMA</span>
+          <b>La conversión sin capacidad no es conversión.</b>
+          En la simulación, la demanda supera la capacidad desde el tercer día: 119% de uso y una
+          cola que no deja de crecer. Si esto se confirma con datos internos, la secuencia correcta
+          es <b>ampliar capacidad primero</b> y hacer CRO sobre una operación que aguanta.
+        </div>
+      </section>
+
+      <!-- ── 07 · Priorización ── -->
+      <section id="priorizacion" aria-labelledby="prio-title">
+        <h2 class="section-title"><span class="sec-no">07</span><span id="prio-title">Priorización de hipótesis</span></h2>
+        <p class="section-intro">
+          El orden en que las atacaría. Más que el número, importa la justificación de cada una:
+          qué espero aprender y qué decisión habilita. El puntaje es un framework de priorización,
+          no un dato de Somos.
+        </p>
+        <div class="method-details" id="prio-rows">
+          <div class="skeleton skel-line"></div>
+          <div class="skeleton skel-line" style="width:85%"></div>
+        </div>
+      </section>
+
+      <!-- ── 08 · Sobre la simulación ── -->
+      <section id="simulacion" aria-labelledby="sim-title">
+        <h2 class="section-title"><span class="sec-no">08</span><span id="sim-title">Sobre la simulación</span></h2>
+        <p class="section-intro">
+          Todo el análisis corre sobre un dataset sintético de 90 días (86.806 sesiones, semilla fija).
+          Lo que ves no describe a Somos: demuestra <b>cómo trabajaría con sus datos</b>.
+        </p>
+        <div class="method-details">
+          <details>
+            <summary>Qué es observado, qué es supuesto, qué es simulado</summary>
+            <div class="method-body">
+              <ul>
+                <li><span class="lbl obs">OBSERVADO</span> La estructura del embudo (pasos, orden, canal web/WhatsApp) tomada del sitio público de Somos.</li>
+                <li><span class="lbl hyp">SUPUESTO</span> Volúmenes, distribución de ciudades, fuentes y estratos — inventados con distribución realista.</li>
+                <li><span class="lbl sim">SIMULADO</span> Resultados de experimentos, intervalos de confianza, tamaños de muestra y decisiones.</li>
+                <li><span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span> Capacidad operativa, tiempos de respuesta de WhatsApp, costo por instalación.</li>
+              </ul>
+              <p style="margin-top:10px">
+                El pipeline es reproducible: <span class="mono">npm run run-all</span> regenera los datos
+                con la misma semilla y <span class="mono">npm test</span> verifica 55 invariantes.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>Por qué este método</summary>
+            <div class="method-body">
+              <p>
+                Antes de proponer cambios, necesito saber cuánta gente llega, dónde se va, y si un
+                cambio se puede medir. La página lo hace visible: cada hipótesis termina en un
+                experimento con métrica, guardia y regla de decisión. Es el mismo flujo que usaría
+                con los datos reales de Somos.
+              </p>
+            </div>
+          </details>
+          <p class="muted small" style="margin-top:14px">
+            Detalle técnico completo (pipeline, estadística, API, despliegue) en
+            <a class="link" href="/metodologia">Metodología</a>.
+          </p>
+        </div>
+      </section>
+
     </div>
+  </main>
 
-    <h2 class="section-title">Embudo — WhatsApp</h2>
-    <div class="card">
-      <div class="card-title">El canal que el home pone primero</div>
-      <div class="card-sub">El CTA principal de somosinternet.com es un enlace directo a WhatsApp con texto prellenado, no el formulario propio.</div>
-      <div class="funnel" id="funnel-wa"></div>
+  <footer>
+    <div class="container">
+      Ejercicio de candidatura para el rol de CRO en Somos Internet · datos sintéticos ·
+      no afiliado a Somos Internet.<br>
+      <a href="/metodologia">Metodología</a> · <a href="/api/overview">API</a> ·
+      <a href="https://github.com/LuisAlejandroCR/somos-internet" rel="noopener">Código</a>
     </div>
+  </footer>
 
-    <h2 class="section-title">Experimentos</h2>
-    <p class="sub small" style="margin-bottom:16px">
-      Cada lectura usa una prueba z de dos proporciones con error estándar agrupado, intervalo de confianza al 95% sin agrupar,
-      y tamaño de muestra calculado para un MDE relativo del 8% con potencia 0.8. Una guardia rota bloquea el lanzamiento
-      aunque la métrica primaria haya ganado.
-    </p>
-    <div id="experiments"></div>
-
-    <h2 class="section-title">Backlog priorizado (ICE)</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th><th>Hipótesis</th><th class="num">Impact</th><th class="num">Confidence</th>
-            <th class="num">Ease</th><th class="num">ICE</th><th>Estado</th>
-          </tr>
-        </thead>
-        <tbody id="backlog"></tbody>
-      </table>
-    </div>
-
-    <h2 class="section-title">Segmentos</h2>
-    <div class="row">
-      <div class="card"><div class="card-title">Por ciudad</div><div class="card-sub">Conversión a instalación agendada</div><div id="seg-city"></div></div>
-      <div class="card"><div class="card-title">Por canal de origen</div><div class="card-sub">Conversión a instalación agendada</div><div id="seg-source"></div></div>
-    </div>
-
-  </div>
-</main>
-
-<footer>
-  <div class="container">
-    Somos CRO Lab · datos sintéticos y reproducibles (<span class="mono" id="seed-label">—</span>) ·
-    pipeline: <span class="mono">npm run run-all</span> · tests: <span class="mono">npm test</span><br>
-    Ejercicio de candidatura al rol de CRO. No afiliado a Somos Internet. Paleta y lenguaje visual tomados de somosinternet.com.
-  </div>
-</footer>
-
-<script src="/app.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>

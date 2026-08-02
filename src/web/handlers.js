@@ -28,6 +28,7 @@ export function createApi(data) {
   function getFunnel(path = "all") {
     const base = {
       synthetic: true,
+      warning: meta.warning,
       totals: funnel.totals,
       loss_reasons: funnel.loss_reasons,
       eligibility_waste: funnel.eligibility_waste,
@@ -53,6 +54,7 @@ export function createApi(data) {
     if (!id) {
       return {
         synthetic: true,
+        warning: meta.warning,
         alpha: experiments.alpha,
         power: experiments.power,
         target_mde: experiments.target_mde,
@@ -60,15 +62,15 @@ export function createApi(data) {
       };
     }
     const found = experiments.results.find((r) => r.id.toLowerCase() === String(id).toLowerCase());
-    return found ? { synthetic: true, ...found } : { error: "not_found", id };
+    return found ? { synthetic: true, warning: meta.warning, ...found } : { error: "not_found", id };
   }
 
   function getOperations() {
-    return { synthetic: true, summary: derived.operations, daily: operations };
+    return { synthetic: true, warning: meta.warning, summary: derived.operations, daily: operations };
   }
 
   function getBacklog() {
-    return { synthetic: true, items: derived.backlog, note: "Priorizado por ICE = (Impact + Confidence + Ease) / 3." };
+    return { synthetic: true, warning: meta.warning, items: derived.backlog, note: "Priorizado por ICE = (Impact + Confidence + Ease) / 3. Puntuación de priorización, no dato de Somos." };
   }
 
   /** Maps a pathname + query to a result, or null when the route is unknown. */

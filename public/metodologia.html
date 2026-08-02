@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metodología — Somos CRO Lab</title>
+  <meta name="description" content="Cómo se construyó el análisis sintético del embudo de Somos Internet: pipeline, estadística, API y reproducción.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a href="#contenido" style="position:absolute;left:-999px;top:0">Saltar al contenido</a>
+
+  <header>
+    <nav class="nav" aria-label="Principal">
+      <a href="/" class="brand" aria-label="Somos CRO Lab — inicio">
+        <span class="orb" aria-hidden="true"></span>
+        <span>Somos</span><span class="lab">CRO Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Análisis</a>
+        <a href="/pitch">Pitch</a>
+        <a href="/metodologia" class="active" aria-current="page">Metodología</a>
+      </div>
+      <div class="nav-util">
+        <a href="/api/overview" title="Respuesta JSON del API">API</a>
+        <span aria-hidden="true">·</span>
+        <span class="mono">datos sintéticos</span>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <div class="container">
+      <section aria-labelledby="met-title">
+        <p class="eyebrow">Reproducibilidad y honestidad</p>
+        <h1 id="met-title">Metodología: cómo se construyó este análisis.</h1>
+        <p class="sub" style="max-width:840px">
+          Todo lo que ves en el <a class="link" href="/">análisis</a> y en el
+          <a class="link" href="/pitch">pitch</a> corre sobre un dataset sintético de 90 días.
+          Esta página explica de dónde sale cada número, qué se puede reproducir y qué
+          necesitaría datos internos reales de Somos Internet.
+        </p>
+      </section>
+
+      <div class="disclosure" role="note">
+        <span class="orb sm" aria-hidden="true"></span>
+        <div class="disc-body">
+          <b>DATOS SINTÉTICOS</b>
+          Ningún número de este ejercicio proviene de sistemas internos de Somos Internet.
+          La única fuente real es la estructura pública del embudo del sitio
+          somosinternet.com (pasos, orden, canales).
+          <a class="link" href="/">Volver al análisis →</a>
+        </div>
+      </div>
+
+      <section aria-labelledby="pipeline-title">
+        <h2 class="section-title" style="margin-top:44px"><span class="sec-no">01</span><span id="pipeline-title">El pipeline</span></h2>
+        <div class="method-details">
+          <details open>
+            <summary>Un comando regenera todo el análisis</summary>
+            <div class="method-body">
+              <p>
+                <span class="mono">npm run run-all</span> ejecuta cuatro pasos en orden, con una
+                semilla fija: los mismos datos salen cada vez.
+              </p>
+              <ul>
+                <li><span class="mono">01-generate</span> — sesiones, agendamientos y operaciones del día a día (90 días).</li>
+                <li><span class="mono">02-funnel</span> — embudo web y WhatsApp con conversiones por paso e intervalos de confianza.</li>
+                <li><span class="mono">03-experiments</span> — cuatro experimentos A/B simulados (lift, p, IC, guardias, decisiones).</li>
+                <li><span class="mono">04-derive</span> — KPI, cola operativa, backlog priorizado por ICE y plan del siguiente experimento.</li>
+              </ul>
+              <p style="margin-top:10px">
+                <span class="mono">npm test</span> verifica 55 invariantes sobre los datos generados
+                (estructura, rangos, coherencia de conversiones, marcado sintético). La página y la
+                API sirven exclusivamente esos archivos: no hay un número recalculado en el navegador.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>De dónde viene cada número</summary>
+            <div class="method-body">
+              <ul>
+                <li><span class="lbl obs">OBSERVADO</span> Estructura del embudo público: pasos del formulario (datos personales → celular → correo → elegibilidad → agendamiento), canal de WhatsApp, jerarquía del home.</li>
+                <li><span class="lbl hyp">SUPUESTO</span> Volúmenes y distribuciones: 86.806 sesiones, ciudades (Medellín, Bogotá, Caldas, Rionegro, Llanogrande), fuentes de tráfico, estratos y dispositivos.</li>
+                <li><span class="lbl sim">SIMULADO</span> Resultados de los experimentos, intervalos de confianza, tamaños de muestra, cola operativa y decisiones.</li>
+                <li><span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span> Capacidad de instalación (139/día), tiempos de respuesta de WhatsApp, costo por instalación y por lead.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="stats-title">
+        <h2 class="section-title"><span class="sec-no">02</span><span id="stats-title">La estadística</span></h2>
+        <div class="method-details">
+          <details open>
+            <summary>Las reglas de los experimentos</summary>
+            <div class="method-body">
+              <ul>
+                <li><b>MDE</b> — efecto mínimo detectable del 8% sobre la conversión por paso.</li>
+                <li><b>α = 0,05</b> y <b>poder = 80%</b> — el tamaño muestral se calcula para ambas.</li>
+                <li><b>Intervalos de confianza</b> — cada conversión por paso y por segmento lleva su IC 95% (Wald) calculado en el pipeline, no en el navegador.</li>
+                <li><b>Guardias</b> — cada experimento vigila una métrica de no-degradación (volumen de formularios, teléfonos válidos, minutos hasta la primera respuesta, elegibilidad de los agendados). Si la guardia se rompe, la decisión es <span class="badge danger">NO LANZAR</span> aunque el lift sea positivo.</li>
+                <li><b>Decisiones</b> — SHIP / ITERATE / STOP según significancia, intervalo contra el MDE y estado de las guardias. Todo resultado está etiquetado <span class="lbl sim">RESULTADO SIMULADO</span>.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>Por qué ICE no es un dato de Somos</summary>
+            <div class="method-body">
+              <p>
+                El backlog se ordena con ICE = (Impacto + Confianza + Facilidad) / 3. Impacto y
+                facilidad son mi estimación como candidato; la confianza nace de la evidencia de
+                la simulación. El puntaje sirve para <b>discutir el orden de trabajo</b>, no para
+                describir la operación de Somos.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="api-title">
+        <h2 class="section-title"><span class="sec-no">03</span><span id="api-title">La API</span></h2>
+        <div class="method-details">
+          <details open>
+            <summary>Todo lo que ve la página se puede consultar como JSON</summary>
+            <div class="method-body">
+              <p>Los mismos datos que pinta la interfaz se sirven por HTTP, listos para ser consumidos por otra herramienta (dashboard, notificación, análisis):</p>
+              <ul>
+                <li><span class="mono"><a class="link" href="/api/overview">GET /api/overview</a></span> — KPI, resumen operativo y plan del siguiente experimento.</li>
+                <li><span class="mono"><a class="link" href="/api/funnel">GET /api/funnel</a></span> — embudos web y WhatsApp, fricciones y segmentos.</li>
+                <li><span class="mono"><a class="link" href="/api/experiments">GET /api/experiments</a></span> — parámetros y resultados de los experimentos simulados.</li>
+                <li><span class="mono"><a class="link" href="/api/operations">GET /api/operations</a></span> — serie diaria de demanda, capacidad y cola.</li>
+                <li><span class="mono"><a class="link" href="/api/backlog">GET /api/backlog</a></span> — backlog priorizado por ICE.</li>
+              </ul>
+              <p style="margin-top:10px">
+                Cada respuesta incluye <span class="mono">synthetic: true</span> y un aviso
+                <span class="mono">warning</span>: el marcado de honestidad viaja con los datos.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>Por qué esto importa para el rol</summary>
+            <div class="method-body">
+              <p>
+                Un CRO no trabaja sobre pantallas: trabaja sobre datos. La página demuestra cómo
+                estructuraría el análisis (hipótesis → evidencia → experimento → decisión), y la
+                API demuestra que la estructura es consumible: cualquier equipo puede construir
+                encima sin reescribir la lógica.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="repro-title">
+        <h2 class="section-title"><span class="sec-no">04</span><span id="repro-title">Reproducir y verificar</span></h2>
+        <div class="method-details">
+          <details open>
+            <summary>Comandos</summary>
+            <div class="method-body">
+              <ul>
+                <li><span class="mono">npm run run-all</span> — regenera los datos con la semilla fija (determinista).</li>
+                <li><span class="mono">npm test</span> — 55 invariantes sobre estructura, rangos y coherencia.</li>
+                <li><span class="mono">npm run web</span> — servidor local en <span class="mono">localhost:3000</span> con la API y las páginas.</li>
+                <li><span class="mono">npm run build</span> — empaqueta para Cloudflare Pages (un solo comando de despliegue).</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>Repositorio</summary>
+            <div class="method-body">
+              <p>
+                El código completo es público en
+                <a class="link" href="https://github.com/LuisAlejandroCR/somos-internet" rel="noopener">github.com/LuisAlejandroCR/somos-internet</a>:
+                pipeline de generación, estadística, API, tests y estas páginas.
+              </p>
+            </div>
+          </details>
+          <p class="muted small" style="margin-top:14px">
+            La presentación para la entrevista está en <a class="link" href="/pitch">/pitch</a>.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      Ejercicio de candidatura para el rol de CRO en Somos Internet · datos sintéticos ·
+      no afiliado a Somos Internet.<br>
+      <a href="/">Análisis</a> · <a href="/pitch">Pitch</a> · <a href="/api/overview">API</a>
+    </div>
+  </footer>
+</body>
+</html>

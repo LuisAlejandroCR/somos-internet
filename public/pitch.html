@@ -59,6 +59,11 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--mint); transition: width 0.4s ease; z-index: 50; }
 .deck-nav { position: fixed; bottom: 20px; right: 26px; display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--muted-2); z-index: 50; }
 .deck-nav kbd { background: var(--card-2); border: 1px solid var(--border-2); border-radius: 5px; padding: 2px 7px; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+.deck-ctrl { position: fixed; bottom: 18px; left: 26px; display: flex; gap: 10px; z-index: 50; }
+.deck-ctrl button { width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--border-2); background: rgba(10,10,12,.85); color: var(--mint); font-size: 17px; font-weight: 700; cursor: pointer; transition: .15s; display: grid; place-items: center; }
+.deck-ctrl button:hover { border-color: var(--mint); }
+.deck-ctrl button:disabled { opacity: .3; cursor: default; border-color: var(--border-2); }
+@media (max-width: 640px) { .deck-ctrl { bottom: 14px; } .deck-nav { display: none; } }
 .slide-badge { position: fixed; top: 22px; left: 26px; font-size: 12px; color: var(--muted-2); z-index: 50; display: flex; align-items: center; gap: 9px; }
 .warn-strip { position: fixed; top: 0; left: 0; right: 0; background: var(--cream); color: #000; font-size: 11.5px; font-weight: 700; text-align: center; padding: 5px; z-index: 60; letter-spacing: 0.02em; }
 
@@ -551,8 +556,12 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 </div>
 
 <div class="progress" id="progress"></div>
-<div class="slide-badge"><span class="orb sm"></span> <span id="slide-num">1 / 12</span></div>
-<div class="deck-nav"><kbd>←</kbd><kbd>→</kbd> navegar · <kbd>F</kbd> pantalla completa</div>
+<div class="slide-badge"><span class="orb sm"></span> <span id="slide-num" aria-live="polite">1 / 12</span></div>
+<div class="deck-ctrl">
+  <button id="prev" aria-label="Diapositiva anterior">←</button>
+  <button id="next" aria-label="Diapositiva siguiente">→</button>
+</div>
+<div class="deck-nav"><span>← → <b>navegar</b> · <kbd>F</kbd> pantalla completa · clic para avanzar</span></div>
 
 <script src="/pitch.js"></script>
 </body>

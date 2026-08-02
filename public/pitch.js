@@ -1,12 +1,20 @@
 // ── Navegación del deck ──
 const slides = [...document.querySelectorAll(".slide")];
 let idx = 0;
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
 function show(next) {
   idx = Math.max(0, Math.min(slides.length - 1, next));
   slides.forEach((s, i) => s.classList.toggle("on", i === idx));
   document.getElementById("progress").style.width = `${((idx + 1) / slides.length) * 100}%`;
   document.getElementById("slide-num").textContent = `${idx + 1} / ${slides.length}`;
+  prevBtn.disabled = idx === 0;
+  nextBtn.disabled = idx === slides.length - 1;
+  if (idx === 0) prevBtn.blur();
+  if (idx === slides.length - 1) nextBtn.blur();
 }
+prevBtn.addEventListener("click", () => show(idx - 1));
+nextBtn.addEventListener("click", () => show(idx + 1));
 document.addEventListener("keydown", (e) => {
   if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(idx + 1); }
   else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(idx - 1); }
@@ -16,7 +24,7 @@ document.addEventListener("keydown", (e) => {
     document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   }
 });
-document.addEventListener("click", (e) => { if (!e.target.closest("a")) show(idx + 1); });
+document.addEventListener("click", (e) => { if (!e.target.closest("a") && !e.target.closest("button")) show(idx + 1); });
 show(0);
 
 // ── Todos los números salen de la API ──
