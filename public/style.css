@@ -9,16 +9,18 @@
    ───────────────────────────────────────────────────────────────────────── */
 :root {
   /* Neutros — superficies, tablas, estructura, la mayoría de los gráficos.
-     Nada de negro puro: la página vive sobre #050507 con halos de ambiente. */
-  --bg: #050507;
-  --bg-2: #0c0c12;
-  --surface: #12121a;
-  --surface-2: #1c1c26;
-  --border: #26262e;
-  --border-2: #3a3a46;
-  --text: #ffffff;
-  --text-2: #b2b2be;
-  --text-3: #82828f;
+     Nada de negro puro ni frío: la página vive sobre un carbón cálido
+     (undertone marrón/ámbar, no azulado) con halos de ambiente — más claro
+     y más tibio que la primera versión, a pedido explícito del usuario. */
+  --bg: #100c08;
+  --bg-2: #1a140e;
+  --surface: #241c14;
+  --surface-2: #33281b;
+  --border: #43341f;
+  --border-2: #5c4a30;
+  --text: #fbf6ee;
+  --text-2: #cabca8;
+  --text-3: #978873;
 
   /* Marca Somos — nav, acciones primarias, highlights, momentos del pitch */
   --brand-mint: #56f5bb;
@@ -67,9 +69,9 @@
 
 html, body {
   background:
-    radial-gradient(1200px 640px at 88% -12%, rgba(86, 245, 187, 0.06), transparent 62%),
-    radial-gradient(1000px 520px at -8% 26%, rgba(255, 110, 231, 0.045), transparent 55%),
-    radial-gradient(1100px 560px at 50% 118%, rgba(248, 226, 148, 0.04), transparent 60%),
+    radial-gradient(1200px 640px at 88% -12%, rgba(86, 245, 187, 0.05), transparent 62%),
+    radial-gradient(1000px 520px at -8% 26%, rgba(255, 110, 231, 0.035), transparent 55%),
+    radial-gradient(1200px 640px at 50% 115%, rgba(248, 226, 148, 0.075), transparent 62%),
     var(--bg);
   background-attachment: fixed;
   color: var(--text);
@@ -114,7 +116,7 @@ a.link:hover { text-decoration: underline; }
 /* ── Header / nav ── */
 header {
   border-bottom: 1px solid var(--border);
-  background: rgba(5, 5, 7, 0.85);
+  background: rgba(16, 12, 8, 0.85);
   position: sticky; top: 0; z-index: 30;
   backdrop-filter: blur(10px);
 }
