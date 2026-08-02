@@ -11,7 +11,7 @@ Laboratorio de optimización de conversión: genera un embudo sintético, corre 
 ```bash
 npm run run-all   # genera el dataset + análisis (~5 s)
 npm test          # unit · fuzz · invariantes
-npm run web       # dashboard en localhost:3000 · pitch en /pitch
+npm run web       # dashboard en localhost:3000 · pitch en /pitch.html
 ```
 
 Requiere Node ≥ 20. **Cero dependencias** — solo la librería estándar.
@@ -52,7 +52,7 @@ La estadística es real: prueba z con error estándar agrupado, intervalos de co
 | Functions directory | `functions` (detectado automáticamente) |
 | Node version | 20 o superior |
 
-`public/_headers` define CSP y cabeceras de seguridad; `public/_redirects` maneja la ruta `/pitch`.
+`public/_headers` define CSP y cabeceras de seguridad. El pitch se sirve directo en `/pitch.html` (un rewrite de `_redirects` para `/pitch` producía un loop de redirects en Cloudflare Pages, así que el nav apunta a la ruta con extensión).
 
 ### Guardia contra abuso de la API
 

@@ -22,7 +22,10 @@ const MIME = {
 };
 
 // Mirrors public/_redirects so local and Cloudflare behave identically.
-const REWRITES = { "/": "/index.html", "/pitch": "/pitch.html" };
+// Note: no /pitch rewrite on purpose — a 200 rewrite looped on Cloudflare
+// Pages (the platform canonicalizes pitch.html back to /pitch). Link to
+// /pitch.html directly instead.
+const REWRITES = { "/": "/index.html" };
 
 // Same policy the Cloudflare Function applies.
 const limiter = createRateLimiter({ capacity: 60, refillPerSecond: 1 });
