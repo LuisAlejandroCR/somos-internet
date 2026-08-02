@@ -1,0 +1,347 @@
+{
+  "synthetic": true,
+  "totals": {
+    "sessions": 86806,
+    "scheduled": 14905,
+    "conversion": 0.1717,
+    "web_sessions": 32624,
+    "wa_sessions": 54182
+  },
+  "web_funnel": [
+    {
+      "step": "landing",
+      "label": "Visita al home",
+      "reached": 32624,
+      "step_conversion": 1,
+      "cumulative_conversion": 1,
+      "drop_off": 0,
+      "drop_off_rate": 0,
+      "ci_low": 0.9999,
+      "ci_high": 1
+    },
+    {
+      "step": "form_start",
+      "label": "Abre el formulario",
+      "reached": 13577,
+      "step_conversion": 0.4162,
+      "cumulative_conversion": 0.4162,
+      "drop_off": 19047,
+      "drop_off_rate": 0.5838,
+      "ci_low": 0.4108,
+      "ci_high": 0.4215
+    },
+    {
+      "step": "identity",
+      "label": "Nombre y apellidos",
+      "reached": 10812,
+      "step_conversion": 0.7963,
+      "cumulative_conversion": 0.3314,
+      "drop_off": 2765,
+      "drop_off_rate": 0.2037,
+      "ci_low": 0.7895,
+      "ci_high": 0.803
+    },
+    {
+      "step": "phone",
+      "label": "Celular (selector de país)",
+      "reached": 7620,
+      "step_conversion": 0.7048,
+      "cumulative_conversion": 0.2336,
+      "drop_off": 3192,
+      "drop_off_rate": 0.2952,
+      "ci_low": 0.6961,
+      "ci_high": 0.7133
+    },
+    {
+      "step": "email",
+      "label": "Correo",
+      "reached": 6866,
+      "step_conversion": 0.901,
+      "cumulative_conversion": 0.2105,
+      "drop_off": 754,
+      "drop_off_rate": 0.099,
+      "ci_low": 0.8941,
+      "ci_high": 0.9076
+    },
+    {
+      "step": "eligibility",
+      "label": "Portería / administración",
+      "reached": 5678,
+      "step_conversion": 0.827,
+      "cumulative_conversion": 0.174,
+      "drop_off": 1188,
+      "drop_off_rate": 0.173,
+      "ci_low": 0.8178,
+      "ci_high": 0.8357
+    },
+    {
+      "step": "scheduled",
+      "label": "Instalación agendada",
+      "reached": 4166,
+      "step_conversion": 0.7337,
+      "cumulative_conversion": 0.1277,
+      "drop_off": 1512,
+      "drop_off_rate": 0.2663,
+      "ci_low": 0.7221,
+      "ci_high": 0.745
+    }
+  ],
+  "wa_funnel": [
+    {
+      "step": "landing",
+      "label": "Visita al home",
+      "reached": 54182,
+      "step_conversion": 1,
+      "cumulative_conversion": 1,
+      "drop_off": 0,
+      "drop_off_rate": 0,
+      "ci_low": 0.9999,
+      "ci_high": 1
+    },
+    {
+      "step": "wa_open",
+      "label": "Abre WhatsApp",
+      "reached": 32435,
+      "step_conversion": 0.5986,
+      "cumulative_conversion": 0.5986,
+      "drop_off": 21747,
+      "drop_off_rate": 0.4014,
+      "ci_low": 0.5945,
+      "ci_high": 0.6028
+    },
+    {
+      "step": "wa_first_message",
+      "label": "Envía primer mensaje",
+      "reached": 26818,
+      "step_conversion": 0.8268,
+      "cumulative_conversion": 0.495,
+      "drop_off": 5617,
+      "drop_off_rate": 0.1732,
+      "ci_low": 0.8227,
+      "ci_high": 0.8309
+    },
+    {
+      "step": "wa_qualified",
+      "label": "Calificado por el asesor",
+      "reached": 14153,
+      "step_conversion": 0.5277,
+      "cumulative_conversion": 0.2612,
+      "drop_off": 12665,
+      "drop_off_rate": 0.4723,
+      "ci_low": 0.5218,
+      "ci_high": 0.5337
+    },
+    {
+      "step": "scheduled",
+      "label": "Instalación agendada",
+      "reached": 10739,
+      "step_conversion": 0.7588,
+      "cumulative_conversion": 0.1982,
+      "drop_off": 3414,
+      "drop_off_rate": 0.2412,
+      "ci_low": 0.7517,
+      "ci_high": 0.7658
+    }
+  ],
+  "by_city": [
+    {
+      "segment": "city",
+      "value": "medellin",
+      "sessions": 38124,
+      "scheduled": 6548,
+      "conversion": 0.1718,
+      "ci_low": 0.168,
+      "ci_high": 0.1756
+    },
+    {
+      "segment": "city",
+      "value": "bogota",
+      "sessions": 32971,
+      "scheduled": 5698,
+      "conversion": 0.1728,
+      "ci_low": 0.1688,
+      "ci_high": 0.1769
+    },
+    {
+      "segment": "city",
+      "value": "caldas",
+      "sessions": 6131,
+      "scheduled": 1048,
+      "conversion": 0.1709,
+      "ci_low": 0.1617,
+      "ci_high": 0.1806
+    },
+    {
+      "segment": "city",
+      "value": "rionegro",
+      "sessions": 5236,
+      "scheduled": 846,
+      "conversion": 0.1616,
+      "ci_low": 0.1519,
+      "ci_high": 0.1718
+    },
+    {
+      "segment": "city",
+      "value": "llanogrande",
+      "sessions": 4344,
+      "scheduled": 765,
+      "conversion": 0.1761,
+      "ci_low": 0.1651,
+      "ci_high": 0.1877
+    }
+  ],
+  "by_source": [
+    {
+      "segment": "source",
+      "value": "organic",
+      "sessions": 29654,
+      "scheduled": 4289,
+      "conversion": 0.1446,
+      "ci_low": 0.1407,
+      "ci_high": 0.1487
+    },
+    {
+      "segment": "source",
+      "value": "referral",
+      "sessions": 18937,
+      "scheduled": 4728,
+      "conversion": 0.2497,
+      "ci_low": 0.2436,
+      "ci_high": 0.2559
+    },
+    {
+      "segment": "source",
+      "value": "hyperlocal",
+      "sessions": 15568,
+      "scheduled": 3142,
+      "conversion": 0.2018,
+      "ci_low": 0.1956,
+      "ci_high": 0.2082
+    },
+    {
+      "segment": "source",
+      "value": "paid",
+      "sessions": 14061,
+      "scheduled": 1263,
+      "conversion": 0.0898,
+      "ci_low": 0.0852,
+      "ci_high": 0.0947
+    },
+    {
+      "segment": "source",
+      "value": "direct",
+      "sessions": 8586,
+      "scheduled": 1483,
+      "conversion": 0.1727,
+      "ci_low": 0.1649,
+      "ci_high": 0.1809
+    }
+  ],
+  "by_estrato": [
+    {
+      "segment": "estrato_group",
+      "value": "1-3",
+      "sessions": 62547,
+      "scheduled": 8601,
+      "conversion": 0.1375,
+      "ci_low": 0.1348,
+      "ci_high": 0.1402
+    },
+    {
+      "segment": "estrato_group",
+      "value": "4-6",
+      "sessions": 24259,
+      "scheduled": 6304,
+      "conversion": 0.2599,
+      "ci_low": 0.2544,
+      "ci_high": 0.2654
+    }
+  ],
+  "by_device": [
+    {
+      "segment": "device",
+      "value": "mobile",
+      "sessions": 67757,
+      "scheduled": 11521,
+      "conversion": 0.17,
+      "ci_low": 0.1672,
+      "ci_high": 0.1729
+    },
+    {
+      "segment": "device",
+      "value": "desktop",
+      "sessions": 19049,
+      "scheduled": 3384,
+      "conversion": 0.1776,
+      "ci_low": 0.1723,
+      "ci_high": 0.1831
+    }
+  ],
+  "by_path": [
+    {
+      "segment": "path",
+      "value": "whatsapp",
+      "sessions": 54182,
+      "scheduled": 10739,
+      "conversion": 0.1982,
+      "ci_low": 0.1949,
+      "ci_high": 0.2016
+    },
+    {
+      "segment": "path",
+      "value": "web",
+      "sessions": 32624,
+      "scheduled": 4166,
+      "conversion": 0.1277,
+      "ci_low": 0.1241,
+      "ci_high": 0.1314
+    }
+  ],
+  "loss_reasons": [
+    {
+      "outcome": "bounced",
+      "count": 48062,
+      "share": 0.5537
+    },
+    {
+      "outcome": "wa_not_qualified",
+      "count": 11014,
+      "share": 0.1269
+    },
+    {
+      "outcome": "abandoned_scheduling",
+      "count": 4185,
+      "share": 0.0482
+    },
+    {
+      "outcome": "abandoned_phone",
+      "count": 3192,
+      "share": 0.0368
+    },
+    {
+      "outcome": "abandoned_identity",
+      "count": 2015,
+      "share": 0.0232
+    },
+    {
+      "outcome": "filtered_out_late",
+      "count": 1929,
+      "share": 0.0222
+    },
+    {
+      "outcome": "abandoned_email",
+      "count": 754,
+      "share": 0.0087
+    },
+    {
+      "outcome": "filtered_out_early",
+      "count": 750,
+      "share": 0.0086
+    }
+  ],
+  "eligibility_waste": {
+    "filtered_late": 1929,
+    "filtered_early": 750,
+    "note": "filtered_late = usuarios que entregaron nombre, celular y correo ANTES de que se les dijera que su edificio no califica. Es fricción evitable y datos personales capturados sin necesidad."
+  }
+}

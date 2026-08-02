@@ -1,0 +1,54 @@
+[
+  {
+    "id": "EXP-01",
+    "name": "Selector de país simplificado",
+    "proposal": "P2",
+    "hypothesis": "Reemplazar el selector de ~200 países por un prefijo fijo +57 reduce la fricción del campo de celular y sube la completitud del Paso 1.",
+    "primaryMetric": "step1_completion",
+    "guardrailMetric": "phone_validity_rate",
+    "startDay": 8,
+    "endDay": 38,
+    "trueLift": 0.071,
+    "guardrailTrueLift": -0.004,
+    "status": "completed"
+  },
+  {
+    "id": "EXP-02",
+    "name": "Filtro de elegibilidad al inicio",
+    "proposal": "P3",
+    "hypothesis": "Preguntar por portería/administración ANTES de pedir datos personales sube la calidad del lead, aunque reduzca el volumen bruto de formularios completos.",
+    "primaryMetric": "qualified_lead_rate",
+    "guardrailMetric": "step1_completion",
+    "startDay": 12,
+    "endDay": 46,
+    "trueLift": 0.185,
+    "guardrailTrueLift": -0.096,
+    "status": "completed"
+  },
+  {
+    "id": "EXP-03",
+    "name": "Jerarquía WhatsApp-primero",
+    "proposal": "P1",
+    "hypothesis": "Hacer del CTA de WhatsApp el botón primario (y del formulario el secundario) sube la conversión combinada del home.",
+    "primaryMetric": "combined_conversion",
+    "guardrailMetric": "wa_first_response_minutes",
+    "startDay": 30,
+    "endDay": 68,
+    "trueLift": 0,
+    "guardrailTrueLift": 0.21,
+    "status": "completed"
+  },
+  {
+    "id": "EXP-04",
+    "name": "Copy anti-inercia en checkout",
+    "proposal": "P4",
+    "hypothesis": "Microcopy que ataca la inercia de cambiarse de operador ('cancelas cuando quieras, sin cláusula') sube la completitud del último paso.",
+    "primaryMetric": "scheduled_rate",
+    "guardrailMetric": "eligible_share_of_scheduled",
+    "startDay": 74,
+    "endDay": null,
+    "trueLift": 0.038,
+    "guardrailTrueLift": 0.01,
+    "status": "running"
+  }
+]

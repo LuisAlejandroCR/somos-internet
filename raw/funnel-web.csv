@@ -1,0 +1,8 @@
+step,label,reached,step_conversion,cumulative_conversion,drop_off,drop_off_rate
+landing,Visita al home,32624,1,1,0,0
+form_start,Abre el formulario,13577,0.4162,0.4162,19047,0.5838
+identity,Nombre y apellidos,10812,0.7963,0.3314,2765,0.2037
+phone,Celular (selector de país),7620,0.7048,0.2336,3192,0.2952
+email,Correo,6866,0.901,0.2105,754,0.099
+eligibility,Portería / administración,5678,0.827,0.174,1188,0.173
+scheduled,Instalación agendada,4166,0.7337,0.1277,1512,0.2663

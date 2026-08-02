@@ -1,0 +1,9 @@
+{
+  "synthetic": true,
+  "seed": 20260803,
+  "days": 90,
+  "generated_from": "src/pipeline/01-generate.js",
+  "warning": "DATOS SINTÉTICOS. No provienen de Somos Internet ni de ningún sistema real. Calibrados sobre la estructura pública del embudo documentada en el repo.",
+  "start_date": "2026-04-01",
+  "end_date": "2026-06-29"
+}

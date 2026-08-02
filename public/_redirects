@@ -1,0 +1,3 @@
+# Cloudflare Pages — rutas bonitas. Espeja REWRITES en src/web/server.js
+# para que local y producción se comporten igual.
+/pitch    /pitch.html    200

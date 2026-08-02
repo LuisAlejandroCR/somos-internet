@@ -1,0 +1,812 @@
+[
+  {
+    "date": "2026-04-01",
+    "day_index": 0,
+    "scheduled": 122,
+    "installed": 122,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-02",
+    "day_index": 1,
+    "scheduled": 134,
+    "installed": 134,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-03",
+    "day_index": 2,
+    "scheduled": 149,
+    "installed": 149,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-04",
+    "day_index": 3,
+    "scheduled": 123,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 35,
+    "backlog_days": 0.4
+  },
+  {
+    "date": "2026-04-05",
+    "day_index": 4,
+    "scheduled": 98,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 45,
+    "backlog_days": 0.51
+  },
+  {
+    "date": "2026-04-06",
+    "day_index": 5,
+    "scheduled": 151,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 36,
+    "backlog_days": 0.23
+  },
+  {
+    "date": "2026-04-07",
+    "day_index": 6,
+    "scheduled": 109,
+    "installed": 145,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-08",
+    "day_index": 7,
+    "scheduled": 155,
+    "installed": 155,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-09",
+    "day_index": 8,
+    "scheduled": 123,
+    "installed": 123,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-10",
+    "day_index": 9,
+    "scheduled": 135,
+    "installed": 135,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-11",
+    "day_index": 10,
+    "scheduled": 138,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 50,
+    "backlog_days": 0.57
+  },
+  {
+    "date": "2026-04-12",
+    "day_index": 11,
+    "scheduled": 112,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 74,
+    "backlog_days": 0.84
+  },
+  {
+    "date": "2026-04-13",
+    "day_index": 12,
+    "scheduled": 162,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 76,
+    "backlog_days": 0.47
+  },
+  {
+    "date": "2026-04-14",
+    "day_index": 13,
+    "scheduled": 105,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 21,
+    "backlog_days": 0.13
+  },
+  {
+    "date": "2026-04-15",
+    "day_index": 14,
+    "scheduled": 115,
+    "installed": 136,
+    "capacity": 160,
+    "backlog_end_of_day": 0,
+    "backlog_days": 0
+  },
+  {
+    "date": "2026-04-16",
+    "day_index": 15,
+    "scheduled": 167,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 7,
+    "backlog_days": 0.04
+  },
+  {
+    "date": "2026-04-17",
+    "day_index": 16,
+    "scheduled": 154,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1,
+    "backlog_days": 0.01
+  },
+  {
+    "date": "2026-04-18",
+    "day_index": 17,
+    "scheduled": 126,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 39,
+    "backlog_days": 0.44
+  },
+  {
+    "date": "2026-04-19",
+    "day_index": 18,
+    "scheduled": 123,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 74,
+    "backlog_days": 0.84
+  },
+  {
+    "date": "2026-04-20",
+    "day_index": 19,
+    "scheduled": 146,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 60,
+    "backlog_days": 0.38
+  },
+  {
+    "date": "2026-04-21",
+    "day_index": 20,
+    "scheduled": 158,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 58,
+    "backlog_days": 0.36
+  },
+  {
+    "date": "2026-04-22",
+    "day_index": 21,
+    "scheduled": 136,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 34,
+    "backlog_days": 0.21
+  },
+  {
+    "date": "2026-04-23",
+    "day_index": 22,
+    "scheduled": 188,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 62,
+    "backlog_days": 0.39
+  },
+  {
+    "date": "2026-04-24",
+    "day_index": 23,
+    "scheduled": 198,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 100,
+    "backlog_days": 0.63
+  },
+  {
+    "date": "2026-04-25",
+    "day_index": 24,
+    "scheduled": 131,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 143,
+    "backlog_days": 1.63
+  },
+  {
+    "date": "2026-04-26",
+    "day_index": 25,
+    "scheduled": 114,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 169,
+    "backlog_days": 1.92
+  },
+  {
+    "date": "2026-04-27",
+    "day_index": 26,
+    "scheduled": 204,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 213,
+    "backlog_days": 1.33
+  },
+  {
+    "date": "2026-04-28",
+    "day_index": 27,
+    "scheduled": 184,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 237,
+    "backlog_days": 1.48
+  },
+  {
+    "date": "2026-04-29",
+    "day_index": 28,
+    "scheduled": 162,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 239,
+    "backlog_days": 1.49
+  },
+  {
+    "date": "2026-04-30",
+    "day_index": 29,
+    "scheduled": 203,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 282,
+    "backlog_days": 1.76
+  },
+  {
+    "date": "2026-05-01",
+    "day_index": 30,
+    "scheduled": 144,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 266,
+    "backlog_days": 1.66
+  },
+  {
+    "date": "2026-05-02",
+    "day_index": 31,
+    "scheduled": 152,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 330,
+    "backlog_days": 3.75
+  },
+  {
+    "date": "2026-05-03",
+    "day_index": 32,
+    "scheduled": 110,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 352,
+    "backlog_days": 4
+  },
+  {
+    "date": "2026-05-04",
+    "day_index": 33,
+    "scheduled": 194,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 386,
+    "backlog_days": 2.41
+  },
+  {
+    "date": "2026-05-05",
+    "day_index": 34,
+    "scheduled": 202,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 428,
+    "backlog_days": 2.67
+  },
+  {
+    "date": "2026-05-06",
+    "day_index": 35,
+    "scheduled": 194,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 462,
+    "backlog_days": 2.89
+  },
+  {
+    "date": "2026-05-07",
+    "day_index": 36,
+    "scheduled": 195,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 497,
+    "backlog_days": 3.11
+  },
+  {
+    "date": "2026-05-08",
+    "day_index": 37,
+    "scheduled": 166,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 503,
+    "backlog_days": 3.14
+  },
+  {
+    "date": "2026-05-09",
+    "day_index": 38,
+    "scheduled": 143,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 558,
+    "backlog_days": 6.34
+  },
+  {
+    "date": "2026-05-10",
+    "day_index": 39,
+    "scheduled": 118,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 588,
+    "backlog_days": 6.68
+  },
+  {
+    "date": "2026-05-11",
+    "day_index": 40,
+    "scheduled": 181,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 609,
+    "backlog_days": 3.81
+  },
+  {
+    "date": "2026-05-12",
+    "day_index": 41,
+    "scheduled": 184,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 633,
+    "backlog_days": 3.96
+  },
+  {
+    "date": "2026-05-13",
+    "day_index": 42,
+    "scheduled": 147,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 620,
+    "backlog_days": 3.88
+  },
+  {
+    "date": "2026-05-14",
+    "day_index": 43,
+    "scheduled": 171,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 631,
+    "backlog_days": 3.94
+  },
+  {
+    "date": "2026-05-15",
+    "day_index": 44,
+    "scheduled": 160,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 631,
+    "backlog_days": 3.94
+  },
+  {
+    "date": "2026-05-16",
+    "day_index": 45,
+    "scheduled": 153,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 696,
+    "backlog_days": 7.91
+  },
+  {
+    "date": "2026-05-17",
+    "day_index": 46,
+    "scheduled": 81,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 689,
+    "backlog_days": 7.83
+  },
+  {
+    "date": "2026-05-18",
+    "day_index": 47,
+    "scheduled": 164,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 693,
+    "backlog_days": 4.33
+  },
+  {
+    "date": "2026-05-19",
+    "day_index": 48,
+    "scheduled": 171,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 704,
+    "backlog_days": 4.4
+  },
+  {
+    "date": "2026-05-20",
+    "day_index": 49,
+    "scheduled": 171,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 715,
+    "backlog_days": 4.47
+  },
+  {
+    "date": "2026-05-21",
+    "day_index": 50,
+    "scheduled": 192,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 747,
+    "backlog_days": 4.67
+  },
+  {
+    "date": "2026-05-22",
+    "day_index": 51,
+    "scheduled": 152,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 739,
+    "backlog_days": 4.62
+  },
+  {
+    "date": "2026-05-23",
+    "day_index": 52,
+    "scheduled": 142,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 793,
+    "backlog_days": 9.01
+  },
+  {
+    "date": "2026-05-24",
+    "day_index": 53,
+    "scheduled": 164,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 869,
+    "backlog_days": 9.88
+  },
+  {
+    "date": "2026-05-25",
+    "day_index": 54,
+    "scheduled": 232,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 941,
+    "backlog_days": 5.88
+  },
+  {
+    "date": "2026-05-26",
+    "day_index": 55,
+    "scheduled": 213,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 994,
+    "backlog_days": 6.21
+  },
+  {
+    "date": "2026-05-27",
+    "day_index": 56,
+    "scheduled": 182,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1016,
+    "backlog_days": 6.35
+  },
+  {
+    "date": "2026-05-28",
+    "day_index": 57,
+    "scheduled": 179,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1035,
+    "backlog_days": 6.47
+  },
+  {
+    "date": "2026-05-29",
+    "day_index": 58,
+    "scheduled": 224,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1099,
+    "backlog_days": 6.87
+  },
+  {
+    "date": "2026-05-30",
+    "day_index": 59,
+    "scheduled": 150,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 1161,
+    "backlog_days": 13.19
+  },
+  {
+    "date": "2026-05-31",
+    "day_index": 60,
+    "scheduled": 138,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 1211,
+    "backlog_days": 13.76
+  },
+  {
+    "date": "2026-06-01",
+    "day_index": 61,
+    "scheduled": 293,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1344,
+    "backlog_days": 8.4
+  },
+  {
+    "date": "2026-06-02",
+    "day_index": 62,
+    "scheduled": 176,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1360,
+    "backlog_days": 8.5
+  },
+  {
+    "date": "2026-06-03",
+    "day_index": 63,
+    "scheduled": 209,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1409,
+    "backlog_days": 8.81
+  },
+  {
+    "date": "2026-06-04",
+    "day_index": 64,
+    "scheduled": 190,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1439,
+    "backlog_days": 8.99
+  },
+  {
+    "date": "2026-06-05",
+    "day_index": 65,
+    "scheduled": 181,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1460,
+    "backlog_days": 9.13
+  },
+  {
+    "date": "2026-06-06",
+    "day_index": 66,
+    "scheduled": 145,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 1517,
+    "backlog_days": 17.24
+  },
+  {
+    "date": "2026-06-07",
+    "day_index": 67,
+    "scheduled": 122,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 1551,
+    "backlog_days": 17.63
+  },
+  {
+    "date": "2026-06-08",
+    "day_index": 68,
+    "scheduled": 227,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1618,
+    "backlog_days": 10.11
+  },
+  {
+    "date": "2026-06-09",
+    "day_index": 69,
+    "scheduled": 183,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1641,
+    "backlog_days": 10.26
+  },
+  {
+    "date": "2026-06-10",
+    "day_index": 70,
+    "scheduled": 187,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1668,
+    "backlog_days": 10.43
+  },
+  {
+    "date": "2026-06-11",
+    "day_index": 71,
+    "scheduled": 213,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1721,
+    "backlog_days": 10.76
+  },
+  {
+    "date": "2026-06-12",
+    "day_index": 72,
+    "scheduled": 198,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1759,
+    "backlog_days": 10.99
+  },
+  {
+    "date": "2026-06-13",
+    "day_index": 73,
+    "scheduled": 197,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 1868,
+    "backlog_days": 21.23
+  },
+  {
+    "date": "2026-06-14",
+    "day_index": 74,
+    "scheduled": 105,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 1885,
+    "backlog_days": 21.42
+  },
+  {
+    "date": "2026-06-15",
+    "day_index": 75,
+    "scheduled": 232,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1957,
+    "backlog_days": 12.23
+  },
+  {
+    "date": "2026-06-16",
+    "day_index": 76,
+    "scheduled": 210,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2007,
+    "backlog_days": 12.54
+  },
+  {
+    "date": "2026-06-17",
+    "day_index": 77,
+    "scheduled": 151,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 1998,
+    "backlog_days": 12.49
+  },
+  {
+    "date": "2026-06-18",
+    "day_index": 78,
+    "scheduled": 209,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2047,
+    "backlog_days": 12.79
+  },
+  {
+    "date": "2026-06-19",
+    "day_index": 79,
+    "scheduled": 211,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2098,
+    "backlog_days": 13.11
+  },
+  {
+    "date": "2026-06-20",
+    "day_index": 80,
+    "scheduled": 193,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 2203,
+    "backlog_days": 25.03
+  },
+  {
+    "date": "2026-06-21",
+    "day_index": 81,
+    "scheduled": 143,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 2258,
+    "backlog_days": 25.66
+  },
+  {
+    "date": "2026-06-22",
+    "day_index": 82,
+    "scheduled": 150,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2248,
+    "backlog_days": 14.05
+  },
+  {
+    "date": "2026-06-23",
+    "day_index": 83,
+    "scheduled": 141,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2229,
+    "backlog_days": 13.93
+  },
+  {
+    "date": "2026-06-24",
+    "day_index": 84,
+    "scheduled": 183,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2252,
+    "backlog_days": 14.07
+  },
+  {
+    "date": "2026-06-25",
+    "day_index": 85,
+    "scheduled": 262,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2354,
+    "backlog_days": 14.71
+  },
+  {
+    "date": "2026-06-26",
+    "day_index": 86,
+    "scheduled": 215,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2409,
+    "backlog_days": 15.06
+  },
+  {
+    "date": "2026-06-27",
+    "day_index": 87,
+    "scheduled": 125,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 2446,
+    "backlog_days": 27.8
+  },
+  {
+    "date": "2026-06-28",
+    "day_index": 88,
+    "scheduled": 142,
+    "installed": 88,
+    "capacity": 88,
+    "backlog_end_of_day": 2500,
+    "backlog_days": 28.41
+  },
+  {
+    "date": "2026-06-29",
+    "day_index": 89,
+    "scheduled": 218,
+    "installed": 160,
+    "capacity": 160,
+    "backlog_end_of_day": 2558,
+    "backlog_days": 15.99
+  }
+]

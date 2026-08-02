@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Somos CRO Lab — embudo y experimentos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="synthetic-banner">
+  ⚠ <b>DATOS 100% SINTÉTICOS</b> — generados con semilla fija para este ejercicio. No provienen de Somos Internet ni de ningún sistema real.
+</div>
+
+<header>
+  <div class="container nav">
+    <div class="brand"><span class="orb"></span> Somos <span style="color:var(--muted-2);font-weight:400">CRO Lab</span></div>
+    <nav class="nav-links">
+      <a href="/" class="active">Dashboard</a>
+      <a href="/pitch">Pitch</a>
+      <a href="/api/overview">API</a>
+    </nav>
+    <div class="nav-right mono" id="window-label">—</div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="eyebrow">Embudo de conversión · datos simulados</div>
+    <h1>Dónde se pierde la gente, y qué experimento lo prueba.</h1>
+    <p class="sub">
+      Un pipeline reproducible que simula el embudo público de Somos (home → WhatsApp o checkout web → elegibilidad → instalación),
+      corre experimentos A/B con métrica primaria, métrica de guardia y criterio de descarte, y prioriza el backlog con ICE.
+      La estructura del embudo viene de inspección pública del sitio; los números son sintéticos.
+    </p>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div id="ops-alert"></div>
+
+    <h2 class="section-title">Embudo — checkout web</h2>
+    <div class="card">
+      <div class="card-title">De la visita al agendamiento</div>
+      <div class="card-sub">El ancho de la barra es el % que sobrevive respecto al paso anterior. A la derecha, cuánta gente se pierde ahí.</div>
+      <div class="funnel" id="funnel-web"></div>
+    </div>
+
+    <h2 class="section-title">Embudo — WhatsApp</h2>
+    <div class="card">
+      <div class="card-title">El canal que el home pone primero</div>
+      <div class="card-sub">El CTA principal de somosinternet.com es un enlace directo a WhatsApp con texto prellenado, no el formulario propio.</div>
+      <div class="funnel" id="funnel-wa"></div>
+    </div>
+
+    <h2 class="section-title">Experimentos</h2>
+    <p class="sub small" style="margin-bottom:16px">
+      Cada lectura usa una prueba z de dos proporciones con error estándar agrupado, intervalo de confianza al 95% sin agrupar,
+      y tamaño de muestra calculado para un MDE relativo del 8% con potencia 0.8. Una guardia rota bloquea el lanzamiento
+      aunque la métrica primaria haya ganado.
+    </p>
+    <div id="experiments"></div>
+
+    <h2 class="section-title">Backlog priorizado (ICE)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Hipótesis</th><th class="num">Impact</th><th class="num">Confidence</th>
+            <th class="num">Ease</th><th class="num">ICE</th><th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="backlog"></tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Segmentos</h2>
+    <div class="row">
+      <div class="card"><div class="card-title">Por ciudad</div><div class="card-sub">Conversión a instalación agendada</div><div id="seg-city"></div></div>
+      <div class="card"><div class="card-title">Por canal de origen</div><div class="card-sub">Conversión a instalación agendada</div><div id="seg-source"></div></div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    Somos CRO Lab · datos sintéticos y reproducibles (<span class="mono" id="seed-label">—</span>) ·
+    pipeline: <span class="mono">npm run run-all</span> · tests: <span class="mono">npm test</span><br>
+    Ejercicio de candidatura al rol de CRO. No afiliado a Somos Internet. Paleta y lenguaje visual tomados de somosinternet.com.
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

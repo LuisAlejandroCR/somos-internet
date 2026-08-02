@@ -1,0 +1,19 @@
+{
+  "name": "somos-cro-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Somos CRO Lab — synthetic funnel data, A/B experiment analysis and a prioritized hypothesis backlog. Demo artifact for a CRO candidacy; all data is synthetic.",
+  "scripts": {
+    "run-all": "node src/pipeline/run-all.js",
+    "generate": "node src/pipeline/01-generate.js",
+    "funnel": "node src/pipeline/02-funnel.js",
+    "experiments": "node src/pipeline/03-experiments.js",
+    "derive": "node src/pipeline/04-derive.js",
+    "test": "node --test",
+    "web": "node src/web/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "synthetic": true,
+  "alpha": 0.05,
+  "power": 0.8,
+  "target_mde": 0.08,
+  "results": [
+    {
+      "id": "EXP-01",
+      "name": "Selector de país simplificado",
+      "proposal": "P2",
+      "hypothesis": "Reemplazar el selector de ~200 países por un prefijo fijo +57 reduce la fricción del campo de celular y sube la completitud del Paso 1.",
+      "status": "completed",
+      "primary_metric": "step1_completion",
+      "primary_metric_label": "Completitud del Paso 1 (checkout web)",
+      "control": {
+        "n": 2258,
+        "conversions": 1158,
+        "rate": 0.5128
+      },
+      "variant": {
+        "n": 2203,
+        "conversions": 1265,
+        "rate": 0.5742
+      },
+      "absolute_lift": 0.0614,
+      "relative_lift": 0.1197,
+      "p_value": 0.00004,
+      "z": 4.114,
+      "ci_low": 0.0322,
+      "ci_high": 0.0906,
+      "significant": true,
+      "required_per_variant": 2320,
+      "powered": false,
+      "target_mde": 0.08,
+      "alpha": 0.05,
+      "power": 0.8,
+      "guardrail": {
+        "metric": "phone_validity_rate",
+        "label": "Guardia: teléfonos válidos capturados",
+        "kind": "rate",
+        "control_value": 0.9085,
+        "variant_value": 0.8925,
+        "breached": false,
+        "delta": -0.015972748435014728,
+        "relativeDelta": -0.017582169855272865,
+        "toleranceRelative": 0.05
+      },
+      "decision": "lanzar",
+      "rationale": "Lift relativo de 12.0% (p=0.0000), IC 95% del lift absoluto [3.22pp, 9.06pp]. Guardia sin deterioro."
+    },
+    {
+      "id": "EXP-02",
+      "name": "Filtro de elegibilidad al inicio",
+      "proposal": "P3",
+      "hypothesis": "Preguntar por portería/administración ANTES de pedir datos personales sube la calidad del lead, aunque reduzca el volumen bruto de formularios completos.",
+      "status": "completed",
+      "primary_metric": "qualified_lead_rate",
+      "primary_metric_label": "Leads calificados / formularios iniciados",
+      "control": {
+        "n": 2515,
+        "conversions": 872,
+        "rate": 0.3467
+      },
+      "variant": {
+        "n": 2432,
+        "conversions": 1584,
+        "rate": 0.6513
+      },
+      "absolute_lift": 0.3046,
+      "relative_lift": 0.8785,
+      "p_value": 0,
+      "z": 21.421,
+      "ci_low": 0.2781,
+      "ci_high": 0.3311,
+      "significant": true,
+      "required_per_variant": 4704,
+      "powered": false,
+      "target_mde": 0.08,
+      "alpha": 0.05,
+      "power": 0.8,
+      "guardrail": {
+        "metric": "step1_completion",
+        "label": "Completitud del Paso 1 (checkout web)",
+        "kind": "rate",
+        "control_value": 0.6115,
+        "variant_value": 0.4231,
+        "breached": true,
+        "delta": -0.188422262477765,
+        "relativeDelta": -0.30811572830401757,
+        "toleranceRelative": 0.05
+      },
+      "decision": "no_lanzar_guardia",
+      "rationale": "La métrica primaria mejoró de forma significativa, pero la métrica de guardia se deterioró -30.8%, por encima de la tolerancia acordada del 5%. No se lanza."
+    },
+    {
+      "id": "EXP-03",
+      "name": "Jerarquía WhatsApp-primero",
+      "proposal": "P1",
+      "hypothesis": "Hacer del CTA de WhatsApp el botón primario (y del formulario el secundario) sube la conversión combinada del home.",
+      "status": "completed",
+      "primary_metric": "combined_conversion",
+      "primary_metric_label": "Conversión combinada (web + WhatsApp)",
+      "control": {
+        "n": 19246,
+        "conversions": 3212,
+        "rate": 0.1669
+      },
+      "variant": {
+        "n": 19489,
+        "conversions": 3500,
+        "rate": 0.1796
+      },
+      "absolute_lift": 0.0127,
+      "relative_lift": 0.0761,
+      "p_value": 0.00096,
+      "z": 3.301,
+      "ci_low": 0.0052,
+      "ci_high": 0.0202,
+      "significant": true,
+      "required_per_variant": 12631,
+      "powered": true,
+      "target_mde": 0.08,
+      "alpha": 0.05,
+      "power": 0.8,
+      "guardrail": {
+        "metric": "wa_first_response_minutes",
+        "label": "Guardia: minutos hasta la primera respuesta en WhatsApp",
+        "kind": "duration",
+        "control_value": 9.13,
+        "variant_value": 10.91,
+        "breached": true,
+        "delta": 1.7799999999999994,
+        "relativeDelta": 0.19496166484118282,
+        "toleranceRelative": 0.1
+      },
+      "decision": "no_lanzar_guardia",
+      "rationale": "La métrica primaria mejoró de forma significativa, pero la métrica de guardia se deterioró 19.5%, por encima de la tolerancia acordada del 10%. No se lanza."
+    },
+    {
+      "id": "EXP-04",
+      "name": "Copy anti-inercia en checkout",
+      "proposal": "P4",
+      "hypothesis": "Microcopy que ataca la inercia de cambiarse de operador ('cancelas cuando quieras, sin cláusula') sube la completitud del último paso.",
+      "status": "running",
+      "primary_metric": "scheduled_rate",
+      "primary_metric_label": "Tasa de agendamiento",
+      "control": {
+        "n": 1884,
+        "conversions": 1461,
+        "rate": 0.7755
+      },
+      "variant": {
+        "n": 1804,
+        "conversions": 1429,
+        "rate": 0.7921
+      },
+      "absolute_lift": 0.0167,
+      "relative_lift": 0.0215,
+      "p_value": 0.21961,
+      "z": 1.228,
+      "ci_low": -0.0099,
+      "ci_high": 0.0432,
+      "significant": false,
+      "required_per_variant": 636,
+      "powered": true,
+      "target_mde": 0.08,
+      "alpha": 0.05,
+      "power": 0.8,
+      "guardrail": {
+        "metric": "eligible_share_of_scheduled",
+        "label": "Guardia: % de agendados que sí son elegibles",
+        "kind": "rate",
+        "control_value": 0.8932,
+        "variant_value": 0.8866,
+        "breached": false,
+        "delta": -0.0065898095047871585,
+        "relativeDelta": -0.0073775568478881524,
+        "toleranceRelative": 0.05
+      },
+      "decision": "listo_para_descartar",
+      "rationale": "Ya tiene muestra suficiente y el efecto no alcanza significancia (p=0.220). El experimento se diseñó para detectar un 8% relativo; si existe un efecto, es más pequeño que eso y no justifica el esfuerzo de implementación. Cerrar y documentar."
+    }
+  ]
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Somos CRO Lab — Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+html, body { height: 100%; overflow: hidden; }
+#deck { position: fixed; inset: 0; }
+section.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 64px clamp(28px, 7vw, 116px);
+  opacity: 0; pointer-events: none; transition: opacity 0.55s ease;
+}
+section.slide.on { opacity: 1; pointer-events: auto; }
+.slide h1 { font-size: clamp(30px, 4.7vw, 60px); font-weight: 700; letter-spacing: -1.8px; line-height: 1.06; max-width: 940px; }
+.slide h1 em { color: var(--mint); font-style: normal; }
+.slide h1 mark { background: var(--mint); color: #000; padding: 0 10px; border-radius: 8px; }
+.slide .lead { color: var(--muted); font-size: clamp(14px, 1.55vw, 19px); margin-top: 18px; max-width: 760px; line-height: 1.62; }
+.giant { font-size: clamp(72px, 13.5vw, 178px); font-weight: 700; letter-spacing: -6px; line-height: 0.88; font-family: "JetBrains Mono", monospace; }
+.giant.mint { color: var(--mint); }
+.giant.pink { color: var(--pink); }
+.giant.cream { color: var(--cream); }
+
+.pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: 18px; margin-top: 36px; max-width: 1000px; }
+.pcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--glow-neutral); }
+.pcard.mint { box-shadow: var(--glow-mint); border-color: rgba(86,245,187,.2); }
+.pcard.pink { box-shadow: var(--glow-pink); border-color: rgba(255,110,231,.2); }
+.pcard .n { font-size: clamp(30px, 4.2vw, 46px); font-weight: 700; letter-spacing: -2px; font-family: "JetBrains Mono", monospace; line-height: 1; margin-bottom: 8px; }
+.pcard .t { font-weight: 600; font-size: 14.5px; }
+.pcard .s { color: var(--muted); font-size: 13px; margin-top: 6px; line-height: 1.55; }
+
+.pfunnel { margin-top: 30px; max-width: 720px; }
+.pf-row { display: grid; grid-template-columns: 190px 1fr 96px; gap: 13px; align-items: center; margin-bottom: 9px; font-size: 13.5px; }
+.pf-track { background: var(--card-2); border-radius: 8px; height: 30px; overflow: hidden; }
+.pf-bar { height: 100%; background: linear-gradient(90deg, var(--mint), #2fd6a0); display: flex; align-items: center; padding-left: 11px; font-size: 12px; font-weight: 700; color: #00110b; }
+.pf-bar.bad { background: linear-gradient(90deg, var(--pink), #d451b9); color: #1a0016; }
+.pf-lost { color: var(--pink); font-family: "JetBrains Mono", monospace; font-size: 12.5px; text-align: right; }
+
+.hero-orb { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
+.term {
+  background: #050506; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px;
+  font-family: "JetBrains Mono", monospace; font-size: clamp(12px, 1.15vw, 14.5px); line-height: 1.95;
+  max-width: 780px; margin-top: 26px; color: #d8d8de; box-shadow: var(--glow-neutral);
+}
+.term .p { color: var(--mint); font-weight: 600; }
+.term .c { color: var(--muted-2); }
+.term .hl { color: var(--cream); }
+.term .bad { color: var(--pink); }
+
+.tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border-2); font-size: 13px; font-weight: 500; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+.progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--mint); transition: width 0.4s ease; z-index: 50; }
+.deck-nav { position: fixed; bottom: 20px; right: 26px; display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--muted-2); z-index: 50; }
+.deck-nav kbd { background: var(--card-2); border: 1px solid var(--border-2); border-radius: 5px; padding: 2px 7px; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+.slide-badge { position: fixed; top: 22px; left: 26px; font-size: 12px; color: var(--muted-2); z-index: 50; display: flex; align-items: center; gap: 9px; }
+.warn-strip { position: fixed; top: 0; left: 0; right: 0; background: var(--cream); color: #000; font-size: 11.5px; font-weight: 700; text-align: center; padding: 5px; z-index: 60; letter-spacing: 0.02em; }
+
+/* Marca los huecos que todavía no se llenaron desde la API, para que un fallo
+   de carga sea visible en vez de silencioso. */
+[data-m]:empty::after { content: "···"; color: var(--muted-2); }
+
+@media (max-width: 680px) {
+  .pf-row { grid-template-columns: 1fr; gap: 3px; }
+  .pf-lost { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<div class="warn-strip">DATOS SINTÉTICOS — ejercicio de candidatura, no datos reales de Somos Internet</div>
+
+<div id="deck">
+
+  <!-- 1 -->
+  <section class="slide on">
+    <div class="hero-orb">
+      <span class="orb lg"></span>
+      <div>
+        <div class="eyebrow">Somos CRO Lab</div>
+        <h1>Un embudo con <mark>espacio real</mark> de mejora.<br>Y la forma de probarlo.</h1>
+        <p class="lead">
+          Pipeline reproducible: simula el embudo público de Somos, corre experimentos A/B con
+          métrica primaria, métrica de guardia y criterio de descarte, y prioriza el backlog con ICE.
+        </p>
+        <div class="tags">
+          <span class="tag">Node sin dependencias</span>
+          <span class="tag"><span data-m="testCount"></span> tests</span>
+          <span class="tag">Semilla <span data-m="seed" class="mono"></span> · reproducible</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="eyebrow">El punto de partida</div>
+    <h1>El home ya eligió: <em>WhatsApp primero.</em></h1>
+    <p class="lead">
+      El CTA principal de somosinternet.com no lleva a un formulario — es un enlace directo a WhatsApp
+      con texto de venta prellenado. En Colombia, WhatsApp tiene ~75% de penetración y 98% de tasa de
+      apertura contra 21,5% del email. La pregunta no es si usar el canal: es si se está midiendo.
+    </p>
+    <div class="pgrid">
+      <div class="pcard mint"><div class="n mint" data-m="waShare"></div><div class="t">del tráfico entra por WhatsApp</div><div class="s">El canal de mayor volumen del embudo simulado</div></div>
+      <div class="pcard"><div class="n cream" data-m="waResponse"></div><div class="t">primera respuesta promedio</div><div class="s">Cada minuto de más erosiona la conversión</div></div>
+      <div class="pcard"><div class="n" data-m="waQualLoss"></div><div class="t">se pierde en la calificación</div><div class="s">El asesor filtra en vez de cerrar</div></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="eyebrow">El embudo web</div>
+    <h1>Dónde se cae la gente.</h1>
+    <div class="pfunnel" id="pf"></div>
+    <p class="lead" style="margin-top:22px">
+      El paso del celular pierde <span data-m="phoneLoss"></span>. Ahí vive un selector de
+      <b style="color:var(--pink)">~200 países</b> en un servicio que solo opera en Colombia.
+    </p>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="eyebrow">El hallazgo más incómodo</div>
+    <div class="giant pink" data-m="wasteLate"></div>
+    <h1 style="margin-top:22px;font-size:clamp(24px,3.2vw,42px)">personas entregaron nombre, celular y correo<br>para que <em>después</em> se les dijera que su edificio no califica.</h1>
+    <p class="lead">
+      Somos solo conecta edificios con portería o administración — es un filtro real. Pero hoy se
+      pregunta al final del formulario, no al principio. Es fricción evitable y son datos personales
+      capturados sin necesidad.
+    </p>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="eyebrow"><span data-m="expCount"></span> experimentos leídos</div>
+    <h1>Un experimento no es una idea:<br>es una <em>decisión con criterio de parada.</em></h1>
+    <div class="term"><span class="c">$ npm run run-all</span><br><span id="term-lines"></span><span class="c">&nbsp;&nbsp;&nbsp;prueba z de dos proporciones · IC 95% · MDE <span data-m="mde"></span> · potencia <span data-m="power"></span></span></div>
+    <p class="lead" style="margin-top:20px" data-m="expSummary"></p>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="eyebrow">Por qué hay ganadores que no se lanzan</div>
+    <h1>La métrica de guardia manda,<br>aunque la primaria haya <em>ganado</em>.</h1>
+    <div class="pgrid" id="blocked-cards"></div>
+    <p class="lead" style="margin-top:26px">
+      Es el patrón de Duolingo: mataron un experimento que subía suscripciones porque bajaba el
+      engagement diario. Ganar la métrica primaria no es suficiente.
+    </p>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <div class="eyebrow">La conclusión que cambia el plan</div>
+    <div class="giant cream" data-m="utilisation"></div>
+    <h1 style="margin-top:20px;font-size:clamp(26px,3.6vw,46px)">de uso de capacidad de instalación.<br>El cuello de botella <em>no es la conversión.</em></h1>
+    <p class="lead" data-m="opsVerdict"></p>
+    <p class="lead" style="color:var(--mint)">
+      Antes de proponer un solo experimento más: ¿el cuello de botella hoy está en generar demanda,
+      o en poder atenderla?
+    </p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="eyebrow">Cómo trabajo</div>
+    <h1>Hipótesis → métrica → guardia → <em>decisión documentada.</em></h1>
+    <div class="pgrid">
+      <div class="pcard mint"><div class="n mint" data-m="backlogCount"></div><div class="t">hipótesis priorizadas con ICE</div><div class="s">Cada una citando el documento de investigación del que salió</div></div>
+      <div class="pcard"><div class="n mint" data-m="testCount2"></div><div class="t">tests: unit, fuzz, invariantes</div><div class="s">Encontraron 3 bugs reales durante la construcción</div></div>
+      <div class="pcard"><div class="n mint">0</div><div class="t">dependencias externas</div><div class="s">Node puro — el pipeline corre con <span class="mono">npm run run-all</span></div></div>
+    </div>
+    <p class="lead" style="margin-top:30px">
+      Los datos son sintéticos y reproducibles con semilla fija. La estructura del embudo, el mercado
+      y la competencia sí vienen de investigación real con fuente citada.
+    </p>
+    <div class="tags">
+      <span class="tag"><span class="orb sm"></span> Luis Cárdenas · Growth &amp; Data Analytics</span>
+      <span class="tag">Dashboard en <span class="mono">/</span></span>
+    </div>
+  </section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="slide-badge"><span class="orb sm"></span> <span id="slide-num">1 / 8</span></div>
+<div class="deck-nav"><kbd>←</kbd><kbd>→</kbd> navegar · <kbd>F</kbd> pantalla completa</div>
+
+<script>
+// ── Navegación del deck ──
+const slides = [...document.querySelectorAll(".slide")];
+let idx = 0;
+function show(next) {
+  idx = Math.max(0, Math.min(slides.length - 1, next));
+  slides.forEach((s, i) => s.classList.toggle("on", i === idx));
+  document.getElementById("progress").style.width = `${((idx + 1) / slides.length) * 100}%`;
+  document.getElementById("slide-num").textContent = `${idx + 1} / ${slides.length}`;
+}
+document.addEventListener("keydown", (e) => {
+  if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(idx + 1); }
+  else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(idx - 1); }
+  else if (e.key === "Home") show(0);
+  else if (e.key === "End") show(slides.length - 1);
+  else if (e.key.toLowerCase() === "f") {
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  }
+});
+document.addEventListener("click", (e) => { if (!e.target.closest("a")) show(idx + 1); });
+show(0);
+
+// ── Todos los números salen de la API ──
+// Ni una cifra del deck está escrita a mano: si el pipeline cambia, el pitch
+// cambia con él. Un número quemado en el HTML es un número que algún día va a
+// contradecir al dashboard.
+const pct = (v, d = 1) => (v == null ? "—" : `${(v * 100).toFixed(d)}%`);
+const num = (v) => (v == null ? "—" : v.toLocaleString("es-CO"));
+const set = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((el) => (el.textContent = v));
+
+const DECISION_TERM = {
+  lanzar: ['hl', "LANZAR"],
+  no_lanzar_guardia: ['bad', "GUARDIA ROTA"],
+  descartar: ['c', "DESCARTAR"],
+  listo_para_descartar: ['c', "DESCARTAR"],
+  listo_para_decidir: ['hl', "DECIDIR"],
+  en_curso: ['c', "EN CURSO"],
+  no_concluyente: ['c', "NO CONCLUYENTE"],
+  sin_datos: ['c', "SIN DATOS"],
+};
+
+Promise.all([
+  fetch("/api/overview").then((r) => r.json()),
+  fetch("/api/funnel").then((r) => r.json()),
+  fetch("/api/experiments").then((r) => r.json()),
+  fetch("/api/backlog").then((r) => r.json()),
+])
+  .then(([overview, funnel, experiments, backlog]) => {
+    const ops = overview.operations;
+
+    // Slide 1
+    set("seed", overview.generated.seed);
+    set("testCount", overview.headline.test_count ?? "—");
+    set("testCount2", overview.headline.test_count ?? "—");
+
+    // Slide 2 — todo derivado del embudo real
+    const totalLanding = funnel.totals.sessions;
+    const waLanding = funnel.totals.wa_sessions;
+    set("waShare", pct(waLanding / totalLanding, 0));
+    const waResp = experiments.results
+      .map((r) => r.guardrail)
+      .find((g) => g && g.kind === "duration");
+    set("waResponse", waResp ? `${waResp.control_value} min` : "—");
+    const qualStep = funnel.whatsapp.find((s) => s.step === "wa_qualified");
+    set("waQualLoss", qualStep ? pct(qualStep.drop_off_rate, 0) : "—");
+
+    // Slide 3
+    const phoneStep = funnel.web.find((s) => s.step === "phone");
+    set("phoneLoss", phoneStep ? `~${(phoneStep.drop_off_rate * 100).toFixed(0)}%` : "—");
+    document.getElementById("pf").innerHTML = funnel.web
+      .map((s, i) => {
+        const w = i === 0 ? 100 : s.step_conversion * 100;
+        const bad = i > 0 && s.drop_off_rate > 0.28;
+        return `<div class="pf-row">
+          <div>${s.label}</div>
+          <div class="pf-track"><div class="pf-bar ${bad ? "bad" : ""}" style="width:${Math.max(w, 4)}%">${i === 0 ? "100%" : (s.step_conversion * 100).toFixed(1) + "%"}</div></div>
+          <div class="pf-lost">${i === 0 ? "" : "−" + num(s.drop_off)}</div>
+        </div>`;
+      })
+      .join("");
+
+    // Slide 4
+    set("wasteLate", num(funnel.eligibility_waste.filtered_late));
+
+    // Slide 5 — la "terminal" se arma desde los resultados reales
+    set("expCount", experiments.results.length);
+    set("mde", pct(experiments.target_mde, 0));
+    set("power", experiments.power);
+    const pad = (s, n) => String(s).padEnd(n, " ");
+    document.getElementById("term-lines").innerHTML = experiments.results
+      .map((r) => {
+        const [cls, label] = DECISION_TERM[r.decision] ?? ["c", r.decision.toUpperCase()];
+        const lift = r.relative_lift == null ? "—" : `${r.relative_lift > 0 ? "+" : ""}${(r.relative_lift * 100).toFixed(1)}%`;
+        const p = r.p_value == null ? "—" : r.p_value < 0.0001 ? "p<0.0001" : `p=${r.p_value.toFixed(4)}`;
+        return `<span class="p">${r.id}</span> ${pad(r.name.slice(0, 26), 28)}${pad(lift, 8)}${pad(p, 11)}→ <span class="${cls}">${label}</span>`;
+      })
+      .join("<br>") + "<br>";
+
+    const shipped = experiments.results.filter((r) => r.decision === "lanzar").length;
+    const blocked = experiments.results.filter((r) => r.decision === "no_lanzar_guardia").length;
+    const killed = experiments.results.filter((r) => r.decision.includes("descartar")).length;
+    set(
+      "expSummary",
+      `${shipped} se lanza. ${blocked} ganaron en la métrica primaria y aun así se bloquean. ${killed} se descarta y se documenta.`
+    );
+
+    // Slide 6 — tarjetas de los bloqueados, generadas desde los datos
+    document.getElementById("blocked-cards").innerHTML = experiments.results
+      .filter((r) => r.guardrail?.breached)
+      .map((r) => {
+        const g = r.guardrail;
+        const from = g.kind === "duration" ? `${g.control_value} a ${g.variant_value} min` : `${pct(g.control_value)} a ${pct(g.variant_value)}`;
+        return `<div class="pcard pink">
+          <div class="t" style="color:var(--pink)">${r.id} · ${r.name}</div>
+          <div class="n" style="font-size:32px;margin-top:12px">${r.relative_lift > 0 ? "+" : ""}${(r.relative_lift * 100).toFixed(1)}%</div>
+          <div class="s">en la métrica primaria… pero <b style="color:var(--pink)">${g.label.replace(/^Guardia: /, "")}</b> se mueve de ${from}
+          (${(g.relativeDelta * 100).toFixed(1)}%), por encima de la tolerancia de ${pct(g.toleranceRelative, 0)}.</div>
+        </div>`;
+      })
+      .join("");
+
+    // Slide 7
+    set("utilisation", pct(ops.capacity_utilisation, 0));
+    set("opsVerdict", ops.verdict);
+
+    // Slide 8
+    set("backlogCount", backlog.items.length);
+  })
+  .catch((err) => {
+    document.getElementById("pf").innerHTML = `<div class="lead">No se pudo cargar la data (${err.message}). Corré <span class="mono">npm run run-all</span>.</div>`;
+  });
+</script>
+</body>
+</html>
