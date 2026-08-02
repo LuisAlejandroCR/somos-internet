@@ -22,16 +22,14 @@ __pycache__/
 # generador usa una semilla fija (SEED en src/pipeline/01-generate.js).
 # Los agregados pequeños que consume la web (funnel.json, derived.json,
 # experiment-results.json, operations.json, meta.json, experiments.json) SÍ se
-# commitean, para que el dashboard y Vercel funcionen sin correr el pipeline.
+# commitean, para que el dashboard y Cloudflare Pages funcionen sin correr el pipeline.
 raw/sessions.json
 raw/conversations.json
 raw/assignments.json
 
-CLAUDE.md
-.claude
-
-descubrimientos/
-
-docs/
-
+# Repo privado anidado (somos-knowledge-base/) — docs y lógica de negocio,
+# nunca debe ser trackeado por este repo público.
 somos-knowledge-base/
+
+# Config local del agente
+.claude/
