@@ -14,42 +14,40 @@ html, body { height: 100%; overflow: hidden; }
 section.slide {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 64px clamp(28px, 7vw, 116px);
+  padding: 60px clamp(28px, 7vw, 116px);
   opacity: 0; pointer-events: none; transition: opacity 0.55s ease;
   overflow-y: auto;
 }
 section.slide.on { opacity: 1; pointer-events: auto; }
-.slide h1 { font-size: clamp(28px, 4.3vw, 54px); font-weight: 700; letter-spacing: -1.6px; line-height: 1.08; max-width: 940px; }
+.slide h1 { font-size: clamp(27px, 4vw, 50px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; max-width: 940px; }
 .slide h1 em { color: var(--mint); font-style: normal; }
-.slide h1 mark { background: var(--mint); color: #000; padding: 0 10px; border-radius: 8px; }
-.slide .lead { color: var(--muted); font-size: clamp(14px, 1.5vw, 18px); margin-top: 16px; max-width: 820px; line-height: 1.6; }
+.slide .lead { color: var(--muted); font-size: clamp(13.5px, 1.4vw, 16.5px); margin-top: 14px; max-width: 780px; line-height: 1.55; }
 .giant { font-size: clamp(72px, 13.5vw, 178px); font-weight: 700; letter-spacing: -6px; line-height: 0.88; font-family: "JetBrains Mono", monospace; }
 .giant.mint { color: var(--mint); }
 .giant.pink { color: var(--pink); }
 .giant.cream { color: var(--cream); }
 
-.pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: 18px; margin-top: 30px; max-width: 1080px; }
-.pcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--glow-neutral); }
+.pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 26px; max-width: 1080px; }
+.pcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--glow-neutral); }
 .pcard.mint { box-shadow: var(--glow-mint); border-color: rgba(86,245,187,.2); }
 .pcard.pink { box-shadow: var(--glow-pink); border-color: rgba(255,110,231,.2); }
 .pcard .n { font-size: clamp(26px, 3.6vw, 38px); font-weight: 700; letter-spacing: -1.5px; font-family: "JetBrains Mono", monospace; line-height: 1; margin-bottom: 8px; }
-.pcard .t { font-weight: 600; font-size: 14px; }
-.pcard .s { color: var(--muted); font-size: 12.5px; margin-top: 6px; line-height: 1.55; }
-.pcard .lim { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-2); font-size: 11.5px; color: var(--muted-2); line-height: 1.5; }
+.pcard .t { font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 9px; }
+.pcard .s { color: var(--muted); font-size: 12px; margin-top: 8px; line-height: 1.5; }
+.pcard .lim { margin-top: 10px; padding-top: 9px; border-top: 1px dashed var(--border-2); font-size: 11px; color: var(--muted-2); line-height: 1.45; }
 .pcard .lim b { color: var(--cream); }
 
-.pfunnel { margin-top: 30px; max-width: 720px; }
-.pf-row { display: grid; grid-template-columns: 190px 1fr 96px; gap: 13px; align-items: center; margin-bottom: 9px; font-size: 13.5px; }
-.pf-track { background: var(--card-2); border-radius: 8px; height: 30px; overflow: hidden; }
-.pf-bar { height: 100%; background: linear-gradient(90deg, var(--mint), #2fd6a0); display: flex; align-items: center; padding-left: 11px; font-size: 12px; font-weight: 700; color: #00110b; }
+.pfunnel { margin-top: 26px; max-width: 720px; }
+.pf-row { display: grid; grid-template-columns: 190px 1fr 96px; gap: 13px; align-items: center; margin-bottom: 9px; font-size: 13px; }
+.pf-track { background: var(--card-2); border-radius: 8px; height: 28px; overflow: hidden; }
+.pf-bar { height: 100%; background: linear-gradient(90deg, var(--mint), #2fd6a0); display: flex; align-items: center; padding-left: 11px; font-size: 11.5px; font-weight: 700; color: #00110b; }
 .pf-bar.bad { background: linear-gradient(90deg, var(--pink), #d451b9); color: #1a0016; }
-.pf-lost { color: var(--pink); font-family: "JetBrains Mono", monospace; font-size: 12.5px; text-align: right; }
+.pf-lost { color: var(--pink); font-family: "JetBrains Mono", monospace; font-size: 12px; text-align: right; }
 
-.hero-orb { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
 .term {
-  background: #0a0a10; border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px;
-  font-family: "JetBrains Mono", monospace; font-size: clamp(11.5px, 1.1vw, 13.5px); line-height: 1.9;
-  max-width: 780px; margin-top: 22px; color: #d8d8de; box-shadow: var(--glow-neutral);
+  background: #0a0a10; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px;
+  font-family: "JetBrains Mono", monospace; font-size: clamp(10.5px, 1vw, 12.5px); line-height: 1.85;
+  max-width: 780px; margin-top: 18px; color: #d8d8de; box-shadow: var(--glow-neutral);
 }
 .term .p { color: var(--mint); font-weight: 600; }
 .term .c { color: var(--muted-2); }
@@ -57,7 +55,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .term .bad { color: var(--pink); }
 
 .tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border-2); font-size: 13px; font-weight: 500; }
-.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
 .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--mint); transition: width 0.4s ease; z-index: 50; }
 .deck-nav { position: fixed; bottom: 20px; right: 26px; display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--muted-2); z-index: 50; }
@@ -81,105 +79,109 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .lbl.rec { color: var(--cream); border-color: rgba(243,228,190,.3); }
 .lbl.obs { color: var(--muted); border-color: var(--border-2); }
 
+/* ── Eyebrow con icono ── */
+.eyebrow-row { display: flex; align-items: center; gap: 9px; }
+.eyebrow-row .eyebrow { margin-bottom: 0; }
+
 /* ── Split: historia a la izquierda, detalle a la derecha ── */
-.split { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 40px; margin-top: 30px; max-width: 1180px; align-items: start; }
+.split { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 36px; margin-top: 22px; max-width: 1180px; align-items: start; }
 @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
 
-/* ── Flujo del usuario (slide 3) ── */
-.journey { display: flex; flex-direction: column; max-width: 460px; }
-.jstep { display: grid; grid-template-columns: 170px 1fr; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed var(--border-2); }
-.jstep:last-child { border-bottom: none; }
-.jstep b { font-size: 13.5px; color: var(--cream); }
-.jstep span { font-size: 11.5px; color: var(--muted-2); }
-.qlist { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; max-width: 460px; }
-.qitem { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.5; }
-.qitem::before { content: "?"; flex: none; width: 22px; height: 22px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border-2); color: var(--mint); font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+.qlist { display: flex; flex-direction: column; gap: 9px; }
+.qitem { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.qitem::before { content: "?"; flex: none; width: 20px; height: 20px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border-2); color: var(--mint); font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+
+/* ── Diagrama de flujo (slides 3, 8) — reemplaza listas de texto por nodos conectados ── */
+.flow-diagram { display: flex; align-items: flex-start; gap: 2px; margin-top: 22px; max-width: 1080px; flex-wrap: wrap; }
+.flow-node { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; width: 152px; }
+.flow-node .t3 { font-size: 12.5px; font-weight: 600; color: var(--cream); line-height: 1.3; }
+.flow-node .s3 { font-size: 10.5px; color: var(--muted-2); line-height: 1.4; }
+.flow-arrow { display: flex; align-items: center; justify-content: center; width: 30px; height: 40px; color: var(--mint); flex: none; margin-top: 15px; }
+.flow-arrow .icon { width: 20px; height: 20px; }
+@media (max-width: 780px) { .flow-diagram { flex-direction: column; } .flow-node { width: auto; flex-direction: row; text-align: left; } .flow-arrow { transform: rotate(90deg); margin: -6px 0 -6px 10px; } }
+
+/* ── Comparación ACTUAL → PROPUESTO como pills, no monospace ── */
+.flow-compare { display: flex; align-items: center; gap: 8px; margin-top: 7px; flex-wrap: wrap; }
+.flow-pill { padding: 4px 11px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card-2); color: var(--muted-2); font-size: 11.5px; }
+.flow-pill.to { color: var(--mint); border-color: rgba(86,245,187,.4); background: rgba(86,245,187,.08); font-weight: 600; }
+.flow-compare .a2 { color: var(--mint); font-weight: 700; font-size: 13px; }
+
+/* ── Mini-stats con icono (slide 2) ── */
+.stat3 { display: flex; flex-direction: column; gap: 16px; margin-top: 18px; max-width: 480px; }
+.stat3-row { display: flex; gap: 13px; align-items: flex-start; }
+.stat3-row .t2 { font-size: 13px; color: var(--cream); font-weight: 600; }
+.stat3-row .s2 { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin-top: 3px; }
 
 /* ── Filas compactas de hipótesis (slides 4, 5, 6) ── */
-.hlist { margin-top: 26px; max-width: 1120px; display: flex; flex-direction: column; gap: 10px; }
-.hrow { display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; align-items: start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 20px; }
+.hlist { margin-top: 20px; max-width: 1120px; display: flex; flex-direction: column; gap: 9px; }
+.hrow { display: grid; grid-template-columns: 40px 1fr auto; gap: 14px; align-items: start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 13px 18px; }
 .hrow.top { border-color: rgba(86,245,187,.25); box-shadow: var(--glow-mint); }
-.hrow .n { font-family: "JetBrains Mono", monospace; font-size: 19px; font-weight: 700; color: var(--mint); }
+.hrow .n { display: flex; align-items: center; justify-content: center; color: var(--mint); }
 .hrow.top .n { color: var(--cream); }
-.hrow .t { font-weight: 600; font-size: 13.5px; color: var(--cream); }
-.hrow .w { color: var(--muted); font-size: 12px; margin-top: 3px; line-height: 1.5; }
-.hrow .meta { text-align: right; font-size: 11px; color: var(--muted); line-height: 1.7; white-space: nowrap; }
-.hrow details summary { cursor: pointer; font-size: 11.5px; color: var(--mint); margin-top: 6px; list-style: none; }
+.hrow .t { font-weight: 600; font-size: 13px; color: var(--cream); }
+.hrow .w { color: var(--muted); font-size: 11.5px; margin-top: 2px; line-height: 1.45; }
+.hrow .meta { text-align: right; font-size: 10.5px; color: var(--muted); line-height: 1.6; white-space: nowrap; }
+.hrow details summary { cursor: pointer; font-size: 11px; color: var(--mint); margin-top: 5px; list-style: none; }
 .hrow details summary::-webkit-details-marker { display: none; }
 .hrow details summary::before { content: "▸ "; }
 .hrow details[open] summary::before { content: "▾ "; }
-.hrow-detail { margin-top: 8px; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.hrow-detail { margin-top: 7px; font-size: 11.5px; color: var(--muted); line-height: 1.6; }
 .hrow-detail .m { margin-bottom: 4px; }
 .hrow-detail .k { color: var(--muted-2); }
 
-/* ── Mini flujos ACTUAL / PROPUESTO ── */
-.mflow { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted-2); line-height: 1.95; margin-top: 4px; }
-.mflow .hl { color: var(--mint); font-weight: 700; }
-.mflow .bad { color: var(--pink); font-weight: 700; }
-
 /* ── Tarjeta de detalle (hipótesis destacada) ── */
-.expcard { background: var(--card-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 24px; box-shadow: var(--glow-neutral); }
+.expcard { background: var(--card-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; box-shadow: var(--glow-neutral); }
 .expcard.mint { border-color: rgba(86,245,187,.28); box-shadow: var(--glow-mint); }
-.expcard h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted-2); text-transform: uppercase; margin: 16px 0 7px; }
+.expcard h3 { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted-2); text-transform: uppercase; margin: 14px 0 6px; }
 .expcard h3:first-child { margin-top: 0; }
-.expcard p, .mrow { font-size: 12.5px; line-height: 1.55; }
-.mrow { display: grid; grid-template-columns: 130px 1fr; gap: 4px 14px; margin-bottom: 5px; }
-.mrow dt { color: var(--muted); }
-.mrow dd { color: var(--cream); margin: 0; }
-.mrow dd.prim { color: var(--mint); font-weight: 700; }
-.mrow dd.bad { color: var(--pink); }
-.ulist { list-style: none; margin: 4px 0 0; padding: 0; }
-.ulist li { font-size: 12.5px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.65; }
-.ulist li::before { content: "▸"; position: absolute; left: 0; color: var(--mint); }
-.ulist li.pink::before { color: var(--pink); }
-.sim-chip { display: inline-flex; gap: 8px; align-items: center; margin-top: 16px; font-size: 12px; color: var(--muted); }
+.expcard p, .mrow { font-size: 12px; line-height: 1.5; }
+.sim-chip { display: inline-flex; gap: 8px; align-items: center; margin-top: 14px; font-size: 11.5px; color: var(--muted); }
 .sim-chip .mono { color: var(--pink); font-weight: 600; }
 
 /* ── Loop del sistema (slide 9) ── */
-.loop { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 26px 0 6px; font-size: 12px; max-width: 1150px; }
-.loop span { background: var(--card-2); border: 1px solid var(--border-2); padding: 5px 12px; border-radius: 999px; color: var(--cream); font-weight: 600; }
+.loop { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin: 20px 0 4px; font-size: 11.5px; max-width: 1150px; }
+.loop span { background: var(--card-2); border: 1px solid var(--border-2); padding: 5px 11px; border-radius: 999px; color: var(--cream); font-weight: 600; }
 .loop .a { background: none; border: none; color: var(--mint); padding: 0; font-weight: 700; }
 
 /* ── Motor de decisiones (dentro de slide 9) ── */
-.outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; max-width: 1120px; }
+.outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; max-width: 1120px; }
 @media (max-width: 900px) { .outcomes { grid-template-columns: 1fr; } }
-.ocard { border-radius: var(--radius-lg); padding: 16px 18px; border: 1px solid var(--border); background: var(--card); }
-.ocard h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; }
+.ocard { border-radius: var(--radius-lg); padding: 14px 16px; border: 1px solid var(--border); background: var(--card); }
+.ocard h3 { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; display: flex; align-items: center; gap: 7px; }
 .ocard.ship { border-color: rgba(86,245,187,.3); box-shadow: var(--glow-mint); }
 .ocard.ship h3 { color: var(--mint); }
 .ocard.iterate { border-color: rgba(243,228,190,.25); }
 .ocard.iterate h3 { color: var(--cream); }
 .ocard.stop { border-color: rgba(255,110,231,.3); box-shadow: var(--glow-pink); }
 .ocard.stop h3 { color: var(--pink); }
-.ocard ul { list-style: none; margin: 8px 0 0; padding: 0; }
-.ocard li { font-size: 11.5px; color: var(--muted); line-height: 1.6; padding-left: 13px; position: relative; }
+.ocard ul { list-style: none; margin: 7px 0 0; padding: 0; }
+.ocard li { font-size: 11px; color: var(--muted); line-height: 1.55; padding-left: 12px; position: relative; }
 .ocard li::before { content: "·"; position: absolute; left: 2px; color: var(--mint); font-weight: 700; }
 
 /* ── Plan / preguntas (slide 10) ── */
-.steps { margin-top: 26px; max-width: 880px; display: flex; flex-direction: column; gap: 11px; }
-.step { display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
-.step .num { font-family: "JetBrains Mono", monospace; font-size: 17px; font-weight: 700; color: var(--mint); }
-.step .txt { font-size: 13.5px; color: var(--cream); line-height: 1.5; }
-.step .txt small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
-.closer { margin-top: 30px; font-size: clamp(16px, 1.8vw, 22px); font-weight: 600; color: var(--cream); max-width: 900px; line-height: 1.5; }
+.steps { margin-top: 18px; max-width: 460px; display: flex; flex-direction: column; gap: 12px; }
+.step { display: flex; gap: 13px; align-items: flex-start; }
+.step .txt { font-size: 12.5px; color: var(--cream); line-height: 1.45; }
+.step .txt small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; font-weight: 400; }
+.closer { margin-top: 22px; font-size: clamp(15px, 1.6vw, 20px); font-weight: 600; color: var(--cream); max-width: 900px; line-height: 1.45; }
 .closer em { color: var(--mint); font-style: normal; }
 
 /* ── Mapeo de contribución + brechas (slide 10) ── */
-.contrib { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; max-width: 560px; }
-.contrib-row { font-size: 12.5px; color: var(--muted); line-height: 1.55; padding-left: 16px; position: relative; }
+.contrib { margin-top: 4px; display: flex; flex-direction: column; gap: 8px; max-width: 480px; }
+.contrib-row { font-size: 11.5px; color: var(--muted); line-height: 1.5; padding-left: 15px; position: relative; }
 .contrib-row::before { content: "▸"; position: absolute; left: 0; color: var(--mint); }
 .contrib-row b { color: var(--cream); }
-.gaps { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-2); }
-.gaps .g { font-size: 12px; color: var(--muted-2); line-height: 1.6; padding-left: 16px; position: relative; margin-top: 4px; }
+.gaps { margin-top: 12px; padding-top: 11px; border-top: 1px dashed var(--border-2); }
+.gaps .g { font-size: 11px; color: var(--muted-2); line-height: 1.5; padding-left: 15px; position: relative; margin-top: 4px; }
 .gaps .g::before { content: "—"; position: absolute; left: 0; color: var(--pink); }
 
 /* ── Backlog priorizado (slide 6) ── */
-.backlog-rank { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.backlog-rank li { display: grid; grid-template-columns: 28px auto 1fr auto; gap: 12px; align-items: baseline; font-size: 13px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; }
+.backlog-rank { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.backlog-rank li { display: grid; grid-template-columns: 26px auto 1fr auto; gap: 11px; align-items: baseline; font-size: 12.5px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; }
 .backlog-rank .rank-n { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--mint); }
-.backlog-rank b { color: var(--cream); font-family: "JetBrains Mono", monospace; font-size: 12px; }
-.backlog-rank .just { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted-2); line-height: 1.5; margin-top: -2px; }
-.rank-ice { color: var(--pink); font-size: 11.5px; white-space: nowrap; }
+.backlog-rank b { color: var(--cream); font-family: "JetBrains Mono", monospace; font-size: 11.5px; }
+.backlog-rank .just { grid-column: 1 / -1; font-size: 11px; color: var(--muted-2); line-height: 1.45; margin-top: -2px; }
+.rank-ice { color: var(--pink); font-size: 11px; white-space: nowrap; }
 @media (max-width: 680px) { .backlog-rank li { grid-template-columns: 1fr; } }
 
 @media (max-width: 680px) {
@@ -201,14 +203,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <div class="eyebrow">Candidatura CRO · Somos Internet</div>
     <h1>Mis hipótesis para <em>Somos.</em></h1>
     <p class="lead">
-      No tengo acceso a los datos internos de Somos. Así que separé lo que puedo observar
-      públicamente, lo que hipotetizo, y cómo lo probaría — con evidencia y método, no solo opinión.
+      No tengo acceso a los datos internos de Somos. Separé lo que puedo observar públicamente,
+      lo que hipotetizo, y cómo lo probaría.
     </p>
     <p class="lead" style="color:var(--muted-2);font-size:13px">
       "No eres un analista de dashboards. Eres quien cierra el loop entre el dato y la decisión."
       — de la vacante de CRO en Somos Internet
     </p>
-    <div class="tags" style="margin-top:30px">
+    <div class="tags" style="margin-top:26px">
       <span class="lbl hyp">OBSERVACIÓN PÚBLICA</span>
       <span class="lbl rec">+</span>
       <span class="lbl hyp">HIPÓTESIS</span>
@@ -219,24 +221,34 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 2 · La empresa y el momento -->
   <section class="slide">
-    <div class="eyebrow">Antes de las hipótesis · el negocio</div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/><path d="M8 7h1M11 7h1M8 11h1M11 11h1M8 15h1M11 15h1"/></svg>
+      <div class="eyebrow">Antes de las hipótesis · el negocio</div>
+    </div>
     <h1>Somos no compite solo en <em>precio.</em></h1>
-    <div class="split" style="margin-top:14px">
-      <div>
-        <ul class="ulist" style="margin-top:0">
-          <li>Serie A (USV + Ribbit Capital, US$18M) y Serie B (Bracket Capital + Ribbit, US$40M, 2026) — pelea directa contra Claro, Movistar y Tigo en "la industria más odiada de Colombia".</li>
-          <li>Dos capas: hoy es fibra residencial; el capital de la Serie B se dirige a FiberX y a Autoridad Panandina (infraestructura de cómputo de IA sobre hidroeléctricas) — no a presupuesto de pauta.</li>
-          <li>Por eso la conversión orgánica pesa más aquí que en un ISP que compra crecimiento con más gasto en Meta/Google Ads.</li>
-        </ul>
+    <div class="split" style="margin-top:8px">
+      <div class="stat3">
+        <div class="stat3-row">
+          <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span>
+          <div><div class="t2">Serie A + Serie B</div><div class="s2">USV+Ribbit (US$18M) y Bracket+Ribbit (US$40M, 2026) — pelea directa contra Claro, Movistar y Tigo.</div></div>
+        </div>
+        <div class="stat3-row">
+          <span class="icon-badge pink"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg></span>
+          <div><div class="t2">Dos capas</div><div class="s2">Hoy: fibra residencial. El capital Serie B va a FiberX y Autoridad Panandina (IA) — no a pauta.</div></div>
+        </div>
+        <div class="stat3-row">
+          <span class="icon-badge cream"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+          <div><div class="t2">La conversión orgánica pesa más aquí</div><div class="s2">que en un ISP que compra crecimiento con más gasto en Meta/Google Ads.</div></div>
+        </div>
       </div>
       <div class="expcard">
         <h3>En palabras del CEO</h3>
         <p style="font-style:italic;color:var(--cream)">
-          "Expansión acelerada de cobertura en zonas urbanas densas; campañas hiperlocales digitales
-          y presenciales apoyadas en analítica de datos; y valor diferenciado en precio, calidad y servicio."
+          "Campañas hiperlocales digitales y presenciales apoyadas en analítica de datos; y valor
+          diferenciado en precio, calidad y servicio."
         </p>
-        <p class="lead" style="font-size:11.5px;margin-top:10px;color:var(--muted-2)">
-          Forrest Heath, CEO — entrevista en La República. Fuente: descubrimientos/01
+        <p class="lead" style="font-size:11px;margin-top:8px;color:var(--muted-2)">
+          Forrest Heath, CEO — La República. Fuente: descubrimientos/01
         </p>
       </div>
     </div>
@@ -244,154 +256,175 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 3 · Lo que se puede ver desde afuera -->
   <section class="slide">
-    <div class="eyebrow">Lo que se puede ver desde afuera <span class="lbl obs" style="margin-left:10px">OBSERVACIÓN PÚBLICA</span></div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+      <div class="eyebrow">Lo que se puede ver desde afuera <span class="lbl obs" style="margin-left:8px">OBSERVACIÓN PÚBLICA</span></div>
+    </div>
     <h1>El embudo, tal como <em>cualquiera</em> lo puede ver.</h1>
-    <div class="split">
-      <div class="journey">
-        <div class="jstep"><b>Home</b><span>dos CTAs: "Hablemos" (WhatsApp, texto prellenado de venta) y "Prueba 30 días gratis" (formulario)</span></div>
-        <div class="jstep"><b>Formulario</b><span>"Cuéntanos sobre ti": código de referido, nombre, apellidos, prefijo de país (~200 opciones) + celular, correo</span></div>
-        <div class="jstep"><b>Elegibilidad</b><span>"¿tienes portería o administración?" — al final del formulario, no al inicio</span></div>
-        <div class="jstep"><b>Salida a WhatsApp</b><span>link "Contáctanos" visible en cada paso del formulario propio</span></div>
+
+    <div class="flow-diagram">
+      <div class="flow-node">
+        <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6 15 2-6 6-2z"/><path d="M14 14l6 6"/></svg></span>
+        <div class="t3">Home</div><div class="s3">2 CTAs: "Hablemos" (WhatsApp) y "Prueba 30 días" (formulario)</div>
       </div>
-      <div>
-        <p class="lead" style="margin-top:0">Esto es lo que se puede observar sin credenciales — de aquí nace cada hipótesis:</p>
-        <div class="qlist">
-          <div class="qitem">¿Por qué dos caminos de conversión con la misma jerarquía visual?</div>
-          <div class="qitem">¿Por qué la elegibilidad se pregunta al final?</div>
-          <div class="qitem">¿Por qué un selector de ~200 países para un servicio 100% Colombia?</div>
-        </div>
+      <div class="flow-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="flow-node">
+        <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg></span>
+        <div class="t3">Formulario</div><div class="s3">Nombre, celular con ~200 países, correo</div>
+      </div>
+      <div class="flow-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="flow-node">
+        <span class="icon-badge pink"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,4 20,4 14,13 14,20 10,20 10,13"/></svg></span>
+        <div class="t3">Elegibilidad</div><div class="s3">"¿Portería o administración?" — al final, no al inicio</div>
+      </div>
+      <div class="flow-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="flow-node">
+        <span class="icon-badge cream"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></span>
+        <div class="t3">Salida a WhatsApp</div><div class="s3">"Contáctanos" visible en cada paso</div>
       </div>
     </div>
-    <p class="lead" style="margin-top:24px;font-size:12.5px;color:var(--muted-2)">
-      Esto es lo público; el resto de este deck es hipótesis a validar con sus datos. Fuente: descubrimientos/04, product/embudo-y-producto.md
+
+    <div class="qlist" style="margin-top:22px;max-width:640px">
+      <div class="qitem">¿Por qué dos caminos de conversión con la misma jerarquía visual?</div>
+      <div class="qitem">¿Por qué la elegibilidad se pregunta al final?</div>
+      <div class="qitem">¿Por qué un selector de ~200 países para un servicio 100% Colombia?</div>
+    </div>
+    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">
+      Fuente: descubrimientos/04, product/embudo-y-producto.md
     </p>
   </section>
 
   <!-- 4 · Hipótesis del checkout web -->
   <section class="slide">
-    <div class="eyebrow">Hipótesis · checkout web <span class="lbl hyp" style="margin-left:10px">HIPÓTESIS</span></div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-6 10a1.5 1.5 0 0 0 1.3 2.3h13.4A1.5 1.5 0 0 0 20 19L14 9V3"/><path d="M7.5 15h9"/></svg>
+      <div class="eyebrow">Hipótesis · checkout web <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
+    </div>
     <h1>Cuatro fricciones en el <em>formulario propio.</em></h1>
     <div class="hlist">
       <div class="hrow top">
-        <div class="n">01</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,4 20,4 14,13 14,20 10,20 10,13"/></svg></div>
         <div>
           <div class="t">Elegibilidad al final, no al inicio</div>
-          <div class="mflow">Actual: Contacto → <span class="bad">Elegibilidad</span> &nbsp;·&nbsp; Propuesto: <span class="hl">Elegibilidad</span> → Contacto</div>
+          <div class="flow-compare"><span class="flow-pill">Contacto → Elegibilidad</span><span class="a2">→</span><span class="flow-pill to">Elegibilidad → Contacto</span></div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — % de leads completos que resultan elegibles</div>
+              <div class="m"><span class="k">Métrica</span> — % de leads completos que resultan elegibles</div>
               <div class="m"><span class="k">Guardia</span> — completitud total del formulario</div>
-              <div class="m"><span class="k">Descarte</span> — si sube calidad pero cae completitud más de lo tolerable, probar variante intermedia (mensaje informativo, no bloqueo)</div>
+              <div class="m"><span class="k">Descarte</span> — si cae completitud más de lo tolerable, probar variante intermedia</div>
             </div>
           </details>
         </div>
         <div class="meta">impacto alto<br>confianza media</div>
       </div>
       <div class="hrow">
-        <div class="n">02</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></div>
         <div>
           <div class="t">Selector de país en el celular</div>
-          <div class="mflow">Actual: dropdown ~200 países &nbsp;·&nbsp; Propuesto: <span class="hl">+57 fijo</span></div>
+          <div class="flow-compare"><span class="flow-pill">dropdown ~200 países</span><span class="a2">→</span><span class="flow-pill to">+57 fijo</span></div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — completitud del paso "Cuéntanos sobre ti"</div>
+              <div class="m"><span class="k">Métrica</span> — completitud del paso "Cuéntanos sobre ti"</div>
               <div class="m"><span class="k">Guardia</span> — tasa de error/soporte en el campo de teléfono</div>
-              <div class="m"><span class="k">Descarte</span> — si no mejora completitud tras el tamaño de muestra mínimo, el dropdown no era la fricción dominante</div>
+              <div class="m"><span class="k">Descarte</span> — si no mejora tras el tamaño de muestra mínimo</div>
             </div>
           </details>
         </div>
         <div class="meta">impacto medio<br>fácil de probar</div>
       </div>
       <div class="hrow">
-        <div class="n">03</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6 15 2-6 6-2z"/><path d="M14 14l6 6"/></svg></div>
         <div>
           <div class="t">Dos CTAs compitiendo sin jerarquía clara</div>
-          <div class="mflow">"Hablemos" y "Prueba 30 días" con el mismo peso visual</div>
+          <div class="w">"Hablemos" y "Prueba 30 días" con el mismo peso visual.</div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — conversión combinada (formulario + WhatsApp) / visitas al home</div>
-              <div class="m"><span class="k">Guardia</span> — carga del equipo de WhatsApp si sube el volumen conversacional</div>
-              <div class="m"><span class="k">Descarte</span> — si no hay diferencia significativa, probar jerarquía visual (un CTA primario) en vez de diferenciar copy</div>
+              <div class="m"><span class="k">Métrica</span> — conversión combinada (formulario + WhatsApp) / visitas al home</div>
+              <div class="m"><span class="k">Guardia</span> — carga del equipo de WhatsApp</div>
+              <div class="m"><span class="k">Descarte</span> — probar jerarquía visual en vez de diferenciar copy</div>
             </div>
           </details>
         </div>
         <div class="meta">impacto alto<br>confianza media</div>
       </div>
       <div class="hrow">
-        <div class="n">04</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div>
           <div class="t">"Sin cláusula" no se repite en el checkout</div>
-          <div class="mflow">Aparece en el home y el FAQ; no junto al botón de submit</div>
+          <div class="w">Aparece en el home y el FAQ; no junto al botón de submit.</div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — completitud del paso final antes de submit</div>
-              <div class="m"><span class="k">Guardia</span> — tiempo en página (por si el mensaje genera más duda)</div>
-              <div class="m"><span class="k">Descarte</span> — si no mejora, probablemente ya se percibe suficiente desde el home</div>
+              <div class="m"><span class="k">Métrica</span> — completitud del paso final antes de submit</div>
+              <div class="m"><span class="k">Guardia</span> — tiempo en página</div>
+              <div class="m"><span class="k">Descarte</span> — si no mejora, ya se percibe suficiente desde el home</div>
             </div>
           </details>
         </div>
         <div class="meta">impacto bajo<br>fácil de probar</div>
       </div>
     </div>
-    <p class="lead" style="margin-top:18px;font-size:12px;color:var(--muted-2)">Fuente: descubrimientos/04-embudo-conversion-hipotesis-ab.md</p>
+    <p class="lead" style="margin-top:14px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/04-embudo-conversion-hipotesis-ab.md</p>
   </section>
 
   <!-- 5 · Hipótesis del canal WhatsApp -->
   <section class="slide">
-    <div class="eyebrow">Hipótesis · canal WhatsApp <span class="lbl hyp" style="margin-left:10px">HIPÓTESIS</span></div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+      <div class="eyebrow">Hipótesis · canal WhatsApp <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
+    </div>
     <h1>WhatsApp ya es el canal principal.<br><em>¿Se está midiendo así?</em></h1>
-    <p class="lead">
+    <p class="lead" style="font-size:12.5px">
       "Optimizar flujos conversacionales de WhatsApp con criterio de comportamiento del consumidor
       — no solo con intuición de copy." — de la vacante de CRO
     </p>
-    <div class="hlist" style="margin-top:20px">
+    <div class="hlist" style="margin-top:16px">
       <div class="hrow top">
-        <div class="n">01</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></div>
         <div>
           <div class="t">Texto prellenado específico por origen del clic</div>
-          <div class="w">Hoy el mensaje es genérico ("quiero más información"). Uno específico por página de origen podría acortar la calificación manual.</div>
+          <div class="w">Hoy es genérico. Uno específico por página podría acortar la calificación manual.</div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — % de conversaciones que llegan a instalación agendada</div>
+              <div class="m"><span class="k">Métrica</span> — % de conversaciones que llegan a instalación agendada</div>
               <div class="m"><span class="k">Guardia</span> — tiempo promedio de primera respuesta</div>
-              <div class="m"><span class="k">Descarte</span> — si no hay diferencia en conversión, el texto no era el cuello de botella</div>
+              <div class="m"><span class="k">Descarte</span> — si no hay diferencia en conversión</div>
             </div>
           </details>
         </div>
         <div class="meta">impacto medio<br>fácil de probar</div>
       </div>
       <div class="hrow top">
-        <div class="n">02</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,4 20,4 14,13 14,20 10,20 10,13"/></svg></div>
         <div>
           <div class="t">Automatizar el filtro de elegibilidad en los primeros mensajes</div>
-          <div class="w">Ciudad + tipo de vivienda resueltos por bot antes de escalar a un asesor humano — libera al asesor para cerrar, no para filtrar.</div>
+          <div class="w">Ciudad + tipo de vivienda por bot antes de escalar — libera al asesor para cerrar, no filtrar.</div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — % de conversaciones escaladas que ya llegan calificadas</div>
-              <div class="m"><span class="k">Guardia</span> — percepción de "hablar con un bot" (encuesta / solicitudes de humano)</div>
-              <div class="m"><span class="k">Descarte</span> — si empeora la percepción, revertir a calificación humana con guion mejorado</div>
+              <div class="m"><span class="k">Métrica</span> — % de conversaciones escaladas que ya llegan calificadas</div>
+              <div class="m"><span class="k">Guardia</span> — percepción de "hablar con un bot"</div>
+              <div class="m"><span class="k">Descarte</span> — revertir a calificación humana con guion mejorado</div>
             </div>
           </details>
         </div>
         <div class="meta">impacto alto<br>esfuerzo medio</div>
       </div>
       <div class="hrow">
-        <div class="n">03</div>
+        <div class="n"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
         <div>
           <div class="t">Re-enganche de conversaciones frías (24-48h)</div>
-          <div class="w">Conversaciones sin respuesta del usuario tras el primer contacto, reactivadas con plantilla aprobada de Meta.</div>
+          <div class="w">Reactivadas con plantilla aprobada de Meta.</div>
           <details>
             <summary>Métrica, guardia, descarte</summary>
             <div class="hrow-detail">
-              <div class="m"><span class="k">Métrica primaria</span> — % de conversaciones frías reactivadas que llegan a instalación</div>
+              <div class="m"><span class="k">Métrica</span> — % de conversaciones frías reactivadas que llegan a instalación</div>
               <div class="m"><span class="k">Guardia</span> — tasa de opt-out/bloqueo</div>
-              <div class="m"><span class="k">Descarte</span> — si la reactivación es menor al costo/fricción medido en opt-outs</div>
+              <div class="m"><span class="k">Descarte</span> — si la reactivación es menor al costo/fricción</div>
             </div>
           </details>
         </div>
@@ -403,93 +436,118 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 6 · Backlog priorizado -->
   <section class="slide">
-    <div class="eyebrow">El pipeline de hipótesis · priorizado</div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg>
+      <div class="eyebrow">El pipeline de hipótesis · priorizado</div>
+    </div>
     <h1>Un backlog con ICE, <em>no un informe.</em></h1>
-    <p class="lead" style="margin-top:10px">
-      Las propuestas del backlog, con puntaje ICE (Impact · Confidence · Ease). La puntuación es
-      <b style="color:var(--cream)">mi propuesta de priorización</b>, no un dato de Somos.
+    <p class="lead" style="font-size:12.5px">
+      Impact · Confidence · Ease. La puntuación es <b style="color:var(--cream)">mi propuesta de priorización</b>, no un dato de Somos.
     </p>
-    <ol class="backlog-rank" id="backlog-rank" style="margin-top:22px;max-width:900px"></ol>
-    <div class="funnel-insight" style="max-width:900px;margin-top:18px;border-left-color:var(--warn);background:var(--card)">
+    <ol class="backlog-rank" id="backlog-rank" style="margin-top:18px;max-width:900px"></ol>
+    <div class="funnel-insight" style="max-width:900px;margin-top:14px;border-left-color:var(--warn);background:var(--card)">
       <span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span>
-      <b>Ninguna de estas propuestas debería implementarse ciegamente</b> sin antes confirmar si el
-      cuello de botella real está en generar demanda o en la capacidad de instalación — ver la
-      siguiente slide.
+      <b>Ninguna propuesta debería implementarse ciegamente</b> sin confirmar si el cuello de botella
+      real está en generar demanda o en instalar — ver la siguiente slide.
     </div>
   </section>
 
   <!-- 7 · Ideas propias -->
   <section class="slide">
-    <div class="eyebrow">Lo que nadie más lleva a esta entrevista</div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>
+      <div class="eyebrow">Lo que nadie más lleva a esta entrevista</div>
+    </div>
     <h1>Tres ideas <em>con nombre propio.</em></h1>
     <div class="pgrid">
       <div class="pcard mint">
-        <div class="t">"Somos [barrio]"</div>
-        <div class="s">"Somos" ya hace trabajo psicológico de pertenencia que "Claro" o "Movistar" no hacen. Variantes hiperlocales del nombre + prueba social localizada ("127 vecinos de tu zona ya son parte de Somos Laureles") — coherente con las campañas hiperlocales que el CEO ya dice ejecutar, y con el trabajo de calle que el propio equipo señaló como oportunidad.</div>
-        <div class="lim"><b>Límite declarado:</b> riesgo de fragmentación de marca sin un sistema visual único por debajo de las variantes.</div>
+        <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg></span>"Somos [barrio]"</div>
+        <div class="s">Identidad hiperlocal + prueba social localizada ("127 vecinos de tu zona ya son Somos Laureles"), coherente con el trabajo de calle que el propio equipo ya señaló como oportunidad.</div>
+        <div class="lim"><b>Límite:</b> riesgo de fragmentación de marca sin un sistema visual único.</div>
       </div>
       <div class="pcard mint">
-        <div class="t">"El Nu de los ISP"</div>
-        <div class="s">Posicionamiento con datos propios, no una frase suelta: Kaszek y Ribbit Capital respaldan a Somos igual que respaldaron a Nubank desde temprano — el mismo patrón de inversionistas detrás de dos apuestas contra incumbentes financieramente extractivos.</div>
-        <div class="lim"><b>Límite declarado:</b> es análisis propio confirmado con datos — se presenta así, no como cita de Somos.</div>
+        <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span>"El Nu de los ISP"</div>
+        <div class="s">Posicionamiento con datos propios: Kaszek y Ribbit Capital respaldan a Somos igual que respaldaron a Nubank desde temprano.</div>
+        <div class="lim"><b>Límite:</b> es análisis propio confirmado con datos, no cita de Somos.</div>
       </div>
       <div class="pcard mint">
-        <div class="t">Wire → wireless con DePIN</div>
-        <div class="s">Compartir la red Somos para llegar a no conectados y ser proveedor de datos móviles. El control del router ORB + Artemis es exactamente lo que exige el modelo Helium Plus. MVP honesto: piloto Passpoint propio en 5-10 edificios, sin tokens ni dependencia de terceros.</div>
-        <div class="lim"><b>Límite declarado:</b> 7 blockers mapeados — Colombia no activa en Helium, economía de nodos residenciales ~US$0, conflicto mayorista con los 4 operadores competidores.</div>
+        <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></span>Wire → wireless con DePIN</div>
+        <div class="s">El control del router ORB + Artemis es justo lo que exige el modelo Helium Plus. MVP honesto: piloto Passpoint en 5-10 edificios, sin tokens.</div>
+        <div class="lim"><b>Límite:</b> 7 blockers mapeados — Colombia no activa en Helium, conflicto mayorista con los 4 competidores.</div>
       </div>
     </div>
-    <p class="lead" style="margin-top:20px;font-size:12px;color:var(--muted-2)">Fuente: descubrimientos/10, descubrimientos/14, business/conexiones-inversionistas.md</p>
+    <p class="lead" style="margin-top:16px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/10, descubrimientos/14, business/conexiones-inversionistas.md</p>
   </section>
 
   <!-- 8 · El hallazgo que lo amarra -->
   <section class="slide">
-    <div class="eyebrow">El hallazgo que reencuadra todo lo anterior <span class="lbl sim" style="margin-left:10px">REQUIERE VALIDACIÓN INTERNA</span></div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>
+      <div class="eyebrow">El hallazgo que reencuadra todo lo anterior <span class="lbl sim" style="margin-left:8px">REQUIERE VALIDACIÓN INTERNA</span></div>
+    </div>
     <h1>¿Qué pasa <em>después</em> de ganar el experimento?</h1>
-    <p class="lead">
-      Antes de escalar cualquier hipótesis de conversión, validaría si el sistema puede absorber el resultado.
-    </p>
-    <div class="split" style="margin-top:18px">
+
+    <div class="flow-diagram" style="margin-top:18px">
+      <div class="flow-node">
+        <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span>
+        <div class="t3">Más conversión</div>
+      </div>
+      <div class="flow-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="flow-node">
+        <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg></span>
+        <div class="t3">Más agendamientos</div>
+      </div>
+      <div class="flow-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="flow-node">
+        <span class="icon-badge pink"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+        <div class="t3">Más demanda operativa</div>
+      </div>
+      <div class="flow-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+      <div class="flow-node">
+        <span class="icon-badge cream"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg></span>
+        <div class="t3">¿Más instalaciones?</div>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:20px">
       <div>
-        <div class="mflow">Más conversión → Más agendamientos → Más demanda operativa → <span class="hl">¿Más instalaciones?</span></div>
-        <p class="lead" style="font-size:13px;margin-top:14px">
+        <p class="lead" style="margin-top:0;font-size:12.5px">
           Notas internas mencionan una posible lista de espera operativa de cientos de clientes
           (fuente no verificada de forma independiente). Si es real, subir la conversión de un
-          embudo que ya genera más demanda de la que se atiende no ayuda — puede empeorar la experiencia.
+          embudo que ya genera más demanda de la que se atiende no ayuda.
         </p>
-        <div class="qitem" style="margin-top:14px">¿Cuál es hoy la relación entre demanda generada y capacidad de instalación?</div>
+        <div class="qitem" style="margin-top:10px">¿Cuál es hoy la relación entre demanda generada y capacidad de instalación?</div>
       </div>
       <div class="expcard">
         <h3>Modelo de capacidad — <span class="lbl sim">SIMULACIÓN</span></h3>
-        <div class="giant cream" style="font-size:clamp(52px,7vw,96px)" data-m="utilisation"></div>
-        <p class="lead" style="font-size:12.5px;margin-top:8px" data-m="opsVerdict"></p>
-        <p class="lead" style="font-size:11.5px;color:var(--muted-2);margin-top:10px">
-          Cifras simuladas con semilla fija para demostrar el método. Nunca presentado como diagnóstico de Somos.
-        </p>
+        <div class="giant cream" style="font-size:clamp(48px,6.5vw,88px)" data-m="utilisation"></div>
+        <p class="lead" style="font-size:11.5px;margin-top:6px" data-m="opsVerdict"></p>
       </div>
     </div>
   </section>
 
   <!-- 9 · El método (30%) -->
   <section class="slide">
-    <div class="eyebrow">Cómo lo probaría · el 30% de este deck</div>
-    <h1>Las hipótesis necesitan un <em>sistema</em><br>para convertirse en decisiones.</h1>
-    <p class="lead" style="font-size:13px">
-      Este es el método; las hipótesis reales están en las slides 3-8. Construí una implementación
-      sintética para demostrar cómo operaría este loop. <span class="lbl sim">SIMULACIÓN</span>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/></svg>
+      <div class="eyebrow">Cómo lo probaría · el 30% de este deck</div>
+    </div>
+    <h1>Las hipótesis necesitan un <em>sistema</em> para convertirse en decisiones.</h1>
+    <p class="lead" style="font-size:12px">
+      Este es el método; las hipótesis reales están en las slides 3-8. <span class="lbl sim">SIMULACIÓN</span>
     </p>
     <div class="loop">
-      <span>Observación</span><span class="a">→</span><span>Hipótesis</span><span class="a">→</span><span>ICE</span><span class="a">→</span><span>Experimento</span><span class="a">→</span><span>Guardrails</span><span class="a">→</span><span>Evaluación estadística</span><span class="a">→</span><span>Decisión</span>
+      <span>Observación</span><span class="a">→</span><span>Hipótesis</span><span class="a">→</span><span>ICE</span><span class="a">→</span><span>Experimento</span><span class="a">→</span><span>Guardrails</span><span class="a">→</span><span>Decisión</span>
     </div>
     <div class="outcomes">
-      <div class="ocard ship"><h3>SHIP</h3><ul><li>Métrica primaria mejora</li><li>Guardrails sanos</li><li>Confianza estadística suficiente</li></ul></div>
-      <div class="ocard iterate"><h3>ITERATE</h3><ul><li>Hay señal</li><li>Evidencia insuficiente</li><li>El mecanismo necesita refinamiento</li></ul></div>
-      <div class="ocard stop"><h3>STOP</h3><ul><li>La métrica empeora</li><li>O una guardrail se viola</li><li>Se documenta y se aprende</li></ul></div>
+      <div class="ocard ship"><h3><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>SHIP</h3><ul><li>Métrica primaria mejora</li><li>Guardrails sanos</li></ul></div>
+      <div class="ocard iterate"><h3><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 5v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3M4 19v-4h4"/></svg>ITERATE</h3><ul><li>Hay señal, evidencia insuficiente</li></ul></div>
+      <div class="ocard stop"><h3><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>STOP</h3><ul><li>Métrica empeora o guardrail se viola</li></ul></div>
     </div>
-    <div class="split" style="margin-top:20px">
+    <div class="split" style="margin-top:16px">
       <div>
         <div class="term" style="margin-top:0"><span class="c">$ npm run run-all</span><br><span id="term-lines"></span><span class="c">&nbsp;&nbsp;&nbsp;prueba z de dos proporciones · IC 95% · MDE <span data-m="mde"></span> · potencia <span data-m="power"></span></span></div>
-        <p class="lead" style="font-size:13px;margin-top:12px"><span data-m="expCount"></span> experimentos leídos · <span data-m="expSummary"></span> · <span data-m="testCount"></span> tests en verde</p>
+        <p class="lead" style="font-size:12px;margin-top:10px"><span data-m="expCount"></span> experimentos leídos · <span data-m="expSummary"></span> · <span data-m="testCount"></span> tests en verde</p>
       </div>
       <div>
         <div class="pfunnel" id="pf" style="margin-top:0"></div>
@@ -499,25 +557,28 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 10 · Si tuviera datos internos -->
   <section class="slide">
-    <div class="eyebrow">Si tuviera acceso a los datos internos</div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg>
+      <div class="eyebrow">Si tuviera acceso a los datos internos</div>
+    </div>
     <h1>Empezaría por <em>preguntar esto.</em></h1>
     <div class="split">
       <div>
-        <div class="steps" style="margin-top:0">
-          <div class="step"><div class="num">1</div><div class="txt">Conversión del Paso 1 del checkout web.<small>La hipótesis más barata de validar primero.</small></div></div>
-          <div class="step"><div class="num">2</div><div class="txt">Datos de WhatsApp Business API.<small>Tiempo a primera respuesta, calificación, abandono conversacional.</small></div></div>
-          <div class="step"><div class="num">3</div><div class="txt">Capacidad real de instalación.<small>La pregunta que reencuadra toda propuesta de conversión.</small></div></div>
-          <div class="step"><div class="num">4</div><div class="txt">Duración del ciclo lead → instalación.<small>"Conversión real" es instalación, no solo agendamiento.</small></div></div>
+        <div class="steps">
+          <div class="step"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg></span><div class="txt">Conversión del Paso 1 del checkout web<small>La hipótesis más barata de validar primero</small></div></div>
+          <div class="step"><span class="icon-badge pink"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></span><div class="txt">Datos de WhatsApp Business API<small>Primera respuesta, calificación, abandono</small></div></div>
+          <div class="step"><span class="icon-badge cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></span><div class="txt">Capacidad real de instalación<small>La pregunta que reencuadra toda propuesta</small></div></div>
+          <div class="step"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></span><div class="txt">Ciclo lead → instalación<small>"Conversión real" es instalación, no agendamiento</small></div></div>
         </div>
       </div>
       <div>
         <div class="contrib">
-          <div class="contrib-row"><b>Instrumentar y analizar embudo</b> — funnel/cohort/Pareto analysis, práctica actual, no objetivo de aprendizaje.</div>
-          <div class="contrib-row"><b>Pipelines de datos hiperlocales</b> — ETL real (Selenium + Python) para consolidar señales dispersas en algo accionable.</div>
-          <div class="contrib-row"><b>Implementación, no solo análisis</b> — n8n, NestJS/FastAPI, webhooks — puedo participar en cómo se construye, no solo pedirlo.</div>
+          <div class="contrib-row"><b>Instrumentar y analizar embudo</b> — funnel/cohort/Pareto, práctica actual.</div>
+          <div class="contrib-row"><b>Pipelines de datos hiperlocales</b> — ETL real para consolidar señales dispersas.</div>
+          <div class="contrib-row"><b>Implementación, no solo análisis</b> — n8n, NestJS/FastAPI, webhooks.</div>
         </div>
         <div class="gaps">
-          <div class="g">Sin experiencia documentada en una plataforma de experimentación dedicada (GrowthBook, Optimizely, VWO, Statsig).</div>
+          <div class="g">Sin experiencia documentada en una plataforma dedicada (GrowthBook, Optimizely, VWO, Statsig).</div>
           <div class="g">Sin experiencia previa en telecom ni en WhatsApp Business Platform específicamente.</div>
         </div>
       </div>
@@ -526,14 +587,16 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 11 · Cierre -->
   <section class="slide">
-    <div class="eyebrow">Para cerrar</div>
+    <div class="eyebrow-row">
+      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 5v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3M4 19v-4h4"/></svg>
+      <div class="eyebrow">Para cerrar</div>
+    </div>
     <h1>No soy un analista de dashboards.<br>Cierro el loop entre <em>el dato y la decisión.</em></h1>
     <p class="lead">
       Un pipeline de hipótesis que producto y desarrollo entienden y respetan. WhatsApp optimizado
-      con criterio de comportamiento, no solo intuición de copy. Y lo que no funciona, documentado
-      — no escondido.
+      con criterio de comportamiento. Y lo que no funciona, documentado — no escondido.
     </p>
-    <div class="tags" style="margin-top:28px">
+    <div class="tags" style="margin-top:24px">
       <span class="tag"><span class="orb sm"></span> Luis Cárdenas · Growth &amp; Data Analytics</span>
       <a class="tag" href="/" style="text-decoration:none;color:inherit">Ver análisis →</a>
       <a class="tag" href="/metodologia" style="text-decoration:none;color:inherit">Metodología →</a>

@@ -96,6 +96,85 @@ function renderWaFlow(steps) {
 const SVG = (w, h, aria, body) =>
   `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${aria}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
 
+// Un tooltip HTML reutilizado por gráfico, posicionado con el mouse — el SVG
+// aria-label ya cubre accesibilidad; esto es una mejora progresiva al pasar
+// el cursor, no la única forma de leer el dato.
+function chartTooltip(container) {
+  let t = container.querySelector(".chart-tooltip");
+  if (!t) {
+    t = document.createElement("div");
+    t.className = "chart-tooltip";
+    container.appendChild(t);
+  }
+  return t;
+}
+
+function positionTooltip(tooltip, container, clientX, clientY) {
+  const box = container.getBoundingClientRect();
+  const left = Math.min(Math.max(clientX - box.left + 14, 4), box.width - tooltip.offsetWidth - 4);
+  const top = Math.min(Math.max(clientY - box.top - tooltip.offsetHeight - 10, 4), box.height - tooltip.offsetHeight - 4);
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+// Línea de guía + dos puntos que siguen el día más cercano al cursor.
+function attachLineHover(svgEl, container, daily, { W, H, PAD, x, y }) {
+  const tooltip = chartTooltip(container);
+  const guide = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  guide.style.display = "none";
+  guide.innerHTML =
+    `<line class="chart-guide-line" x1="0" x2="0" y1="0" y2="${H}"/>` +
+    `<circle class="chart-guide-dot cap" r="4" cx="0" cy="0"/>` +
+    `<circle class="chart-guide-dot dem" r="4" cx="0" cy="0"/>`;
+  svgEl.appendChild(guide);
+  const line = guide.querySelector(".chart-guide-line");
+  const dotCap = guide.querySelector(".cap");
+  const dotDem = guide.querySelector(".dem");
+
+  function onMove(e) {
+    const rect = svgEl.getBoundingClientRect();
+    const mx = ((e.clientX - rect.left) / rect.width) * W;
+    let idx = Math.round(((mx - PAD) / (W - PAD * 2)) * (daily.length - 1));
+    idx = Math.max(0, Math.min(daily.length - 1, idx));
+    const d = daily[idx];
+    const px = x(idx);
+    line.setAttribute("x1", px);
+    line.setAttribute("x2", px);
+    dotCap.setAttribute("cx", px);
+    dotCap.setAttribute("cy", y(d.capacity));
+    dotDem.setAttribute("cx", px);
+    dotDem.setAttribute("cy", y(d.scheduled));
+    guide.style.display = "";
+    tooltip.innerHTML = `<b>Día ${d.day_index + 1}</b><br>Demanda: ${num(d.scheduled)}<br>Capacidad: ${num(d.capacity)}`;
+    tooltip.style.display = "block";
+    positionTooltip(tooltip, container, e.clientX, e.clientY);
+  }
+  svgEl.addEventListener("mousemove", onMove);
+  svgEl.addEventListener("mouseleave", () => {
+    guide.style.display = "none";
+    tooltip.style.display = "none";
+  });
+}
+
+// Resalta la barra bajo el cursor y muestra su valor exacto.
+function attachBarHover(svgEl, container, daily) {
+  const tooltip = chartTooltip(container);
+  svgEl.querySelectorAll(".chart-bar-rect").forEach((rect, i) => {
+    const d = daily[i];
+    const show = (e) => {
+      rect.classList.add("hovered");
+      tooltip.innerHTML = `<b>Día ${d.day_index + 1}</b><br>${num(d.backlog_end_of_day)} pendientes`;
+      tooltip.style.display = "block";
+      positionTooltip(tooltip, container, e.clientX, e.clientY);
+    };
+    rect.addEventListener("mousemove", show);
+    rect.addEventListener("mouseleave", () => {
+      rect.classList.remove("hovered");
+      tooltip.style.display = "none";
+    });
+  });
+}
+
 function renderCapacity(operations) {
   const o = operations.summary;
   el("cap-stats").innerHTML = `
@@ -123,6 +202,7 @@ function renderCapacity(operations) {
       `<path d="${line("capacity")}" fill="none" stroke="var(--text-3)" stroke-width="2"/>` +
       `<path d="${line("scheduled")}" fill="none" stroke="var(--warn)" stroke-width="2.5"/>`
   );
+  attachLineHover(el("cap-chart").querySelector("svg"), el("cap-chart").closest(".chart"), daily, { W, H, PAD, x, y });
 
   const maxBacklog = Math.max(...daily.map((d) => d.backlog_end_of_day));
   const bw = (W - PAD * 2) / daily.length;
@@ -133,10 +213,11 @@ function renderCapacity(operations) {
     daily
       .map((d, i) => {
         const h = (d.backlog_end_of_day / maxBacklog) * (H - PAD * 2);
-        return `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(H - PAD - h).toFixed(1)}" width="${Math.max(bw - 1.5, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--brand-pink)" opacity="0.85"><title>Día ${d.day_index + 1}: ${num(d.backlog_end_of_day)} pendientes</title></rect>`;
+        return `<rect class="chart-bar-rect" x="${(x(i) - bw / 2).toFixed(1)}" y="${(H - PAD - h).toFixed(1)}" width="${Math.max(bw - 1.5, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--brand-pink)" opacity="0.85"/>`;
       })
       .join("")
   );
+  attachBarHover(el("backlog-chart").querySelector("svg"), el("backlog-chart").closest(".chart"), daily);
 }
 
 // ── Carga ─────────────────────────────────────────────────────────────────
