@@ -24,7 +24,7 @@ document.addEventListener("keydown", (e) => {
     document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   }
 });
-document.addEventListener("click", (e) => { if (!e.target.closest("a") && !e.target.closest("button")) show(idx + 1); });
+document.addEventListener("click", (e) => { if (!e.target.closest("a") && !e.target.closest("button") && !e.target.closest("details")) show(idx + 1); });
 show(0);
 
 // ── Todos los números salen de la API ──
@@ -55,10 +55,8 @@ Promise.all([
   .then(([overview, funnel, experiments, backlog]) => {
     const ops = overview.operations;
 
-    // Slide 1 — portada (sin datos)
-    set("seed", overview.generated.seed);
+    // Slide 9 — método: conteo de tests
     set("testCount", overview.headline.test_count ?? "—");
-    set("testCount2", overview.headline.test_count ?? "—");
 
     // Slide 5 — WhatsApp: chips simulados
     const totalLanding = funnel.totals.sessions;
@@ -72,8 +70,6 @@ Promise.all([
     set("waQualLoss", qualStep ? pct(qualStep.drop_off_rate, 0) : "—");
 
     // Slide 9 — embudo modelado
-    const phoneStep = funnel.web.find((s) => s.step === "phone");
-    set("phoneLoss", phoneStep ? `~${(phoneStep.drop_off_rate * 100).toFixed(0)}%` : "—");
     document.getElementById("pf").innerHTML = funnel.web
       .map((s, i) => {
         const w = i === 0 ? 100 : s.step_conversion * 100;
@@ -86,14 +82,11 @@ Promise.all([
       })
       .join("");
 
-    // Slide 4 — elegibilidad: chip simulado
-    set("wasteLate", num(funnel.eligibility_waste.filtered_late));
-
     // Slide 9 — terminal: se arma desde los resultados reales
     set("expCount", experiments.results.length);
     set("mde", pct(experiments.target_mde, 0));
     set("power", experiments.power);
-    const pad = (s, n) => String(s).padEnd(n, " ");
+    const pad = (s, n) => String(s).padEnd(n, " ");
     document.getElementById("term-lines").innerHTML = experiments.results
       .map((r) => {
         const [cls, label] = DECISION_TERM[r.decision] ?? ["c", r.decision.toUpperCase()];
@@ -111,32 +104,19 @@ Promise.all([
       `${shipped} se lanza. ${blocked} ganaron en la métrica primaria y aun así se bloquean. ${killed} se descarta y se documenta.`
     );
 
-    // Slide 10 — motor de decisiones: tarjetas de los bloqueados
-    document.getElementById("blocked-cards").innerHTML = experiments.results
-      .filter((r) => r.guardrail?.breached)
-      .map((r) => {
-        const g = r.guardrail;
-        const from = g.kind === "duration" ? `${g.control_value} a ${g.variant_value} min` : `${pct(g.control_value)} a ${pct(g.variant_value)}`;
-        return `<div class="pcard pink">
-          <div class="t" style="color:var(--pink)">${r.id} · ${r.name}</div>
-          <div class="n" style="font-size:32px;margin-top:12px">${r.relative_lift > 0 ? "+" : ""}${(r.relative_lift * 100).toFixed(1)}%</div>
-          <div class="s">en la métrica primaria… pero <b style="color:var(--pink)">${g.label.replace(/^Guardia: /, "")}</b> se mueve de ${from}
-          (${(g.relativeDelta * 100).toFixed(1)}%), por encima de la tolerancia de ${pct(g.toleranceRelative, 0)}.</div>
-        </div>`;
-      })
-      .join("");
-
-    // Slide 12 — apéndice: ranking ICE — capacidad: simulación como guardrail
+    // Slide 8 — capacidad: simulación como guardrail, nunca diagnóstico
     set("utilisation", pct(ops.capacity_utilisation, 0));
     set("opsVerdict", ops.verdict);
 
-    // Slide 12 — apéndice: ranking ICE
-    set("backlogCount", backlog.items.length);
+    // Slide 6 — backlog priorizado: ranking completo con justificación
     document.getElementById("backlog-rank").innerHTML = backlog.items
-      .slice(0, 4)
       .map(
-        (b, i) =>
-          `<li><span class="rank-n">${i + 1}</span><b>${b.id}</b> ${b.title} <span class="mono rank-ice">ICE ${b.ice.toFixed(1)}</span></li>`
+        (b, i) => `<li>
+          <span class="rank-n">${i + 1}</span><b>${b.id}</b>
+          <span>${b.title}</span>
+          <span class="mono rank-ice">ICE ${b.ice.toFixed(1)}</span>
+          <span class="just">${b.hypothesis}</span>
+        </li>`
       )
       .join("");
   })
