@@ -21,11 +21,11 @@ const MIME = {
   ".ico": "image/x-icon",
 };
 
-// Mirrors public/_redirects so local and Cloudflare behave identically.
-// Note: no /pitch rewrite on purpose — a 200 rewrite looped on Cloudflare
-// Pages (the platform canonicalizes pitch.html back to /pitch). Link to
-// /pitch.html directly instead.
-const REWRITES = { "/": "/index.html" };
+// Mirrors production so local and Cloudflare behave identically.
+// /pitch.html is canonicalized by the platform to /pitch (which serves the
+// deck). A _redirects "200 rewrite" from /pitch looped, so it was removed —
+// the clean URL is the canonical one and this rewrite mirrors it locally.
+const REWRITES = { "/": "/index.html", "/pitch": "/pitch.html" };
 
 // Same policy the Cloudflare Function applies.
 const limiter = createRateLimiter({ capacity: 60, refillPerSecond: 1 });

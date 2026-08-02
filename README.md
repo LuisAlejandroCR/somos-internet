@@ -11,7 +11,7 @@ Laboratorio de optimización de conversión: genera un embudo sintético, corre 
 ```bash
 npm run run-all   # genera el dataset + análisis (~5 s)
 npm test          # unit · fuzz · invariantes
-npm run web       # dashboard en localhost:3000 · pitch en /pitch.html
+npm run web       # dashboard en localhost:3000 · pitch en /pitch
 ```
 
 Requiere Node ≥ 20. **Cero dependencias** — solo la librería estándar.
@@ -52,7 +52,7 @@ La estadística es real: prueba z con error estándar agrupado, intervalos de co
 | Functions directory | `functions` (detectado automáticamente) |
 | Node version | 20 o superior |
 
-`public/_headers` define CSP y cabeceras de seguridad. El pitch se sirve directo en `/pitch.html` (un rewrite de `_redirects` para `/pitch` producía un loop de redirects en Cloudflare Pages, así que el nav apunta a la ruta con extensión).
+`public/_headers` define CSP y cabeceras de seguridad — y por eso el JS del pitch vive en `public/pitch.js` (externo): la CSP `script-src 'self'` bloquea scripts inline, y un deck sin JS se ve pero no navega. El pitch se sirve en `/pitch` (la plataforma canonicaliza `/pitch.html` → `/pitch`; un rewrite de `_redirects` para `/pitch` producía un loop y fue eliminado).
 
 ### Guardia contra abuso de la API
 
