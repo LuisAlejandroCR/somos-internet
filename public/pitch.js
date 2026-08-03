@@ -31,7 +31,8 @@ show(0);
 // Ni una cifra del deck está escrita a mano: si el pipeline cambia, el pitch
 // cambia con él. Un número quemado en el HTML es un número que algún día va a
 // contradecir al dashboard.
-const pct = (v, d = 1) => (v == null ? "—" : `${(v * 100).toFixed(d)}%`);
+const pct = (v, d = 1) =>
+  v == null ? "—" : `${(v * 100).toLocaleString("es-CO", { minimumFractionDigits: d, maximumFractionDigits: d })}%`;
 const num = (v) => (v == null ? "—" : v.toLocaleString("es-CO"));
 const set = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((el) => (el.textContent = v));
 // Rellena por id solo si el elemento existe (el deck cambia de estructura;
@@ -99,9 +100,39 @@ Promise.all([
   fetch("/api/experiments").then((r) => r.json()),
   fetch("/api/backlog").then((r) => r.json()),
   fetch("/api/operations").then((r) => r.json()),
+  fetch("/api/research").then((r) => r.json()),
 ])
-  .then(([overview, funnel, experiments, backlog, operations]) => {
+  .then(([overview, funnel, experiments, backlog, operations, research]) => {
     const ops = overview.operations;
+
+    // ── Cifras externas verificadas (/api/research) ────────────────────────
+    // No las produce el pipeline, pero tampoco se escriben a mano: vienen del
+    // mismo API, con su fuente, y lo derivado se calcula allá (no acá).
+    const setR = (k, v) => document.querySelectorAll(`[data-r="${k}"]`).forEach((el) => (el.textContent = v));
+    const F = research.facts;
+    const D = research.derived;
+    const musd = (v) => `US$${v}M`;
+    const signedPct = (v) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(0)}% QoQ`;
+    setR("fundingTotal", musd(D.funding_total_musd));
+    setR("serieA", musd(F.somos.serie_a_musd.value));
+    setR("serieB", musd(F.somos.serie_b_musd.value));
+    setR("usersPublic", num(F.somos.users_public.value));
+    setR("heliumAccounts", num(F.helium.accounts.value));
+    setR("heliumAccountsQoQ", signedPct(F.helium.accounts.qoq));
+    setR("heliumHotspots", num(F.helium.hotspots.value));
+    setR("heliumThirdParty", pct(D.helium_third_party_pct));
+    setR("heliumOffload", `${num(F.helium.offload_tb.value)} TB`);
+    setR("heliumOffloadQoQ", signedPct(F.helium.offload_tb.qoq));
+    setR("obiMonths", F.helium.omv_obi_months.value);
+    setR("tokenVol", `${F.helium.token_volatility_x.value.toLocaleString("es-CO")}x`);
+    setR("tokenWindow", F.helium.token_volatility_x.window_months);
+    setR("blockersMapped", F.mvp.blockers_mapped.value);
+    setR("blockersLeft", D.blockers_remaining);
+    setR("mvpBuildings", `${F.mvp.buildings_min.value}-${F.mvp.buildings_max.value}`);
+    setR("mvpWeeks", `${F.mvp.weeks_min.value}-${F.mvp.weeks_max.value}`);
+
+    // El intervalo de confianza se deriva de alpha, no se escribe "95%".
+    set("ci", pct(1 - experiments.alpha, 0));
 
     // Slide 11 — método: conteo de tests
     set("testCount", overview.headline.test_count ?? "—");

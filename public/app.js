@@ -9,8 +9,19 @@
 // funnel), HIPÓTESIS (interpretation) and REQUIERE VALIDACIÓN INTERNA (would
 // need real internal data). The labels are the honesty layer of the exercise.
 
-const pct = (v, digits = 1) => (v === null || v === undefined ? "—" : `${(v * 100).toFixed(digits)}%`);
-const num = (v) => (v === null || v === undefined ? "—" : v.toLocaleString("es-CO"));
+const pct = (v, digits = 1) =>
+  v === null || v === undefined
+    ? "—"
+    : `${(v * 100).toLocaleString("es-CO", { minimumFractionDigits: digits, maximumFractionDigits: digits })}%`;
+// El segundo argumento se ignoraba: `num(165.6, 0)` devolvía "165,6" mientras
+// el veredicto del pipeline decía "166/día" para el mismo dato.
+const num = (v, digits) =>
+  v === null || v === undefined
+    ? "—"
+    : v.toLocaleString(
+        "es-CO",
+        digits === undefined ? undefined : { minimumFractionDigits: digits, maximumFractionDigits: digits }
+      );
 
 const el = (id) => document.getElementById(id);
 
@@ -24,7 +35,7 @@ async function get(path) {
 function renderOverviewStats(overview) {
   const h = overview.headline;
   el("overview-stats").innerHTML = `
-    <div class="cstat"><div class="v">${num(h.sessions)}</div><div class="k">Sesiones (90 días)</div><div class="s">estructura pública del embudo</div></div>
+    <div class="cstat"><div class="v">${num(h.sessions)}</div><div class="k">Sesiones (${overview.generated.days} días)</div><div class="s">estructura pública del embudo</div></div>
     <div class="cstat"><div class="v">${pct(h.conversion, 2)}</div><div class="k">Conversión global</div><div class="s">sesiones → agendamiento</div></div>
     <div class="cstat"><div class="v">${num(h.scheduled)}</div><div class="k">Agendamientos</div><div class="s">web + WhatsApp</div></div>
     <div class="cstat"><div class="v warn2">${num(overview.operations.final_backlog)}</div><div class="k">En cola de instalación</div><div class="s">${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera</div></div>`;
@@ -68,8 +79,6 @@ function renderFunnelTotals(funnel) {
 // Cada barra se escala contra el paso anterior: una barra corta significa
 // "aquí se van", no "este paso es pequeño en total". La fuga principal se
 // marca con color semántico (aviso, no error: es un dato analítico).
-// El paso 1 (abrir formulario/chat) se excluye: su caída es el "no estaba
-// interesado", no fricción del embudo.
 // Arranca en el índice 2, no en el 1: la caída de "landing → abre el
 // formulario/chat" es calidad de tráfico ("no estaba interesado"), no fricción
 // del embudo. Es la misma definición que usa el pipeline en 04-derive.js
@@ -219,10 +228,17 @@ function attachBarHover(svgEl, container, daily) {
 
 function renderCapacity(operations) {
   const o = operations.summary;
+  // "desde el día N" estaba escrito a mano ("día 3"). Se calcula: el primer
+  // día en que la demanda agendada supera a la capacidad de instalación.
+  const firstOverloadIdx = operations.daily.findIndex((d) => d.scheduled > d.capacity);
+  const overloadNote =
+    firstOverloadIdx === -1
+      ? "la capacidad absorbió la demanda todos los días"
+      : `por encima del 100% desde el día ${operations.daily[firstOverloadIdx].day_index + 1}`;
   el("cap-stats").innerHTML = `
     <div class="cstat"><div class="v">${num(o.avg_daily_scheduled, 0)}</div><div class="k">Agendamientos por día</div><div class="s">demanda promedio simulada</div></div>
     <div class="cstat"><div class="v">${num(o.avg_daily_capacity, 0)}</div><div class="k">Capacidad de instalación</div><div class="s">por día</div></div>
-    <div class="cstat"><div class="v warn2">${pct(o.capacity_utilisation, 0)}</div><div class="k">Uso de capacidad</div><div class="s">por encima del 100% desde el día 3</div></div>
+    <div class="cstat"><div class="v warn2">${pct(o.capacity_utilisation, 0)}</div><div class="k">Uso de capacidad</div><div class="s">${overloadNote}</div></div>
     <div class="cstat"><div class="v">${num(o.final_backlog)}</div><div class="k">En cola al cierre</div><div class="s">≈ ${o.backlog_days_recent.toLocaleString("es-CO")} días de espera</div></div>`;
 
   const daily = operations.daily;
@@ -276,12 +292,17 @@ function showError(err) {
 
 async function main() {
   try {
-    const [overview, funnel, operations, backlog] = await Promise.all([
+    const [overview, funnel, operations, backlog, research] = await Promise.all([
       get("/api/overview"),
       get("/api/funnel"),
       get("/api/operations"),
       get("/api/backlog"),
+      get("/api/research"),
     ]);
+
+    // Ventana del dataset y cifras externas verificadas: también del API.
+    setM("days", overview.generated.days);
+    setM("countryOptions", research.facts.somos.form_country_options.value);
 
     renderOverviewStats(overview);
     renderFunnelTotals(funnel);

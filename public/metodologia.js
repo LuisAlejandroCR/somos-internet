@@ -15,9 +15,12 @@ Promise.all([
     set("tests", overview.headline.test_count ?? "—");
     set("seed", overview.generated.seed);
     set("sessions", overview.headline.sessions.toLocaleString("es-CO"));
+    set("days", overview.generated.days);
     set("mde", `${(experiments.target_mde * 100).toFixed(0)}%`);
     set("alpha", experiments.alpha);
     set("power", `${(experiments.power * 100).toFixed(0)}%`);
+    // El intervalo se deriva de alpha: 1 − 0,05 = 95%. No se escribe "95%".
+    set("ci", `${((1 - experiments.alpha) * 100).toFixed(0)}%`);
   })
   .catch(() => {
     // Sin datos, los placeholders "—" se quedan visibles: un hueco marcado es

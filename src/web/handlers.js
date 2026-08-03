@@ -7,6 +7,8 @@
 // time). Keeping I/O out of here is what lets both share one implementation
 // instead of drifting into two.
 
+import { researchPayload } from "../lib/research.js";
+
 /**
  * @param {{meta, funnel, experiments, operations, derived}} data
  */
@@ -73,9 +75,20 @@ export function createApi(data) {
     return { synthetic: true, warning: meta.warning, items: derived.backlog, note: "Priorizado por ICE = (Impact + Confidence + Ease) / 3. Puntuación de priorización, no dato de Somos." };
   }
 
+  /**
+   * External verified facts (funding rounds, Helium traction, the observed
+   * form). NOT synthetic — so this is the one response without
+   * `synthetic: true`. Every fact carries its own source and date instead.
+   */
+  function getResearch() {
+    return { synthetic: false, ...researchPayload() };
+  }
+
   /** Maps a pathname + query to a result, or null when the route is unknown. */
   function route(pathname, query = {}) {
     switch (pathname) {
+      case "/api/research":
+        return getResearch();
       case "/api/overview":
         return getOverview();
       case "/api/funnel":
@@ -91,5 +104,5 @@ export function createApi(data) {
     }
   }
 
-  return { getOverview, getFunnel, getExperiments, getOperations, getBacklog, route };
+  return { getOverview, getFunnel, getExperiments, getOperations, getBacklog, getResearch, route };
 }

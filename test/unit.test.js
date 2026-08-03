@@ -1,4 +1,5 @@
 import { test } from "node:test";
+import { allFacts, researchPayload } from "../src/lib/research.js";
 import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -316,4 +317,27 @@ test("analyzeExperiments blocks a win that breaks its guardrail", () => {
   });
   assert.equal(result.guardrail.breached, true);
   assert.equal(result.decision, "no_lanzar_guardia");
+});
+
+// ── Cifras externas: la regla es que ninguna exista sin su fuente ──────────
+// Estos números no los produce el pipeline (rondas de Somos, tracción de
+// Helium, el formulario observado). Se sirven por /api/research y este test
+// impide que alguien agregue uno "solo por ahora" sin decir de dónde salió.
+test("every research fact carries a source and a date", () => {
+  const facts = allFacts();
+  assert.ok(facts.length > 0, "no research facts registered");
+  for (const f of facts) {
+    assert.ok(typeof f.value === "number" && Number.isFinite(f.value), `${f.id}: value must be a finite number, not preformatted text`);
+    assert.ok(f.source && f.source.trim().length > 3, `${f.id}: missing source`);
+    assert.ok(/^\d{4}(-(\d{2}|Q\d))?(-\d{2})?$/.test(f.as_of), `${f.id}: as_of must look like a date, got "${f.as_of}"`);
+  }
+});
+
+test("research payload derives totals instead of restating them", () => {
+  const { facts, derived } = researchPayload();
+  // La portada del pitch decía "US$58M" a mano; ahora es una suma.
+  assert.equal(derived.funding_total_musd, facts.somos.serie_a_musd.value + facts.somos.serie_b_musd.value);
+  // El chip "+2 blockers más" ahora es una resta.
+  assert.equal(derived.blockers_remaining, facts.mvp.blockers_mapped.value - facts.mvp.blockers_shown.value);
+  assert.ok(derived.blockers_remaining >= 0, "shown blockers cannot exceed mapped blockers");
 });
