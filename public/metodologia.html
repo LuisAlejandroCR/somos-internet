@@ -25,6 +25,7 @@
   /* ── Matriz de honestidad — 4 columnas, no 4 párrafos ── */
   .hgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 18px; }
   .hcol { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .hcol-h { display: flex; align-items: center; gap: 8px; }
   .hcol ul { list-style: none; margin: 10px 0 0; padding: 0; }
   .hcol li { font-size: 12px; color: var(--text-2); line-height: 1.5; padding-left: 13px; position: relative; margin-top: 5px; }
   .hcol li::before { content: "·"; position: absolute; left: 2px; color: var(--text-3); font-weight: 700; }
@@ -115,19 +116,19 @@
         <p class="section-intro">Cada número del sitio cae en una de estas cuatro categorías.</p>
         <div class="hgrid">
           <div class="hcol">
-            <span class="lbl obs">OBSERVADO</span>
+            <div class="hcol-h"><svg class="icon icon-sm" style="color:var(--text-2)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg><span class="lbl obs">OBSERVADO</span></div>
             <ul><li>Pasos del formulario</li><li>Canal de WhatsApp</li><li>Jerarquía del home</li></ul>
           </div>
           <div class="hcol">
-            <span class="lbl hyp">SUPUESTO</span>
+            <div class="hcol-h"><svg class="icon icon-sm" style="color:var(--brand-mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg><span class="lbl hyp">SUPUESTO</span></div>
             <ul><li>Volúmenes de tráfico</li><li>Ciudades y estratos</li><li>Fuentes y dispositivos</li></ul>
           </div>
           <div class="hcol">
-            <span class="lbl sim">SIMULADO</span>
+            <div class="hcol-h"><svg class="icon icon-sm" style="color:var(--brand-pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-6 10a1.5 1.5 0 0 0 1.3 2.3h13.4A1.5 1.5 0 0 0 20 19L14 9V3"/><path d="M7.5 15h9"/></svg><span class="lbl sim">SIMULADO</span></div>
             <ul><li>Resultados de experimentos</li><li>Intervalos y muestras</li><li>Cola operativa</li></ul>
           </div>
           <div class="hcol">
-            <span class="lbl req">REQUIERE VALIDACIÓN</span>
+            <div class="hcol-h"><svg class="icon icon-sm" style="color:var(--warn)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg><span class="lbl req">REQUIERE VALIDACIÓN</span></div>
             <ul><li>Capacidad de instalación</li><li>Tiempos de WhatsApp</li><li>Costo por lead</li></ul>
           </div>
         </div>
@@ -157,11 +158,12 @@
         <h2 class="section-title"><span class="sec-no">04</span><span id="api-title">La API</span></h2>
         <p class="section-intro">Lo mismo que pinta la interfaz, servido como JSON. Cada respuesta viaja con <span class="mono">synthetic: true</span>.</p>
         <div class="apilist">
-          <div class="apirow"><span class="mono"><a class="link" href="/api/overview">/api/overview</a></span> KPI y resumen</div>
-          <div class="apirow"><span class="mono"><a class="link" href="/api/funnel">/api/funnel</a></span> Embudos y segmentos</div>
-          <div class="apirow"><span class="mono"><a class="link" href="/api/experiments">/api/experiments</a></span> Resultados y guardias</div>
-          <div class="apirow"><span class="mono"><a class="link" href="/api/operations">/api/operations</a></span> Demanda vs capacidad</div>
-          <div class="apirow"><span class="mono"><a class="link" href="/api/backlog">/api/backlog</a></span> Backlog por ICE</div>
+          <div class="apirow"><svg class="icon icon-sm" style="color:var(--brand-mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg><span class="mono"><a class="link" href="/api/overview">/api/overview</a></span> KPI y resumen</div>
+          <div class="apirow"><svg class="icon icon-sm" style="color:var(--brand-mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><polygon points="4,4 20,4 14,13 14,20 10,20 10,13"/></svg><span class="mono"><a class="link" href="/api/funnel">/api/funnel</a></span> Embudos y segmentos</div>
+          <div class="apirow"><svg class="icon icon-sm" style="color:var(--brand-pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-6 10a1.5 1.5 0 0 0 1.3 2.3h13.4A1.5 1.5 0 0 0 20 19L14 9V3"/><path d="M7.5 15h9"/></svg><span class="mono"><a class="link" href="/api/experiments">/api/experiments</a></span> Resultados y guardias</div>
+          <div class="apirow"><svg class="icon icon-sm" style="color:var(--warn)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg><span class="mono"><a class="link" href="/api/operations">/api/operations</a></span> Demanda vs capacidad</div>
+          <div class="apirow"><svg class="icon icon-sm" style="color:var(--brand-mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg><span class="mono"><a class="link" href="/api/backlog">/api/backlog</a></span> Backlog por ICE</div>
+          <div class="apirow"><svg class="icon icon-sm" style="color:var(--text-2)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M9 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span class="mono"><a class="link" href="/api/research">/api/research</a></span> Cifras externas + fuente</div>
         </div>
         <p class="muted small" style="margin-top:16px">
           Código completo en
