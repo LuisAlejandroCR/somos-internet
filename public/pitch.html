@@ -28,7 +28,9 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .giant.cream { color: var(--cream); }
 
 .pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 26px; max-width: 1080px; }
-.pcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--glow-neutral); }
+.pcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--glow-neutral); position: relative; overflow: hidden; }
+.pcard .wm { position: absolute; right: -12px; top: -8px; width: 74px; height: 74px; opacity: 0.1; pointer-events: none; color: var(--brand-mint-vivid); }
+.pcard.pink .wm { color: var(--brand-pink); }
 .pcard.mint { box-shadow: var(--glow-mint); border-color: rgba(30,187,178,.2); }
 .pcard.pink { box-shadow: var(--glow-pink); border-color: rgba(86,21,193,.2); }
 .pcard .n { font-size: clamp(26px, 3.6vw, 38px); font-weight: 700; letter-spacing: -1.5px; font-family: "JetBrains Mono", monospace; line-height: 1; margin-bottom: 8px; }
@@ -228,6 +230,23 @@ section.slide.on { opacity: 1; pointer-events: auto; }
   .pf-row { grid-template-columns: 1fr; gap: 3px; }
   .pf-lost { text-align: left; }
 }
+
+/* ── Impresión / PDF: el deck se vuelve un documento de 12 páginas ── */
+@page { size: 1280px 720px; margin: 0; }
+@media print {
+  html, body { height: auto; overflow: visible !important; background: #fff; }
+  #deck { position: static; }
+  section.slide {
+    position: relative; inset: auto;
+    opacity: 1 !important; pointer-events: auto;
+    height: 720px; min-height: 720px;
+    page-break-after: always;
+    padding: 52px clamp(28px, 7vw, 116px);
+    justify-content: center;
+  }
+  .warn-strip, .progress, .deck-nav, .deck-ctrl, .slide-badge { display: none !important; }
+  .cover-art { opacity: 0.5; }
+}
 </style>
 </head>
 <body>
@@ -303,18 +322,21 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <h1>Tres ideas, <em>con nombre propio.</em></h1>
     <div class="pgrid">
       <div class="pcard mint">
+        <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg>
         <div class="n">01</div>
         <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg></span>"Somos [barrio]"</div>
         <div class="s">El nombre ya hace pertenencia. Convertirlo en mecanismo.</div>
         <div class="lim"><b>Riesgo:</b> fragmentación de marca.</div>
       </div>
       <div class="pcard pink">
+        <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
         <div class="n">02</div>
         <div class="t"><span class="icon-badge pink"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span>"El Nu de los ISP"</div>
         <div class="s">Los fondos que apostaron a Nubank, en Somos.</div>
         <div class="lim"><b>Riesgo:</b> confirmar con datos, no cita.</div>
       </div>
       <div class="pcard mint">
+        <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
         <div class="n">03</div>
         <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></span>Wire → wireless</div>
         <div class="s">El router ORB como activo de red.</div>
@@ -467,10 +489,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
         <div class="rf">Negociar con OMR que compiten en fibra.</div>
       </div>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:12px">
-      El 70% de la red Helium es hardware de terceros — y Somos <b>controla el firmware</b> del suyo.
-    </p>
-    <p class="lead" style="margin-top:10px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/14</p>
+    <div class="chiprow" style="margin-top:12px">
+      <span class="chip mint">Diferencial: <b>Somos controla el firmware</b> del ORB — el 70% de la red Helium no</span>
+    </div>
+    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/14</p>
   </section>
 
   <!-- 9 · Idea 03 — Cómo se prueba -->
