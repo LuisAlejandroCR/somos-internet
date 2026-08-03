@@ -18,14 +18,14 @@ function show(next) {
 }
 
 // ── Sync to the recorded narration (somos_audio.mp3) ──
-// The audio starts and the narration begins a few seconds in (LEAD). Slides
-// are driven by the AUDIO CLOCK (currentTime − LEAD), not a wall timer, so
-// pause/resume never drifts and a re-record only needs cue recalibration.
+// Audio and slides start together (LEAD = 0). Slides are driven by the AUDIO
+// CLOCK (currentTime − LEAD), not a wall timer, so pause/resume never drifts
+// and a re-record only needs cue recalibration.
 // Calibrate NARRATION_CUES by ear: each entry is the narrated second at
 // which that slide's spoken line begins. Narration spans 0…(duration − LEAD).
 const audio = document.getElementById("pitch-audio");
-const LEAD = 3; // seconds of intro before the narration starts
-const NARRATION_CUES = [0, 15, 34, 41, 47, 52, 58, 65, 72, 86, 94];
+const LEAD = 0; // seconds of intro before the narration starts
+const NARRATION_CUES = [0, 18, 34, 41, 47, 52, 58, 65, 72, 86, 94];
 audio.dataset.lead = String(LEAD);
 audio.dataset.cues = NARRATION_CUES.join(",");
 let playing = false;
@@ -69,7 +69,7 @@ audio.addEventListener("ended", stopAutoplay);
 
 // Fallback: if the audio file can't load (e.g. not recorded yet), keep a
 // timed dwell plan so the deck still presents itself at ~2 minutes.
-const FALLBACK_SECONDS = [12, 12, 10, 8, 10, 8, 10, 10, 12, 8, 20];
+const FALLBACK_SECONDS = [18, 12, 10, 8, 10, 8, 10, 10, 12, 8, 20];
 let fallbackTimer = null;
 function fallbackAutoplay() {
   playing = true;
