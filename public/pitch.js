@@ -30,7 +30,7 @@ const LEAD = 0; // seconds of intro before the narration starts
 // Cues = script sentence starts aligned to the measured pause structure
 // (long pauses = sentence boundaries), cross-checked with word-proportional
 // pacing over the window: [0, 9, 22, 33, 41, 49, 57, 65, 75, 83, 92].
-const NARRATION_CUES = [0, 9, 22, 33, 41, 49, 57, 65, 75, 83, 92];
+const NARRATION_CUES = [0, 9, 22, 32.5, 41, 49, 57, 65, 75, 83, 92];
 const NARRATION_WINDOW = {
   start: 0, // first audible word (silencedetect)
   end: 114.9, // last audible word (silencedetect)
@@ -52,10 +52,17 @@ function cueSlide() {
 function syncTick() {
   // The play button's label IS the state: it flips to "❚❚" when the clock
   // runs, so the clock never moves the deck while paused or stopped.
+  updateClock();
   if (playBtn.textContent !== "❚❚") return;
   const target = cueSlide();
   if (target !== idx) show(target);
   if (audio.ended) stopAutoplay();
+}
+function updateClock() {
+  // Live timestamp readout for ear-calibration: report the exact second a
+  // line starts and we can nudge the matching cue without guesswork.
+  const clock = document.getElementById("t-clock");
+  if (clock) clock.textContent = audio.currentTime.toFixed(1) + "s";
 }
 function stopAutoplay() {
   playing = false;
@@ -82,7 +89,7 @@ audio.addEventListener("ended", stopAutoplay);
 
 // Fallback: if the audio file can't load (e.g. not recorded yet), keep a
 // timed dwell plan so the deck still presents itself at ~2 minutes.
-const FALLBACK_SECONDS = [9, 13, 11, 8, 8, 8, 8, 10, 8, 9, 23];
+const FALLBACK_SECONDS = [9, 13, 10.5, 8.5, 8, 8, 8, 10, 8, 9, 23];
 let fallbackTimer = null;
 function fallbackAutoplay() {
   playing = true;
