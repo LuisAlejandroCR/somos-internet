@@ -30,6 +30,25 @@ function renderOverviewStats(overview) {
     <div class="cstat"><div class="v warn2">${num(overview.operations.final_backlog)}</div><div class="k">En cola de instalación</div><div class="s">${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera</div></div>`;
 }
 
+// ── Backlog por ICE — gráfico, no tabla ─────────────────────────────────
+// El orden de trabajo se ve de un vistazo: la barra más larga es lo primero.
+// El puntaje viene del pipeline; aquí solo se escala contra el máximo.
+function renderIceBars(backlog) {
+  const items = backlog.items;
+  const max = Math.max(...items.map((i) => i.ice));
+  el("ice-bars").innerHTML = items
+    .map((it, i) => `
+      <div class="icebar${i === 0 ? " top" : ""}">
+        <span class="ib-id">${it.id}</span>
+        <div class="ib-track" role="img" aria-label="${it.title}: ICE ${it.ice.toFixed(1)}">
+          <div class="ib-fill" style="width:${(it.ice / max) * 100}%"></div>
+          <span class="ib-label">${it.title}</span>
+        </div>
+        <span class="ib-score">${it.ice.toFixed(1)}</span>
+      </div>`)
+    .join("");
+}
+
 function renderEligibilityWaste(funnel) {
   document.querySelectorAll('[data-m="wasteLate"]').forEach((n) => (n.textContent = num(funnel.eligibility_waste.filtered_late)));
 }
@@ -234,14 +253,16 @@ function showError(err) {
 
 async function main() {
   try {
-    const [overview, funnel, operations] = await Promise.all([
+    const [overview, funnel, operations, backlog] = await Promise.all([
       get("/api/overview"),
       get("/api/funnel"),
       get("/api/operations"),
+      get("/api/backlog"),
     ]);
 
     renderOverviewStats(overview);
     renderEligibilityWaste(funnel);
+    renderIceBars(backlog);
     renderFunnel("funnel-web", funnel.web);
     renderWaFlow(funnel.whatsapp);
     renderFunnel("funnel-wa", funnel.whatsapp);

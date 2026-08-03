@@ -6,6 +6,33 @@
   <title>Metodología — Somos CRO Lab</title>
   <meta name="description" content="Cómo se construyó el análisis sintético del embudo de Somos Internet: pipeline, estadística, API y reproducción.">
   <link rel="stylesheet" href="/style.css">
+  <style>
+  /* ── Pipeline como diagrama, no como lista ── */
+  .pipe { display: flex; align-items: stretch; gap: 4px; margin-top: 20px; flex-wrap: wrap; }
+  .pipe-step { flex: 1 1 168px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; position: relative; }
+  .pipe-step .ps-n { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; color: var(--brand-mint); }
+  .pipe-step .ps-t { font-weight: 600; font-size: 13.5px; margin-top: 5px; }
+  .pipe-step .ps-s { color: var(--text-3); font-size: 11.5px; margin-top: 3px; line-height: 1.45; }
+  .pipe-arrow { display: flex; align-items: center; color: var(--brand-mint); flex: none; }
+  @media (max-width: 820px) { .pipe { flex-direction: column; } .pipe-arrow { transform: rotate(90deg); justify-content: center; height: 22px; } }
+
+  /* ── Tiles de especificación — un número, una etiqueta ── */
+  .spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 12px; margin-top: 18px; }
+  .spec-t { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+  .spec-t .sv { font-family: "JetBrains Mono", monospace; font-size: 24px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+  .spec-t .sl { color: var(--text-3); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-top: 7px; }
+
+  /* ── Matriz de honestidad — 4 columnas, no 4 párrafos ── */
+  .hgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 18px; }
+  .hcol { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .hcol ul { list-style: none; margin: 10px 0 0; padding: 0; }
+  .hcol li { font-size: 12px; color: var(--text-2); line-height: 1.5; padding-left: 13px; position: relative; margin-top: 5px; }
+  .hcol li::before { content: "·"; position: absolute; left: 2px; color: var(--text-3); font-weight: 700; }
+
+  .apilist { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 10px; margin-top: 18px; }
+  .apirow { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 15px; font-size: 12px; color: var(--text-2); }
+  .apirow .mono { color: var(--brand-mint); font-weight: 600; font-size: 11.5px; }
+  </style>
 </head>
 <body>
   <a href="#contenido" style="position:absolute;left:-999px;top:0">Saltar al contenido</a>
@@ -33,12 +60,9 @@
     <div class="container">
       <section aria-labelledby="met-title">
         <p class="eyebrow">Reproducibilidad y honestidad</p>
-        <h1 id="met-title">Metodología: cómo se construyó este análisis.</h1>
-        <p class="sub" style="max-width:840px">
-          Todo lo que ves en el <a class="link" href="/">análisis</a> y en el
-          <a class="link" href="/pitch">pitch</a> corre sobre un dataset sintético de 90 días.
-          Esta página explica de dónde sale cada número, qué se puede reproducir y qué
-          necesitaría datos internos reales de Somos Internet.
+        <h1 id="met-title">Cómo está construido <em>esto.</em></h1>
+        <p class="sub" style="max-width:680px">
+          Un dataset sintético de 90 días, semilla fija, reproducible con un comando.
         </p>
       </section>
 
@@ -46,141 +70,104 @@
         <span class="orb sm" aria-hidden="true"></span>
         <div class="disc-body">
           <b>DATOS SINTÉTICOS</b>
-          Ningún número de este ejercicio proviene de sistemas internos de Somos Internet.
-          La única fuente real es la estructura pública del embudo del sitio
-          somosinternet.com (pasos, orden, canales).
+          Ningún número sale de sistemas internos de Somos. La única fuente real es la
+          estructura pública del embudo.
           <a class="link" href="/">Volver al análisis →</a>
         </div>
       </div>
 
+      <!-- 01 · Pipeline -->
       <section aria-labelledby="pipeline-title">
         <h2 class="section-title" style="margin-top:44px"><span class="sec-no">01</span><span id="pipeline-title">El pipeline</span></h2>
-        <div class="method-details">
-          <details open>
-            <summary>Un comando regenera todo el análisis</summary>
-            <div class="method-body">
-              <p>
-                <span class="mono">npm run run-all</span> ejecuta cuatro pasos en orden, con una
-                semilla fija: los mismos datos salen cada vez.
-              </p>
-              <ul>
-                <li><span class="mono">01-generate</span> — sesiones, agendamientos y operaciones del día a día (90 días).</li>
-                <li><span class="mono">02-funnel</span> — embudo web y WhatsApp con conversiones por paso e intervalos de confianza.</li>
-                <li><span class="mono">03-experiments</span> — cuatro experimentos A/B simulados (lift, p, IC, guardias, decisiones).</li>
-                <li><span class="mono">04-derive</span> — KPI, cola operativa, backlog priorizado por ICE y plan del siguiente experimento.</li>
-              </ul>
-              <p style="margin-top:10px">
-                <span class="mono">npm test</span> verifica 55 invariantes sobre los datos generados
-                (estructura, rangos, coherencia de conversiones, marcado sintético). La página y la
-                API sirven exclusivamente esos archivos: no hay un número recalculado en el navegador.
-              </p>
-            </div>
-          </details>
-          <details>
-            <summary>De dónde viene cada número</summary>
-            <div class="method-body">
-              <ul>
-                <li><span class="lbl obs">OBSERVADO</span> Estructura del embudo público: pasos del formulario (datos personales → celular → correo → elegibilidad → agendamiento), canal de WhatsApp, jerarquía del home.</li>
-                <li><span class="lbl hyp">SUPUESTO</span> Volúmenes y distribuciones: 86.806 sesiones, ciudades (Medellín, Bogotá, Caldas, Rionegro, Llanogrande), fuentes de tráfico, estratos y dispositivos.</li>
-                <li><span class="lbl sim">SIMULADO</span> Resultados de los experimentos, intervalos de confianza, tamaños de muestra, cola operativa y decisiones.</li>
-                <li><span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span> Capacidad de instalación (139/día), tiempos de respuesta de WhatsApp, costo por instalación y por lead.</li>
-              </ul>
-            </div>
-          </details>
+        <p class="section-intro"><span class="mono">npm run run-all</span> — cuatro pasos, misma semilla, mismos datos cada vez.</p>
+        <div class="pipe">
+          <div class="pipe-step">
+            <div class="ps-n">01-generate</div><div class="ps-t">Sesiones</div>
+            <div class="ps-s">90 días de tráfico, agendamientos y operación.</div>
+          </div>
+          <div class="pipe-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+          <div class="pipe-step">
+            <div class="ps-n">02-funnel</div><div class="ps-t">Embudos</div>
+            <div class="ps-s">Web y WhatsApp, conversión por paso con IC.</div>
+          </div>
+          <div class="pipe-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+          <div class="pipe-step">
+            <div class="ps-n">03-experiments</div><div class="ps-t">Experimentos</div>
+            <div class="ps-s">Lift, p, IC, guardias y decisión.</div>
+          </div>
+          <div class="pipe-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+          <div class="pipe-step">
+            <div class="ps-n">04-derive</div><div class="ps-t">Decisiones</div>
+            <div class="ps-s">KPI, cola operativa y backlog ICE.</div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-t"><div class="sv" data-m="tests">—</div><div class="sl">Tests en verde</div></div>
+          <div class="spec-t"><div class="sv" data-m="seed">—</div><div class="sl">Semilla fija</div></div>
+          <div class="spec-t"><div class="sv">0</div><div class="sl">Dependencias</div></div>
+          <div class="spec-t"><div class="sv" data-m="sessions">—</div><div class="sl">Sesiones simuladas</div></div>
         </div>
       </section>
 
+      <!-- 02 · Honestidad -->
+      <section aria-labelledby="hon-title">
+        <h2 class="section-title"><span class="sec-no">02</span><span id="hon-title">Qué es qué</span></h2>
+        <p class="section-intro">Cada número del sitio cae en una de estas cuatro categorías.</p>
+        <div class="hgrid">
+          <div class="hcol">
+            <span class="lbl obs">OBSERVADO</span>
+            <ul><li>Pasos del formulario</li><li>Canal de WhatsApp</li><li>Jerarquía del home</li></ul>
+          </div>
+          <div class="hcol">
+            <span class="lbl hyp">SUPUESTO</span>
+            <ul><li>Volúmenes de tráfico</li><li>Ciudades y estratos</li><li>Fuentes y dispositivos</li></ul>
+          </div>
+          <div class="hcol">
+            <span class="lbl sim">SIMULADO</span>
+            <ul><li>Resultados de experimentos</li><li>Intervalos y muestras</li><li>Cola operativa</li></ul>
+          </div>
+          <div class="hcol">
+            <span class="lbl req">REQUIERE VALIDACIÓN</span>
+            <ul><li>Capacidad de instalación</li><li>Tiempos de WhatsApp</li><li>Costo por lead</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · Estadística -->
       <section aria-labelledby="stats-title">
-        <h2 class="section-title"><span class="sec-no">02</span><span id="stats-title">La estadística</span></h2>
-        <div class="method-details">
-          <details open>
-            <summary>Las reglas de los experimentos</summary>
-            <div class="method-body">
-              <ul>
-                <li><b>MDE</b> — efecto mínimo detectable del 8% sobre la conversión por paso.</li>
-                <li><b>α = 0,05</b> y <b>poder = 80%</b> — el tamaño muestral se calcula para ambas.</li>
-                <li><b>Intervalos de confianza</b> — cada conversión por paso y por segmento lleva su IC 95% (Wald) calculado en el pipeline, no en el navegador.</li>
-                <li><b>Guardias</b> — cada experimento vigila una métrica de no-degradación (volumen de formularios, teléfonos válidos, minutos hasta la primera respuesta, elegibilidad de los agendados). Si la guardia se rompe, la decisión es <span class="badge danger">NO LANZAR</span> aunque el lift sea positivo.</li>
-                <li><b>Decisiones</b> — SHIP / ITERATE / STOP según significancia, intervalo contra el MDE y estado de las guardias. Todo resultado está etiquetado <span class="lbl sim">RESULTADO SIMULADO</span>.</li>
-              </ul>
-            </div>
-          </details>
-          <details>
-            <summary>Por qué ICE no es un dato de Somos</summary>
-            <div class="method-body">
-              <p>
-                El backlog se ordena con ICE = (Impacto + Confianza + Facilidad) / 3. Impacto y
-                facilidad son mi estimación como candidato; la confianza nace de la evidencia de
-                la simulación. El puntaje sirve para <b>discutir el orden de trabajo</b>, no para
-                describir la operación de Somos.
-              </p>
-            </div>
-          </details>
+        <h2 class="section-title"><span class="sec-no">03</span><span id="stats-title">Las reglas</span></h2>
+        <div class="spec">
+          <div class="spec-t"><div class="sv" data-m="mde">—</div><div class="sl">MDE</div></div>
+          <div class="spec-t"><div class="sv" data-m="alpha">—</div><div class="sl">α</div></div>
+          <div class="spec-t"><div class="sv" data-m="power">—</div><div class="sl">Poder</div></div>
+          <div class="spec-t"><div class="sv">95%</div><div class="sl">Intervalo</div></div>
         </div>
+        <div class="funnel-insight" style="max-width:820px;margin-top:18px">
+          <b>La guardia manda sobre el lift.</b>
+          Si una métrica de no-degradación se rompe, la decisión es
+          <span class="badge danger">NO LANZAR</span> aunque el resultado primario sea positivo.
+        </div>
+        <p class="muted small" style="max-width:820px;margin-top:12px">
+          ICE = (Impacto + Confianza + Facilidad) / 3 — puntaje para ordenar trabajo, no un dato de Somos.
+        </p>
       </section>
 
+      <!-- 04 · API -->
       <section aria-labelledby="api-title">
-        <h2 class="section-title"><span class="sec-no">03</span><span id="api-title">La API</span></h2>
-        <div class="method-details">
-          <details open>
-            <summary>Todo lo que ve la página se puede consultar como JSON</summary>
-            <div class="method-body">
-              <p>Los mismos datos que pinta la interfaz se sirven por HTTP, listos para ser consumidos por otra herramienta (dashboard, notificación, análisis):</p>
-              <ul>
-                <li><span class="mono"><a class="link" href="/api/overview">GET /api/overview</a></span> — KPI, resumen operativo y plan del siguiente experimento.</li>
-                <li><span class="mono"><a class="link" href="/api/funnel">GET /api/funnel</a></span> — embudos web y WhatsApp, fricciones y segmentos.</li>
-                <li><span class="mono"><a class="link" href="/api/experiments">GET /api/experiments</a></span> — parámetros y resultados de los experimentos simulados.</li>
-                <li><span class="mono"><a class="link" href="/api/operations">GET /api/operations</a></span> — serie diaria de demanda, capacidad y cola.</li>
-                <li><span class="mono"><a class="link" href="/api/backlog">GET /api/backlog</a></span> — backlog priorizado por ICE.</li>
-              </ul>
-              <p style="margin-top:10px">
-                Cada respuesta incluye <span class="mono">synthetic: true</span> y un aviso
-                <span class="mono">warning</span>: el marcado de honestidad viaja con los datos.
-              </p>
-            </div>
-          </details>
-          <details>
-            <summary>Por qué esto importa para el rol</summary>
-            <div class="method-body">
-              <p>
-                Un CRO no trabaja sobre pantallas: trabaja sobre datos. La página demuestra cómo
-                estructuraría el análisis (hipótesis → evidencia → experimento → decisión), y la
-                API demuestra que la estructura es consumible: cualquier equipo puede construir
-                encima sin reescribir la lógica.
-              </p>
-            </div>
-          </details>
+        <h2 class="section-title"><span class="sec-no">04</span><span id="api-title">La API</span></h2>
+        <p class="section-intro">Lo mismo que pinta la interfaz, servido como JSON. Cada respuesta viaja con <span class="mono">synthetic: true</span>.</p>
+        <div class="apilist">
+          <div class="apirow"><span class="mono"><a class="link" href="/api/overview">/api/overview</a></span> KPI y resumen</div>
+          <div class="apirow"><span class="mono"><a class="link" href="/api/funnel">/api/funnel</a></span> Embudos y segmentos</div>
+          <div class="apirow"><span class="mono"><a class="link" href="/api/experiments">/api/experiments</a></span> Resultados y guardias</div>
+          <div class="apirow"><span class="mono"><a class="link" href="/api/operations">/api/operations</a></span> Demanda vs capacidad</div>
+          <div class="apirow"><span class="mono"><a class="link" href="/api/backlog">/api/backlog</a></span> Backlog por ICE</div>
         </div>
-      </section>
-
-      <section aria-labelledby="repro-title">
-        <h2 class="section-title"><span class="sec-no">04</span><span id="repro-title">Reproducir y verificar</span></h2>
-        <div class="method-details">
-          <details open>
-            <summary>Comandos</summary>
-            <div class="method-body">
-              <ul>
-                <li><span class="mono">npm run run-all</span> — regenera los datos con la semilla fija (determinista).</li>
-                <li><span class="mono">npm test</span> — 55 invariantes sobre estructura, rangos y coherencia.</li>
-                <li><span class="mono">npm run web</span> — servidor local en <span class="mono">localhost:3000</span> con la API y las páginas.</li>
-                <li><span class="mono">npm run build</span> — empaqueta para Cloudflare Pages (un solo comando de despliegue).</li>
-              </ul>
-            </div>
-          </details>
-          <details>
-            <summary>Repositorio</summary>
-            <div class="method-body">
-              <p>
-                El código completo es público en
-                <a class="link" href="https://github.com/LuisAlejandroCR/somos-internet" rel="noopener">github.com/LuisAlejandroCR/somos-internet</a>:
-                pipeline de generación, estadística, API, tests y estas páginas.
-              </p>
-            </div>
-          </details>
-          <p class="muted small" style="margin-top:14px">
-            La presentación para la entrevista está en <a class="link" href="/pitch">/pitch</a>.
-          </p>
-        </div>
+        <p class="muted small" style="margin-top:16px">
+          Código completo en
+          <a class="link" href="https://github.com/LuisAlejandroCR/somos-internet" rel="noopener">github.com/LuisAlejandroCR/somos-internet</a>
+          · presentación en <a class="link" href="/pitch">/pitch</a>.
+        </p>
       </section>
 
     </div>
@@ -193,5 +180,7 @@
       <a href="/">Análisis</a> · <a href="/pitch">Pitch</a> · <a href="/api/overview">API</a>
     </div>
   </footer>
+
+  <script src="/metodologia.js"></script>
 </body>
 </html>

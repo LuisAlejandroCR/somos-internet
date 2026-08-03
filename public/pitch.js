@@ -126,15 +126,29 @@ Promise.all([
     set("opsVerdict", ops.verdict);
     renderSpark(operations.daily ?? []);
 
-    // Slide 11 — embudo modelado
-    fill("pf", funnel.web
-      .map((s, i) => {
-        const w = i === 0 ? 100 : s.step_conversion * 100;
-        const bad = i > 0 && s.drop_off_rate > 0.28;
-        return `<div class="pf-row">
-          <div>${s.label}</div>
-          <div class="pf-track"><div class="pf-bar ${bad ? "bad" : ""}" style="width:${Math.max(w, 4)}%">${i === 0 ? "100%" : (s.step_conversion * 100).toFixed(1) + "%"}</div></div>
-          <div class="pf-lost">${i === 0 ? "" : "−" + num(s.drop_off)}</div>
+    // Slide 11 — resultado de los experimentos como gráfico.
+    // Antes acá se repetía el embudo web, que ya se muestra en la slide 2. Un
+    // gráfico de lift cuenta lo que el embudo no: que el experimento con el
+    // lift más grande es justamente el que se bloquea por guardia rota.
+    const maxLift = Math.max(...experiments.results.map((r) => Math.abs(r.relative_lift ?? 0)), 0.01);
+    fill("lifts", experiments.results
+      .map((r) => {
+        const lift = r.relative_lift ?? 0;
+        const breached = r.guardrail?.breached;
+        const shipped = r.decision === "lanzar";
+        const cls = breached ? "blocked" : shipped ? "" : "null";
+        const tag = breached
+          ? ['blocked', "GUARDIA ROTA"]
+          : shipped
+            ? ['ship', "LANZAR"]
+            : ['null', r.significant ? "REVISAR" : "SIN EFECTO"];
+        return `<div class="lift">
+          <div class="lf-n"><b>${r.id}</b>${r.name.replace(/^(Filtro|Selector|Jerarquía|Copy) /, "")}</div>
+          <div class="lf-track">
+            <div class="lf-fill ${cls}" style="left:2px;width:${Math.max((Math.abs(lift) / maxLift) * 96, 3)}%"></div>
+            <span class="lf-v">${lift > 0 ? "+" : ""}${(lift * 100).toFixed(1)}%</span>
+          </div>
+          <span class="lf-tag ${tag[0]}">${tag[1]}</span>
         </div>`;
       })
       .join(""));
@@ -153,13 +167,6 @@ Promise.all([
       })
       .join("<br>") + "<br>");
 
-    const shipped = experiments.results.filter((r) => r.decision === "lanzar").length;
-    const blocked = experiments.results.filter((r) => r.decision === "no_lanzar_guardia").length;
-    const killed = experiments.results.filter((r) => r.decision.includes("descartar")).length;
-    set(
-      "expSummary",
-      `${shipped} se lanza. ${blocked} ganaron en la métrica primaria y aun así se bloquean. ${killed} se descarta y se documenta.`
-    );
 
     // Slide 11 — próximo experimento (del planning del pipeline, en /api/overview)
     const next = overview.next_experiment_planning;

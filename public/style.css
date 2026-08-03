@@ -358,6 +358,35 @@ td .small { font-size: 11.5px; color: var(--text-3); }
 }
 .chart-tooltip b { color: var(--text); font-family: "JetBrains Mono", monospace; font-size: 11px; }
 
+/* ── Gráfico de prioridad ICE — barras horizontales, alimentadas por la API.
+   Reemplaza texto: el orden se ve, no se lee. ── */
+.icebars { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.icebar { display: grid; grid-template-columns: 30px 1fr 46px; gap: 12px; align-items: center; }
+.icebar .ib-id { font-family: "JetBrains Mono", monospace; font-size: 11.5px; font-weight: 700; color: var(--text-3); }
+.icebar .ib-track { position: relative; background: var(--surface); border-radius: 7px; height: 30px; overflow: hidden; border: 1px solid var(--border); }
+.icebar .ib-fill { height: 100%; background: var(--surface-2); border-radius: 6px 0 0 6px; transition: width .4s ease; }
+.icebar.top .ib-fill { background: var(--brand-yellow); }
+.icebar .ib-label { position: absolute; inset: 0; display: flex; align-items: center; padding-left: 11px; font-size: 12px; font-weight: 600; color: var(--text); pointer-events: none; }
+.icebar .ib-score { font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 700; text-align: right; color: var(--text-2); }
+.icebar.top .ib-score { color: var(--text); }
+
+/* ── Gráfico de resultados de experimentos — lift + estado de la guardia ── */
+.lifts { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+.lift { display: grid; grid-template-columns: 128px 1fr auto; gap: 12px; align-items: center; font-size: 12px; }
+.lift .lf-n { color: var(--text-2); line-height: 1.3; }
+.lift .lf-n b { display: block; color: var(--text); font-size: 11px; font-family: "JetBrains Mono", monospace; }
+.lift .lf-track { position: relative; height: 26px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.lift .lf-zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border-2); }
+.lift .lf-fill { position: absolute; top: 4px; bottom: 4px; border-radius: 3px; background: var(--ok); opacity: .55; }
+.lift .lf-fill.blocked { background: var(--danger); }
+.lift .lf-fill.null { background: var(--text-3); opacity: .35; }
+.lift .lf-v { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 9px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; font-weight: 700; color: var(--text); }
+.lift .lf-tag { font-size: 9.5px; font-weight: 800; letter-spacing: .06em; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.lift .lf-tag.ship { background: var(--ok-dim); color: var(--ok); }
+.lift .lf-tag.blocked { background: var(--danger-dim); color: var(--danger); }
+.lift .lf-tag.null { background: var(--surface-2); color: var(--text-3); }
+@media (max-width: 680px) { .lift { grid-template-columns: 1fr; gap: 4px; } }
+
 /* ── Iconografía — SVG en línea, dibujados a mano, sin librería externa.
    Heredan color de currentColor: quien los usa decide el tono con `color`. ── */
 .icon { width: 22px; height: 22px; flex: none; display: block; }
