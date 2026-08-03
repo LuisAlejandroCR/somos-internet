@@ -668,11 +668,12 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 <div class="slide-badge"><span class="orb sm"></span> <span id="slide-num" aria-live="polite">1 / 11</span></div>
 <div class="deck-ctrl">
   <button id="prev" aria-label="Diapositiva anterior">←</button>
-  <button id="play" aria-label="Reproducir automáticamente, cronometrado a 2 minutos">▶</button>
+  <button id="play" aria-label="Reproducir con el audio sincronizado">▶</button>
   <button id="next" aria-label="Diapositiva siguiente">→</button>
 </div>
 <div class="deck-nav"><span>← → <b>navegar</b> · <kbd>Espacio</kbd> reproducir/pausa · <kbd>F</kbd> pantalla completa</span></div>
 
+<audio id="pitch-audio" src="/somos_audio.mp3" preload="auto"></audio>
 <script src="/pitch.js"></script>
 </body>
 </html>

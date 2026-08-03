@@ -17,36 +17,73 @@ function show(next) {
   if (idx === slides.length - 1) nextBtn.blur();
 }
 
-// ── Autoplay, timed to the 2-minute narration script (sums to 120s) ──
-// These are REFERENCE timings meant to be calibrated against the real
-// ElevenLabs export once it exists, not the other way around.
-// 11 slides: the old "map of the three ideas" preview slide was cut as
-// redundant with the three detail slides that immediately follow it.
-const SLIDE_SECONDS = [12, 12, 10, 8, 10, 8, 10, 10, 12, 8, 20];
+// ── Sync to the recorded narration (somos_audio.mp3) ──
+// The audio starts and the narration begins a few seconds in (LEAD). Slides
+// are driven by the AUDIO CLOCK (currentTime − LEAD), not a wall timer, so
+// pause/resume never drifts and a re-record only needs cue recalibration.
+// Calibrate NARRATION_CUES by ear: each entry is the narrated second at
+// which that slide's spoken line begins. Narration spans 0…(duration − LEAD).
+const audio = document.getElementById("pitch-audio");
+const LEAD = 8; // seconds of intro before the narration starts
+const NARRATION_CUES = [0, 15, 34, 41, 47, 52, 58, 65, 72, 86, 94];
+audio.dataset.lead = String(LEAD);
+audio.dataset.cues = NARRATION_CUES.join(",");
 let playing = false;
-let playTimer = null;
+const narrated = () => Math.max(0, audio.currentTime - LEAD);
+function cueSlide() {
+  let best = 0;
+  const t = narrated();
+  for (let i = 0; i < NARRATION_CUES.length && t >= NARRATION_CUES[i]; i++) best = i;
+  return best;
+}
+function syncTick() {
+  // The play button's label IS the state: it flips to "❚❚" when the clock
+  // runs, so the clock never moves the deck while paused or stopped.
+  if (playBtn.textContent !== "❚❚") return;
+  const target = cueSlide();
+  if (target !== idx) show(target);
+  if (audio.ended) stopAutoplay();
+}
 function stopAutoplay() {
   playing = false;
-  clearTimeout(playTimer);
+  if (!audio.paused) audio.pause();
   playBtn.textContent = "▶";
-  playBtn.setAttribute("aria-label", "Reproducir automáticamente, cronometrado a 2 minutos");
-}
-function scheduleNext() {
-  clearTimeout(playTimer);
-  const seconds = SLIDE_SECONDS[idx] ?? 8;
-  playTimer = setTimeout(() => {
-    if (idx >= slides.length - 1) { stopAutoplay(); return; }
-    show(idx + 1);
-    scheduleNext();
-  }, seconds * 1000);
+  playBtn.setAttribute("aria-label", "Reproducir con el audio sincronizado");
 }
 function startAutoplay() {
   playing = true;
+  audio.currentTime = 0;
+  show(0);
   playBtn.textContent = "❚❚";
-  playBtn.setAttribute("aria-label", "Pausar reproducción automática");
-  scheduleNext();
+  playBtn.setAttribute("aria-label", "Pausar reproducción sincronizada");
+  try {
+    const p = audio.play();
+    if (p && typeof p.catch === "function") p.catch(() => fallbackAutoplay());
+  } catch {
+    fallbackAutoplay();
+  }
 }
 playBtn.addEventListener("click", () => (playing ? stopAutoplay() : startAutoplay()));
+audio.addEventListener("timeupdate", syncTick);
+audio.addEventListener("ended", stopAutoplay);
+
+// Fallback: if the audio file can't load (e.g. not recorded yet), keep a
+// timed dwell plan so the deck still presents itself at ~2 minutes.
+const FALLBACK_SECONDS = [12, 12, 10, 8, 10, 8, 10, 10, 12, 8, 20];
+let fallbackTimer = null;
+function fallbackAutoplay() {
+  playing = true;
+  playBtn.textContent = "❚❚";
+  playBtn.setAttribute("aria-label", "Pausar reproducción automática");
+  const step = () => {
+    if (!playing) return;
+    if (idx >= slides.length - 1) { stopAutoplay(); return; }
+    show(idx + 1);
+    fallbackTimer = setTimeout(step, (FALLBACK_SECONDS[idx] ?? 8) * 1000);
+  };
+  clearTimeout(fallbackTimer);
+  step();
+}
 
 function manualShow(next) { stopAutoplay(); show(next); }
 prevBtn.addEventListener("click", () => manualShow(idx - 1));
