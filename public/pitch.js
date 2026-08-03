@@ -34,6 +34,12 @@ show(0);
 const pct = (v, d = 1) => (v == null ? "—" : `${(v * 100).toFixed(d)}%`);
 const num = (v) => (v == null ? "—" : v.toLocaleString("es-CO"));
 const set = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((el) => (el.textContent = v));
+// Rellena por id solo si el elemento existe (el deck cambia de estructura;
+// un hook huérfano no puede tumbar la carga del resto).
+const fill = (id, html) => {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+};
 
 const DECISION_TERM = {
   lanzar: ['hl', "LANZAR"],
@@ -46,19 +52,61 @@ const DECISION_TERM = {
   sin_datos: ['c', "SIN DATOS"],
 };
 
+// ── Mini embudos (slide 2) ──
+// Cuatro barras por canal, cada una contra el paso anterior. La fuga mayor se
+// pinta con el color semántico de aviso (análisis, no error).
+function miniFunnel(steps, keys) {
+  const picked = keys.map((k) => steps.find((s) => s.step === k)).filter(Boolean);
+  if (!picked.length) return "";
+  let hot = 1;
+  for (let i = 1; i < picked.length; i++) {
+    if (picked[i].drop_off_rate > picked[hot].drop_off_rate) hot = i;
+  }
+  return picked
+    .map((s, i) => {
+      const w = i === 0 ? 100 : s.step_conversion * 100;
+      const isHot = i === hot && i > 0;
+      const title = i === 0 ? "punto de partida" : `${num(s.reached)} llegaron · −${num(s.drop_off)} (${pct(s.drop_off_rate, 0)})`;
+      return `<div class="mf-row" title="${title}">
+        <div class="l">${s.label}</div>
+        <div class="mf-track"><div class="mf-bar${isHot ? " hot" : ""}" style="width:${Math.max(w, 3)}%"></div></div>
+        <div class="mf-val">${i === 0 ? "100%" : pct(s.step_conversion, 1)}</div>
+      </div>`;
+    })
+    .join("");
+}
+
+// ── Sparkline del guardrail (slide 10) ──
+// Los paths se pintan con setAttribute("d", …): un innerHTML crearía texto de
+// contenido dentro del path, no su atributo de dibujo.
+function renderSpark(daily) {
+  const W = 560, H = 150, PAD = 8, TOP = 10, BOT = 130;
+  const maxV = Math.max(...daily.map((d) => d.scheduled), ...daily.map((d) => d.capacity));
+  const x = (i) => PAD + (i / Math.max(daily.length - 1, 1)) * (W - PAD * 2);
+  const y = (v) => BOT - (v / maxV) * (BOT - TOP);
+  const line = (key) => daily.map((d, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(" ");
+  const cap = document.getElementById("cap-spark");
+  const dem = document.getElementById("dem-spark");
+  if (cap) cap.setAttribute("d", line("capacity"));
+  if (dem) dem.setAttribute("d", line("scheduled"));
+}
+
 Promise.all([
   fetch("/api/overview").then((r) => r.json()),
   fetch("/api/funnel").then((r) => r.json()),
   fetch("/api/experiments").then((r) => r.json()),
   fetch("/api/backlog").then((r) => r.json()),
+  fetch("/api/operations").then((r) => r.json()),
 ])
-  .then(([overview, funnel, experiments, backlog]) => {
+  .then(([overview, funnel, experiments, backlog, operations]) => {
     const ops = overview.operations;
 
-    // Slide 9 — método: conteo de tests
+    // Slide 11 — método: conteo de tests
     set("testCount", overview.headline.test_count ?? "—");
 
-    // Slide 5 — WhatsApp: chips simulados
+    // Slide 2 — embudos mini + chips del canal WhatsApp
+    fill("mini-web", miniFunnel(funnel.web, ["landing", "form_start", "phone", "scheduled"]));
+    fill("mini-wa", miniFunnel(funnel.whatsapp, ["landing", "wa_first_message", "wa_qualified", "scheduled"]));
     const totalLanding = funnel.totals.sessions;
     const waLanding = funnel.totals.wa_sessions;
     set("waShare", pct(waLanding / totalLanding, 0));
@@ -69,8 +117,17 @@ Promise.all([
     const qualStep = funnel.whatsapp.find((s) => s.step === "wa_qualified");
     set("waQualLoss", qualStep ? pct(qualStep.drop_off_rate, 0) : "—");
 
-    // Slide 9 — embudo modelado
-    document.getElementById("pf").innerHTML = funnel.web
+    // Slide 5 — idea 01: validación externa (trabajo de calle, #1 del backlog)
+    const topItem = backlog.items[0];
+    set("p8", topItem ? `ICE ${topItem.ice.toFixed(1)} · #1 del backlog` : "—");
+
+    // Slide 10 — guardrail: capacidad + sparkline
+    set("utilisation", pct(ops.capacity_utilisation, 0));
+    set("opsVerdict", ops.verdict);
+    renderSpark(operations.daily ?? []);
+
+    // Slide 11 — embudo modelado
+    fill("pf", funnel.web
       .map((s, i) => {
         const w = i === 0 ? 100 : s.step_conversion * 100;
         const bad = i > 0 && s.drop_off_rate > 0.28;
@@ -80,21 +137,21 @@ Promise.all([
           <div class="pf-lost">${i === 0 ? "" : "−" + num(s.drop_off)}</div>
         </div>`;
       })
-      .join("");
+      .join(""));
 
-    // Slide 9 — terminal: se arma desde los resultados reales
+    // Slide 11 — terminal: se arma desde los resultados reales
     set("expCount", experiments.results.length);
     set("mde", pct(experiments.target_mde, 0));
     set("power", experiments.power);
     const pad = (s, n) => String(s).padEnd(n, " ");
-    document.getElementById("term-lines").innerHTML = experiments.results
+    fill("term-lines", experiments.results
       .map((r) => {
         const [cls, label] = DECISION_TERM[r.decision] ?? ["c", r.decision.toUpperCase()];
         const lift = r.relative_lift == null ? "—" : `${r.relative_lift > 0 ? "+" : ""}${(r.relative_lift * 100).toFixed(1)}%`;
         const p = r.p_value == null ? "—" : r.p_value < 0.0001 ? "p<0.0001" : `p=${r.p_value.toFixed(4)}`;
         return `<span class="p">${r.id}</span> ${pad(r.name.slice(0, 26), 28)}${pad(lift, 8)}${pad(p, 11)}→ <span class="${cls}">${label}</span>`;
       })
-      .join("<br>") + "<br>";
+      .join("<br>") + "<br>");
 
     const shipped = experiments.results.filter((r) => r.decision === "lanzar").length;
     const blocked = experiments.results.filter((r) => r.decision === "no_lanzar_guardia").length;
@@ -104,22 +161,21 @@ Promise.all([
       `${shipped} se lanza. ${blocked} ganaron en la métrica primaria y aun así se bloquean. ${killed} se descarta y se documenta.`
     );
 
-    // Slide 8 — capacidad: simulación como guardrail, nunca diagnóstico
-    set("utilisation", pct(ops.capacity_utilisation, 0));
-    set("opsVerdict", ops.verdict);
+    // Slide 11 — próximo experimento (del planning del pipeline, en /api/overview)
+    const next = overview.next_experiment_planning;
+    if (next) {
+      set("neBaseline", pct(next.baseline_rate, 1));
+      set("neMde", pct(next.mde, 0));
+      set("neN", num(next.required_per_variant));
+      set("neDays", next.estimated_days);
+    }
 
-    // Slide 6 — backlog priorizado: ranking completo con justificación
-    document.getElementById("backlog-rank").innerHTML = backlog.items
-      .map(
-        (b, i) => `<li>
-          <span class="rank-n">${i + 1}</span><b>${b.id}</b>
-          <span>${b.title}</span>
-          <span class="mono rank-ice">ICE ${b.ice.toFixed(1)}</span>
-          <span class="just">${b.hypothesis}</span>
-        </li>`
-      )
-      .join("");
+    // Slide 11 — top 3 del backlog por ICE
+    fill("top3", backlog.items
+      .slice(0, 3)
+      .map((b) => `<b>${b.id}</b> ${b.title} <span class="mono">${b.ice.toFixed(1)}</span>`)
+      .join(' <span style="color:var(--muted-2)">·</span> '));
   })
   .catch((err) => {
-    document.getElementById("pf").innerHTML = `<div class="lead">No se pudo cargar la data (${err.message}). Corré <span class="mono">npm run run-all</span>.</div>`;
+    fill("pf", `<div class="lead">No se pudo cargar la data (${err.message}). Corré <span class="mono">npm run run-all</span>.</div>`);
   });
