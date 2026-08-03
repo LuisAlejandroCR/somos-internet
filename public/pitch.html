@@ -64,6 +64,25 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .chip.pink { border-color: rgba(86,21,193,.25); background: rgba(86,21,193,.05); }
 .chip.cream { border-color: rgba(255,209,2,.4); background: rgba(255,209,2,.1); }
 
+/* ── Journey con marcadores (slide 2) ── */
+.journey { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; margin-top: 16px; max-width: 1120px; }
+.journey .j-arrow { align-self: center; color: var(--mint); font-weight: 700; font-size: 13px; margin-top: 14px; }
+.journey .j-node { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 13px; font-size: 11.5px; font-weight: 600; color: var(--text-2); text-align: center; min-width: 104px; }
+.journey .j-node .j-hint { display: block; font-size: 9px; font-weight: 500; color: var(--muted-2); margin-top: 2px; }
+.journey .j-node.has-marker { border-color: rgba(30,187,178,.25); }
+.j-mark { position: absolute; top: -10px; right: -7px; background: var(--brand-mint-vivid); color: #fff; font-size: 9.5px; font-weight: 700; width: 20px; height: 20px; border-radius: 999px; display: grid; place-items: center; box-shadow: 0 3px 8px rgba(13,110,103,.35); font-family: "JetBrains Mono", monospace; }
+.j-mark.pink { background: var(--brand-pink); box-shadow: 0 3px 8px rgba(86,21,193,.35); }
+.j-mark.cream { background: var(--brand-yellow); color: #070707; box-shadow: 0 3px 8px rgba(255,209,2,.35); }
+
+/* ── Micro-mockups de los embudos (slide 2) ── */
+.mf-mock { display: inline-flex; align-items: center; gap: 7px; background: var(--card-2); border: 1px solid var(--border-2); border-radius: 7px; padding: 3px 9px; margin-left: 7px; vertical-align: middle; }
+.mf-mock .ph { font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 700; color: var(--mint); border-right: 1px solid var(--border-2); padding-right: 7px; }
+.mf-mock .ph-dots { width: 74px; height: 10px; border-radius: 3px; background: var(--card); border: 1px dashed var(--border-2); }
+.tline { display: inline-flex; align-items: center; gap: 5px; margin-left: 7px; vertical-align: middle; }
+.tl-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--border-2); }
+.tl-dot.hot { background: var(--brand-pink); }
+.tl-wait { width: 20px; height: 2px; background: var(--border-2); }
+
 /* ── Edificio (idea 01) ── */
 .bldg-stage { display: flex; gap: 42px; align-items: center; margin-top: 26px; flex-wrap: wrap; }
 .bldg { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: none; }
@@ -277,6 +296,11 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <span class="ctile pink"><span class="cn">02</span> "El Nu de los ISP"</span>
       <span class="ctile"><span class="cn">03</span> Wire → wireless</span>
     </div>
+    <div class="chiprow" style="margin-top:16px">
+      <span class="chip">Serie A + B · <b data-r="fundingTotal">—</b></span>
+      <span class="chip">Dos capas: <b>fibra hoy, IA mañana</b></span>
+      <span class="chip cream">Crecimiento <b>orgánico</b>, no pauta</span>
+    </div>
     <div class="tags" style="margin-top:26px">
       <span class="lbl obs">OBSERVACIÓN PÚBLICA</span><span class="lbl rec">+</span><span class="lbl hyp">HIPÓTESIS</span><span class="lbl rec">+</span><span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span>
     </div>
@@ -289,21 +313,27 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="eyebrow">El contexto · 30 segundos <span class="lbl obs" style="margin-left:8px">OBSERVACIÓN PÚBLICA</span></div>
     </div>
     <h1>El embudo pierde en 2 pasos — <em>no en el copy.</em></h1>
-    <div class="chiprow" style="margin-top:14px">
-      <span class="chip">Serie A + B · <b data-r="fundingTotal">—</b></span>
-      <span class="chip">Dos capas: <b>fibra hoy, IA mañana</b></span>
-      <span class="chip cream">Crecimiento <b>orgánico</b>, no pauta</span>
+    <div class="journey" aria-label="El viaje del usuario de Somos en cinco pasos; los tres marcadores son los hallazgos que probaría">
+      <div class="j-node">Home</div><span class="j-arrow" aria-hidden="true">→</span>
+      <div class="j-node has-marker"><span class="j-mark">02</span>WhatsApp / checkout<span class="j-hint">tiempo de primera respuesta</span></div><span class="j-arrow" aria-hidden="true">→</span>
+      <div class="j-node has-marker"><span class="j-mark pink">01</span>Elegibilidad<span class="j-hint">se pregunta al final</span></div><span class="j-arrow" aria-hidden="true">→</span>
+      <div class="j-node">Agendamiento</div><span class="j-arrow" aria-hidden="true">→</span>
+      <div class="j-node has-marker"><span class="j-mark cream">03</span>Instalación<span class="j-hint">la conversión real</span></div>
     </div>
     <div class="mini-funnels">
       <div class="mf">
         <h3><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg>Embudo web</h3>
         <div id="mini-web"></div>
-        <div class="mf-note">El cuello: <b>el celular</b></div>
+        <div class="mf-note">El cuello: <b>el celular</b> — hoy se escribe a mano
+          <span class="mf-mock"><span class="ph">+57</span><span class="ph-dots" aria-hidden="true"></span><span class="lbl hyp">PROPUESTA</span></span>
+        </div>
       </div>
       <div class="mf">
         <h3><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>Embudo WhatsApp</h3>
         <div id="mini-wa"></div>
-        <div class="mf-note pink"><span data-m="waQualLoss"></span> se pierde en <b>calificación</b></div>
+        <div class="mf-note pink"><span data-m="waQualLoss"></span> se pierde en <b>calificación</b>
+          <span class="tline" aria-hidden="true"><span class="tl-dot"></span><span class="tl-wait"></span><span class="tl-dot hot"></span><span class="tl-wait"></span><span class="tl-dot"></span></span>
+        </div>
       </div>
     </div>
     <div class="chiprow">
@@ -359,13 +389,13 @@ section.slide.on { opacity: 1; pointer-events: auto; }
         <div class="floor"><span class="win"></span><span class="win"></span><span class="win"></span></div>
         <div class="floor"><span class="win"></span><span class="win"></span><span class="win"></span></div>
         <div class="floor"><span class="win"></span><span class="win"></span><span class="win"></span></div>
-        <div class="floor hot"><span class="win"></span><span class="win"></span><span class="win"></span><span class="badge">127 vecinos</span></div>
+        <div class="floor hot"><span class="win"></span><span class="win"></span><span class="win"></span><span class="badge"><span data-r="neighbors">—</span> vecinos</span></div>
         <div class="floor"><span class="win"></span><span class="win"></span><span class="win"></span></div>
         <div class="ground"></div>
       </div>
       <div class="mech-grid">
         <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6 15 2-6 6-2z"/><path d="M14 14l6 6"/></svg></span><div><div class="mt">Campañas hiperlocales</div><div class="ms">El barrio entra en el nombre.</div></div></div>
-        <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9"/></svg></span><div><div class="mt">Prueba social localizada</div><div class="ms">"127 vecinos" pesa más que <span data-r="usersPublic">—</span>.</div></div></div>
+        <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9"/></svg></span><div><div class="mt">Prueba social localizada</div><div class="ms">"<span data-r="neighbors">—</span> vecinos" pesa más que <span data-r="usersPublic">—</span>.</div></div></div>
         <div class="mech-card"><span class="icon-badge cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="mt">Referidos identitarios</div><div class="ms">"Que tu edificio SEA Somos" — no traer un cliente.</div></div></div>
         <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></span><div><div class="mt">Mensaje al administrador</div><div class="ms">La copropiedad SE vuelve Somos: status, no proveedor.</div></div></div>
       </div>
@@ -533,8 +563,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div>
         <div class="flow3">
           <span class="f3">Conversión</span><span class="a">→</span>
-          <span class="f3">Agendamiento</span><span class="a">→</span>
-          <span class="f3 danger">Instalación</span>
+          <span class="f3">Calificado</span><span class="a">→</span>
+          <span class="f3">Agendado</span><span class="a">→</span>
+          <span class="f3 danger">Instalado</span>
+          <span class="lbl sim" style="margin-left:10px">CONVERSIÓN REAL</span>
         </div>
         <p class="lead" style="font-size:12.5px;margin-top:16px">
           Cada idea se prueba <b>después</b> de validar esto. Hipótesis de sistema, no diagnóstico.

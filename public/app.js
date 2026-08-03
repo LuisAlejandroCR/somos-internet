@@ -292,17 +292,22 @@ function showError(err) {
 
 async function main() {
   try {
-    const [overview, funnel, operations, backlog, research] = await Promise.all([
+    const [overview, funnel, operations, backlog, experiments, research] = await Promise.all([
       get("/api/overview"),
       get("/api/funnel"),
       get("/api/operations"),
       get("/api/backlog"),
+      get("/api/experiments"),
       get("/api/research"),
     ]);
 
     // Ventana del dataset y cifras externas verificadas: también del API.
     setM("days", overview.generated.days);
     setM("countryOptions", research.facts.somos.form_country_options.value);
+    // Tiempo de primera respuesta (guardrail del experimento de WhatsApp),
+    // para el detalle de la hipótesis 02 — no escrito a mano.
+    const waResp = experiments.results.map((r) => r.guardrail).find((g) => g && g.kind === "duration");
+    setM("waRespMin", waResp ? waResp.control_value.toLocaleString("es-CO") : "—");
 
     renderOverviewStats(overview);
     renderFunnelTotals(funnel);

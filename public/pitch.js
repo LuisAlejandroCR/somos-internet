@@ -130,6 +130,8 @@ Promise.all([
     setR("blockersLeft", D.blockers_remaining);
     setR("mvpBuildings", `${F.mvp.buildings_min.value}-${F.mvp.buildings_max.value}`);
     setR("mvpWeeks", `${F.mvp.weeks_min.value}-${F.mvp.weeks_max.value}`);
+    // Ejemplo ilustrativo de la idea 01 — no una cifra de Somos.
+    setR("neighbors", num(F.hyperlocal.neighbors_example.value));
 
     // El intervalo de confianza se deriva de alpha, no se escribe "95%".
     set("ci", pct(1 - experiments.alpha, 0));

@@ -31,6 +31,11 @@ const HELIUM = {
   omv_obi_months: { value: 4, source: "CRC — Res. 5108/2017, régimen OMV", as_of: "2017" },
 };
 
+/** Ejemplo ilustrativo de la idea 01 — no una cifra de Somos. */
+const HYPERLOCAL = {
+  neighbors_example: { value: 127, source: "ejemplo ilustrativo (descubrimientos/10 §1)", as_of: "2026-08-02" },
+};
+
 /** Alcance del MVP propuesto — estimación propia, no un dato de terceros. */
 const MVP = {
   buildings_min: { value: 5, source: "propuesta propia (descubrimientos/14 §4-5)", as_of: "2026-08-02" },
@@ -41,7 +46,7 @@ const MVP = {
   blockers_shown: { value: 5, source: "análisis propio (descubrimientos/14)", as_of: "2026-08-02" },
 };
 
-export const RESEARCH_FACTS = { somos: SOMOS, helium: HELIUM, mvp: MVP };
+export const RESEARCH_FACTS = { somos: SOMOS, helium: HELIUM, hyperlocal: HYPERLOCAL, mvp: MVP };
 
 /** Todo hecho, aplanado — para que el test pueda auditarlos de una pasada. */
 export function allFacts() {
