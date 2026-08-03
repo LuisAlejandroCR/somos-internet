@@ -27,9 +27,10 @@ const audio = document.getElementById("pitch-audio");
 const LEAD = 0; // seconds of intro before the narration starts
 // Narration window measured with ffmpeg silencedetect (-35dB, 0.3s):
 // speech runs ~0.0s → ~114.9s of the 115.25s file (no leading silence).
-// Cues = word-proportional start of each slide's line over that window
-// (268 words total ≈ 2.33 w/s): [0, 9, 21, 32, 41, 49, 57, 64, 73, 81, 92].
-const NARRATION_CUES = [0, 9, 21, 32, 41, 49, 57, 64, 73, 81, 92];
+// Cues = script sentence starts aligned to the measured pause structure
+// (long pauses = sentence boundaries), cross-checked with word-proportional
+// pacing over the window: [0, 9, 22, 33, 41, 49, 57, 65, 75, 83, 92].
+const NARRATION_CUES = [0, 9, 22, 33, 41, 49, 57, 65, 75, 83, 92];
 const NARRATION_WINDOW = {
   start: 0, // first audible word (silencedetect)
   end: 114.9, // last audible word (silencedetect)
@@ -81,7 +82,7 @@ audio.addEventListener("ended", stopAutoplay);
 
 // Fallback: if the audio file can't load (e.g. not recorded yet), keep a
 // timed dwell plan so the deck still presents itself at ~2 minutes.
-const FALLBACK_SECONDS = [9, 12, 11, 9, 8, 8, 7, 9, 8, 11, 23];
+const FALLBACK_SECONDS = [9, 13, 11, 8, 8, 8, 8, 10, 8, 9, 23];
 let fallbackTimer = null;
 function fallbackAutoplay() {
   playing = true;
