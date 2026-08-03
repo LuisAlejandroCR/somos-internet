@@ -25,6 +25,44 @@ const num = (v, digits) =>
 
 const el = (id) => document.getElementById(id);
 
+const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Animates a number from 0 to its target, formatting every frame the same
+// way the final value is formatted — a real animated number, not a static
+// figure that just appears once the API responds.
+function countUp(node, target, format, duration = 900) {
+  if (!node || !Number.isFinite(target)) return;
+  if (reduceMotion()) { node.textContent = format(target); return; }
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    node.textContent = format(target * eased);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// Sets a bar's width in two steps (0, then the real value on the next frame)
+// so the CSS width transition actually has something to animate — setting
+// the final width directly leaves nothing for the transition to run.
+function animateWidth(node, finalWidth) {
+  if (!node) return;
+  if (reduceMotion()) { node.style.width = finalWidth; return; }
+  node.style.width = "0%";
+  requestAnimationFrame(() => requestAnimationFrame(() => { node.style.width = finalWidth; }));
+}
+
+// Makes an SVG path draw itself in instead of appearing all at once.
+function drawIn(path) {
+  if (!path || reduceMotion()) return;
+  const length = path.getTotalLength();
+  path.style.strokeDasharray = `${length}`;
+  path.style.strokeDashoffset = `${length}`;
+  path.classList.add("draw-in");
+  requestAnimationFrame(() => requestAnimationFrame(() => { path.style.strokeDashoffset = "0"; }));
+}
+
 async function get(path) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`${path} → ${res.status}`);
@@ -32,13 +70,21 @@ async function get(path) {
 }
 
 // ── Overview (thesis) ──────────────────────────────────────────────────────
+// Each big number counts up from 0 on load instead of just appearing —
+// the numbers are the headline visual here, so they're the ones worth
+// animating for real, not just fading in.
 function renderOverviewStats(overview) {
   const h = overview.headline;
-  el("overview-stats").innerHTML = `
-    <div class="cstat"><div class="v">${num(h.sessions)}</div><div class="k">Sesiones (${overview.generated.days} días)</div><div class="s">estructura pública del embudo</div></div>
-    <div class="cstat"><div class="v">${pct(h.conversion, 2)}</div><div class="k">Conversión global</div><div class="s">sesiones → agendamiento</div></div>
-    <div class="cstat"><div class="v">${num(h.scheduled)}</div><div class="k">Agendamientos</div><div class="s">web + WhatsApp</div></div>
-    <div class="cstat"><div class="v warn2">${num(overview.operations.final_backlog)}</div><div class="k">En cola de instalación</div><div class="s">${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera</div></div>`;
+  const stats = [
+    { v: h.sessions, k: `Sesiones (${overview.generated.days} días)`, s: "estructura pública del embudo", fmt: (x) => num(Math.round(x)) },
+    { v: h.conversion, k: "Conversión global", s: "sesiones → agendamiento", fmt: (x) => pct(x, 2) },
+    { v: h.scheduled, k: "Agendamientos", s: "web + WhatsApp", fmt: (x) => num(Math.round(x)) },
+    { v: overview.operations.final_backlog, k: "En cola de instalación", s: `${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera`, fmt: (x) => num(Math.round(x)), cls: "warn2" },
+  ];
+  el("overview-stats").innerHTML = stats
+    .map((s, i) => `<div class="cstat"><div class="v ${s.cls || ""}" id="ov-stat-${i}">0</div><div class="k">${s.k}</div><div class="s">${s.s}</div></div>`)
+    .join("");
+  stats.forEach((s, i) => countUp(el(`ov-stat-${i}`), s.v, s.fmt));
 }
 
 // ── ICE backlog — a chart, not a table ──────────────────────────────────
@@ -52,12 +98,13 @@ function renderIceBars(backlog) {
       <div class="icebar${i === 0 ? " top" : ""}">
         <span class="ib-id">${it.id}</span>
         <div class="ib-track" role="img" aria-label="${it.title}: ICE ${it.ice.toFixed(1)}">
-          <div class="ib-fill" style="width:${(it.ice / max) * 100}%"></div>
+          <div class="ib-fill" data-w="${(it.ice / max) * 100}%"></div>
           <span class="ib-label">${it.title}</span>
         </div>
         <span class="ib-score">${it.ice.toFixed(1)}</span>
       </div>`)
     .join("");
+  el("ice-bars").querySelectorAll(".ib-fill").forEach((node) => animateWidth(node, node.dataset.w));
 }
 
 const setM = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((n) => (n.textContent = v));
@@ -95,7 +142,8 @@ function hotStep(steps) {
 
 function renderFunnel(containerId, steps) {
   const hotIdx = hotStep(steps);
-  el(containerId).innerHTML = steps
+  const container = el(containerId);
+  container.innerHTML = steps
     .map((s, i) => {
       const width = i === 0 ? 100 : s.step_conversion * 100;
       const isHot = i === hotIdx && i > 0;
@@ -106,7 +154,7 @@ function renderFunnel(containerId, steps) {
             <small class="mono">${num(s.reached)} ${i === 0 ? "visitas al home" : "llegaron a este paso"}</small>
           </div>
           <div class="fbar-track" role="img" aria-label="De los ${num(s.reached)} que llegaron a ${s.label}, continuaron ${pct(s.step_conversion)}">
-            <div class="fbar${isHot ? " hot" : ""}" style="width:${Math.max(width, 3)}%">${i === 0 ? "100%" : pct(s.step_conversion)}</div>
+            <div class="fbar${isHot ? " hot" : ""}" data-w="${Math.max(width, 3)}%">${i === 0 ? "100%" : pct(s.step_conversion)}</div>
           </div>
           <div class="fstep-stats">
             ${i === 0 ? '<span class="small muted">punto de partida</span>' : `
@@ -117,6 +165,7 @@ function renderFunnel(containerId, steps) {
         </div>`;
     })
     .join("");
+  container.querySelectorAll(".fbar").forEach((node) => animateWidth(node, node.dataset.w));
 }
 
 // The main leak, as a big number instead of a paragraph. The step and the
@@ -236,11 +285,16 @@ function renderCapacity(operations) {
     firstOverloadIdx === -1
       ? "la capacidad absorbió la demanda todos los días"
       : `por encima del 100% desde el día ${operations.daily[firstOverloadIdx].day_index + 1}`;
-  el("cap-stats").innerHTML = `
-    <div class="cstat"><div class="v">${num(o.avg_daily_scheduled, 0)}</div><div class="k">Agendamientos por día</div><div class="s">demanda promedio simulada</div></div>
-    <div class="cstat"><div class="v">${num(o.avg_daily_capacity, 0)}</div><div class="k">Capacidad de instalación</div><div class="s">por día</div></div>
-    <div class="cstat"><div class="v warn2">${pct(o.capacity_utilisation, 0)}</div><div class="k">Uso de capacidad</div><div class="s">${overloadNote}</div></div>
-    <div class="cstat"><div class="v">${num(o.final_backlog)}</div><div class="k">En cola al cierre</div><div class="s">≈ ${o.backlog_days_recent.toLocaleString("es-CO")} días de espera</div></div>`;
+  const capStats = [
+    { v: o.avg_daily_scheduled, k: "Agendamientos por día", s: "demanda promedio simulada", fmt: (x) => num(x, 0) },
+    { v: o.avg_daily_capacity, k: "Capacidad de instalación", s: "por día", fmt: (x) => num(x, 0) },
+    { v: o.capacity_utilisation, k: "Uso de capacidad", s: overloadNote, fmt: (x) => pct(x, 0), cls: "warn2" },
+    { v: o.final_backlog, k: "En cola al cierre", s: `≈ ${o.backlog_days_recent.toLocaleString("es-CO")} días de espera`, fmt: (x) => num(x, 0) },
+  ];
+  el("cap-stats").innerHTML = capStats
+    .map((s, i) => `<div class="cstat"><div class="v ${s.cls || ""}" id="cap-stat-${i}">0</div><div class="k">${s.k}</div><div class="s">${s.s}</div></div>`)
+    .join("");
+  capStats.forEach((s, i) => countUp(el(`cap-stat-${i}`), s.v, s.fmt));
 
   const daily = operations.daily;
   const W = 600, H = 240, PAD = 12;
@@ -258,10 +312,13 @@ function renderCapacity(operations) {
     H,
     `Gráfico de línea: la demanda de agendamientos supera a la capacidad de instalación desde el tercer día`,
     grid +
-      `<path d="${line("capacity")}" fill="none" stroke="var(--text-3)" stroke-width="2"/>` +
-      `<path d="${line("scheduled")}" fill="none" stroke="var(--warn)" stroke-width="2.5"/>`
+      `<path id="cap-line-capacity" d="${line("capacity")}" fill="none" stroke="var(--text-3)" stroke-width="2"/>` +
+      `<path id="cap-line-scheduled" d="${line("scheduled")}" fill="none" stroke="var(--warn)" stroke-width="2.5"/>`
   );
   attachLineHover(el("cap-chart").querySelector("svg"), el("cap-chart").closest(".chart"), daily, { W, H, PAD, x, y });
+  // Self-drawing lines instead of appearing all at once.
+  drawIn(el("cap-chart").querySelector("#cap-line-capacity"));
+  drawIn(el("cap-chart").querySelector("#cap-line-scheduled"));
 
   const maxBacklog = Math.max(...daily.map((d) => d.backlog_end_of_day));
   const bw = (W - PAD * 2) / daily.length;

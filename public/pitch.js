@@ -133,6 +133,43 @@ const pct = (v, d = 1) =>
   v == null ? "—" : `${(v * 100).toLocaleString("es-CO", { minimumFractionDigits: d, maximumFractionDigits: d })}%`;
 const num = (v) => (v == null ? "—" : v.toLocaleString("es-CO"));
 const set = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((el) => (el.textContent = v));
+
+// ── Real animated graphics, not one-time fades ──
+const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Counts a number up from 0 to its target, re-formatting every frame.
+function countUp(node, target, format, duration = 900) {
+  if (!node || !Number.isFinite(target)) return;
+  if (reduceMotion()) { node.textContent = format(target); return; }
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    node.textContent = format(target * eased);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+// Same idea for every element sharing a data-r/data-m key at once.
+function countUpAll(selector, target, format, duration) {
+  document.querySelectorAll(selector).forEach((node) => countUp(node, target, format, duration));
+}
+// Sets width to 0 then the real value a frame later, so the CSS width
+// transition on the bar actually has something to animate.
+function animateWidth(node, finalWidth) {
+  if (!node) return;
+  if (reduceMotion()) { node.style.width = finalWidth; return; }
+  node.style.width = "0%";
+  requestAnimationFrame(() => requestAnimationFrame(() => { node.style.width = finalWidth; }));
+}
+// Makes an SVG path draw itself in instead of appearing all at once.
+function drawIn(path) {
+  if (!path || reduceMotion()) return;
+  const length = path.getTotalLength();
+  path.style.strokeDasharray = `${length}`;
+  path.style.strokeDashoffset = `${length}`;
+  path.classList.add("draw-in");
+  requestAnimationFrame(() => requestAnimationFrame(() => { path.style.strokeDashoffset = "0"; }));
+}
 // Fills by id only if the element exists (the deck's structure changes over
 // time; an orphaned hook shouldn't be able to break the rest of the load).
 const fill = (id, html) => {
@@ -178,8 +215,8 @@ function renderSpark(daily) {
   const line = (key) => daily.map((d, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(" ");
   const cap = document.getElementById("cap-spark");
   const dem = document.getElementById("dem-spark");
-  if (cap) cap.setAttribute("d", line("capacity"));
-  if (dem) dem.setAttribute("d", line("scheduled"));
+  if (cap) { cap.setAttribute("d", line("capacity")); drawIn(cap); }
+  if (dem) { dem.setAttribute("d", line("scheduled")); drawIn(dem); }
 }
 
 Promise.all([
@@ -212,11 +249,11 @@ Promise.all([
     setR("serieA", musd(F.somos.serie_a_musd.value));
     setR("serieB", musd(F.somos.serie_b_musd.value));
     setR("usersPublic", num(F.somos.users_public.value));
-    setR("heliumAccounts", num(F.helium.accounts.value));
+    countUpAll('[data-r="heliumAccounts"]', F.helium.accounts.value, (x) => num(Math.round(x)));
     setRHtml("heliumAccountsQoQ", signedPct(F.helium.accounts.qoq));
-    setR("heliumHotspots", num(F.helium.hotspots.value));
+    countUpAll('[data-r="heliumHotspots"]', F.helium.hotspots.value, (x) => num(Math.round(x)));
     setR("heliumThirdParty", pct(D.helium_third_party_pct));
-    setR("heliumOffload", `${num(F.helium.offload_tb.value)} TB`);
+    countUpAll('[data-r="heliumOffload"]', F.helium.offload_tb.value, (x) => `${num(Math.round(x))} TB`);
     setRHtml("heliumOffloadQoQ", signedPct(F.helium.offload_tb.qoq));
     setR("obiMonths", F.helium.omv_obi_months.value);
     setR("tokenVol", `${F.helium.token_volatility_x.value.toLocaleString("es-CO")}x`);
@@ -252,7 +289,7 @@ Promise.all([
     set("p8", topItem ? `ICE ${topItem.ice.toFixed(1)} · #1 del backlog` : "—");
 
     // Slide 9 — guardrail: capacity + sparkline
-    set("utilisation", pct(ops.capacity_utilisation, 0));
+    countUpAll('[data-m="utilisation"]', ops.capacity_utilisation, (x) => pct(x, 0), 1100);
     set("opsVerdict", ops.verdict);
     // These used to be hand-typed ("2,558", "14.9") next to a chart that DID
     // come from the API: the queue and wait time change with the seed.
@@ -279,13 +316,14 @@ Promise.all([
         return `<div class="lift">
           <div class="lf-n"><b>${r.id}</b>${r.name.replace(/^(Filtro|Selector|Jerarquía|Copy) /, "")}</div>
           <div class="lf-track">
-            <div class="lf-fill ${cls}" style="left:2px;width:${Math.max((Math.abs(lift) / maxLift) * 96, 3)}%"></div>
+            <div class="lf-fill ${cls}" style="left:2px" data-w="${Math.max((Math.abs(lift) / maxLift) * 96, 3)}%"></div>
             <span class="lf-v">${lift > 0 ? "+" : ""}${(lift * 100).toFixed(1)}%</span>
           </div>
           <span class="lf-tag ${tag[0]}">${tag[1]}</span>
         </div>`;
       })
       .join(""));
+    document.querySelectorAll("#lifts .lf-fill").forEach((node) => animateWidth(node, node.dataset.w));
 
     // Slide 10 — terminal: aggregate stats only. Per-experiment lift/decision
     // is already the .lifts chart below; repeating it line-by-line here was
