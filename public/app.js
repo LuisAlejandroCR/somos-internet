@@ -87,6 +87,18 @@ function renderOverviewStats(overview) {
   stats.forEach((s, i) => countUp(el(`ov-stat-${i}`), s.v, s.fmt));
 }
 
+// Ties two hypothesis cards to their real backlog priority. Only cards 01
+// and 04 get a badge: they map 1:1 to a specific backlog proposal (P3, P2).
+// Cards 02/03/05 don't have a single matching backlog item, so they get no
+// badge rather than a made-up one.
+function renderHypothesisPriority(backlog) {
+  const byId = (id) => backlog.items.find((i) => i.id === id);
+  const p3 = byId("P3"); // portería-before-data → hypothesis 01
+  const p2 = byId("P2"); // country selector → hypothesis 04
+  if (p3) el("ice-h1").textContent = `ICE ${p3.ice.toFixed(1)}`;
+  if (p2) el("ice-h4").textContent = `ICE ${p2.ice.toFixed(1)}`;
+}
+
 // ── ICE backlog — a chart, not a table ──────────────────────────────────
 // The work order is visible at a glance: the longest bar goes first. The
 // score comes from the pipeline; this just scales it against the max.
@@ -370,6 +382,7 @@ async function main() {
     renderOverviewStats(overview);
     renderFunnelTotals(funnel);
     renderIceBars(backlog);
+    renderHypothesisPriority(backlog);
     renderFunnel("funnel-web", funnel.web);
     renderWaFlow(funnel.whatsapp);
     renderFunnel("funnel-wa", funnel.whatsapp);

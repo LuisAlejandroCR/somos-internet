@@ -89,6 +89,7 @@
               <details>
                 <summary>Ver experimento</summary>
                 <div class="hrow-detail">
+                  <div class="m"><span class="k">Observación</span><span class="v">El formulario público pide portería/tipo de vivienda (elegibilidad) después de nombre, celular y correo — no antes.</span></div>
                   <div class="m"><span class="k">Hipótesis</span><span class="v">Mover la elegibilidad al inicio filtra antes a los no calificados, sin sacrificar completitud.</span></div>
                   <div class="m"><span class="k">Métrica primaria</span><span class="v">% de leads completos que resultan elegibles.</span></div>
                   <div class="m"><span class="k">Guardia</span><span class="v">La completitud del formulario no cae.</span></div>
@@ -100,7 +101,7 @@
                 </div>
               </details>
             </div>
-            <div class="meta"><span class="lbl hyp">HIPÓTESIS</span><br><span class="muted-2" style="font-size:11px"><a class="link" href="/pitch" style="font-size:11px">Detalle en el pitch →</a></span></div>
+            <div class="meta"><span class="lbl hyp">HIPÓTESIS</span><br><span class="mono" id="ice-h1" style="font-size:10.5px;color:var(--text-3)"></span><br><span class="muted-2" style="font-size:11px"><a class="link" href="/pitch" style="font-size:11px">Detalle en el pitch →</a></span></div>
           </article>
           <article class="hrow" aria-labelledby="h2-t">
             <span class="icon-badge pink" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
@@ -110,6 +111,7 @@
               <details>
                 <summary>Ver experimento</summary>
                 <div class="hrow-detail">
+                  <div class="m"><span class="k">Observación</span><span class="v">El CTA principal del home es un link directo a WhatsApp; la verificación de cobertura ahí ya es automática (probado en vivo, ver abajo) pero saca al usuario del chat.</span></div>
                   <div class="m"><span class="k">Hipótesis</span><span class="v">El problema es la espera de la primera respuesta, no el mensaje.</span></div>
                   <div class="m"><span class="k">Métrica primaria</span><span class="v">Tasa de calificación (qué parte de los que escriben llega calificada).</span></div>
                   <div class="m"><span class="k">Guardia</span><span class="v">Satisfacción con la atención.</span></div>
@@ -131,6 +133,7 @@
               <details>
                 <summary>Ver experimento</summary>
                 <div class="hrow-detail">
+                  <div class="m"><span class="k">Observación</span><span class="v">Sin observación pública directa — hipótesis de método, aplicable a cualquier embudo con etapas de calificación.</span></div>
                   <div class="m"><span class="k">Hipótesis</span><span class="v">La métrica que importa termina en instalación, no en agendamiento.</span></div>
                   <div class="m"><span class="k">Métrica primaria</span><span class="v">Lead → instalación.</span></div>
                   <div class="m"><span class="k">Guardia</span><span class="v">Calidad del agendado (que el que agenda es el que se instala).</span></div>
@@ -154,6 +157,7 @@
               <details>
                 <summary>Ver experimento</summary>
                 <div class="hrow-detail">
+                  <div class="m"><span class="k">Observación</span><span class="v">El selector de país del formulario público lista ~<span class="mono" data-m="countryOptions">—</span> opciones para un servicio que solo opera en Colombia.</span></div>
                   <div class="m"><span class="k">Hipótesis</span><span class="v">Fijar el prefijo <span class="mono">+57</span> elimina fricción y errores de digitación.</span></div>
                   <div class="m"><span class="k">Métrica primaria</span><span class="v">Completitud del formulario (celular).</span></div>
                   <div class="m"><span class="k">Guardia</span><span class="v">Que no entren datos inválidos.</span></div>
@@ -164,7 +168,7 @@
                 </div>
               </details>
             </div>
-            <div class="meta"><span class="lbl">SUPUESTO</span><br><span class="muted-2" style="font-size:11px"><a class="link" href="/pitch" style="font-size:11px">Detalle en el pitch →</a></span></div>
+            <div class="meta"><span class="lbl">SUPUESTO</span><br><span class="mono" id="ice-h4" style="font-size:10.5px;color:var(--text-3)"></span><br><span class="muted-2" style="font-size:11px"><a class="link" href="/pitch" style="font-size:11px">Detalle en el pitch →</a></span></div>
           </article>
           <article class="hrow" aria-labelledby="h5-t">
             <span class="icon-badge pink" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></span>
@@ -174,10 +178,14 @@
               <details>
                 <summary>Ver experimento</summary>
                 <div class="hrow-detail">
+                  <div class="m"><span class="k">Observación</span><span class="v">Sin observación pública directa — hipótesis de sistema, se prueba antes de escalar cualquier otra.</span></div>
                   <div class="m"><span class="k">Hipótesis</span><span class="v">Cualquier hipótesis que suba conversión se topa con operaciones antes de instalarse.</span></div>
                   <div class="m"><span class="k">Métrica primaria</span><span class="v">Cola de instalación y días de espera.</span></div>
                   <div class="m"><span class="k">Guardia</span><span class="v">QoS de los que ya pagan.</span></div>
                   <div class="m"><span class="k">Descarte</span><span class="v">Capacidad holgada → el orden de trabajo cambia.</span></div>
+                  <div class="tline" aria-label="Efecto downstream: más conversión no garantiza más instalaciones completadas">
+                    <span class="tl-node">Más conversión</span><span class="tl-gap">agendamientos</span><span class="tl-node">Más agendados</span><span class="tl-gap hot">demanda operativa</span><span class="tl-node">¿Instalado?</span>
+                  </div>
                   <p class="muted small">El experimento es la simulación: <a class="link" href="#cap-title">gráficos de capacidad abajo</a>.</p>
                 </div>
               </details>
