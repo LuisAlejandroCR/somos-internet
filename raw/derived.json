@@ -83,6 +83,22 @@
       "p_value": 0.00004
     },
     {
+      "id": "P5",
+      "title": "Calificación automática en WhatsApp — lo que no necesita criterio humano",
+      "doc": "descubrimientos/05-whatsapp-optimizacion.md",
+      "hypothesis": "Elegibilidad (ciudad + tipo de vivienda) es una regla determinista, no un juicio: resolverla en los primeros 2 mensajes ataca la fuga de la calificación y libera al asesor para cerrar. Precedente de categoría documentado, no validado en Somos.",
+      "primary_metric": "wa_qualified_rate",
+      "guardrail": "Percepción de atención / solicitudes de hablar con humano",
+      "impact": 7,
+      "confidence": 7,
+      "ease": 6,
+      "experiment_id": null,
+      "ice": 6.67,
+      "status": "sin_probar",
+      "measured_lift": null,
+      "p_value": null
+    },
+    {
       "id": "P3",
       "title": "Adelantar el filtro de elegibilidad (portería)",
       "doc": "descubrimientos/04-embudo-conversion-hipotesis-ab.md",
@@ -126,22 +142,6 @@
       "ease": 7,
       "experiment_id": null,
       "ice": 6,
-      "status": "sin_probar",
-      "measured_lift": null,
-      "p_value": null
-    },
-    {
-      "id": "P5",
-      "title": "Calificación automática de elegibilidad en WhatsApp",
-      "doc": "descubrimientos/05-whatsapp-optimizacion.md",
-      "hypothesis": "Resolver ciudad + tipo de vivienda en los primeros 2 mensajes libera al asesor humano para cerrar, no para filtrar.",
-      "primary_metric": "wa_qualified_rate",
-      "guardrail": "Percepción de atención / solicitudes de hablar con humano",
-      "impact": 6,
-      "confidence": 5,
-      "ease": 5,
-      "experiment_id": null,
-      "ice": 5.33,
       "status": "sin_probar",
       "measured_lift": null,
       "p_value": null

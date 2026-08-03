@@ -127,22 +127,18 @@
         <div class="evidence-grid">
           <section class="evidence" aria-labelledby="ev-web-title">
             <h3 class="ev-title" id="ev-web-title" style="display:flex;align-items:center;gap:9px"><svg class="icon icon-sm" style="color:var(--brand-mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg>Evidencia del funnel web</h3>
-            <p class="ev-purpose">Formulario: 32.624 visitas → 4.166 agendamientos</p>
+            <p class="ev-purpose">Formulario: <span data-m="webSessions">—</span> visitas → <span data-m="webScheduled">—</span> agendamientos</p>
             <div class="funnel" id="funnel-web">
               <div class="skeleton skel-bar"></div>
               <div class="skeleton skel-bar"></div>
               <div class="skeleton skel-bar"></div>
             </div>
-            <div class="funnel-insight" id="funnel-web-insight">
-              <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
-              <b>El cuello no es el formulario: es el campo de celular.</b>
-              Además, hay usuarios que entregan datos personales antes de saber que su edificio no califica.
-            </div>
+            <div class="leak" id="funnel-web-insight"></div>
           </section>
 
           <section class="evidence" aria-labelledby="ev-wa-title">
             <h3 class="ev-title" id="ev-wa-title" style="display:flex;align-items:center;gap:9px"><svg class="icon icon-sm" style="color:var(--brand-pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>Evidencia del canal WhatsApp</h3>
-            <p class="ev-purpose">Conversacional: 54.182 visitas → 10.739 agendamientos</p>
+            <p class="ev-purpose">Conversacional: <span data-m="waSessions">—</span> visitas → <span data-m="waScheduled">—</span> agendamientos</p>
             <div class="wa-flow" id="wa-flow" aria-label="Flujo conversacional">
               <span class="skeleton" style="width:110px;height:30px;border-radius:999px"></span>
               <span class="skeleton" style="width:110px;height:30px;border-radius:999px"></span>
@@ -153,11 +149,7 @@
               <div class="skeleton skel-bar"></div>
               <div class="skeleton skel-bar"></div>
             </div>
-            <div class="funnel-insight" id="funnel-wa-insight">
-              <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
-              <b>La fuga está entre el primer mensaje y la calificación.</b>
-              El asesor no da abasto — o la primera respuesta llega tarde.
-            </div>
+            <div class="leak" id="funnel-wa-insight"></div>
           </section>
         </div>
 

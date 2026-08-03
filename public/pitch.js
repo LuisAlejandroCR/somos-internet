@@ -58,8 +58,10 @@ const DECISION_TERM = {
 function miniFunnel(steps, keys) {
   const picked = keys.map((k) => steps.find((s) => s.step === k)).filter(Boolean);
   if (!picked.length) return "";
-  let hot = 1;
-  for (let i = 1; i < picked.length; i++) {
+  // Índice 2 en adelante: el rebote de "landing → abre el formulario/chat" es
+  // calidad de tráfico, no fricción. Misma definición que 04-derive.js.
+  let hot = Math.min(2, picked.length - 1);
+  for (let i = hot + 1; i < picked.length; i++) {
     if (picked[i].drop_off_rate > picked[hot].drop_off_rate) hot = i;
   }
   return picked
@@ -124,6 +126,10 @@ Promise.all([
     // Slide 10 — guardrail: capacidad + sparkline
     set("utilisation", pct(ops.capacity_utilisation, 0));
     set("opsVerdict", ops.verdict);
+    // Estaban escritos a mano ("2.558", "14,9") junto a un gráfico que sí
+    // venía del API: la cola y la espera cambian con la semilla.
+    set("queue", num(ops.final_backlog));
+    set("queueDays", ops.backlog_days_recent.toLocaleString("es-CO"));
     renderSpark(operations.daily ?? []);
 
     // Slide 11 — resultado de los experimentos como gráfico.

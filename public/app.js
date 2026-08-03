@@ -49,8 +49,19 @@ function renderIceBars(backlog) {
     .join("");
 }
 
-function renderEligibilityWaste(funnel) {
-  document.querySelectorAll('[data-m="wasteLate"]').forEach((n) => (n.textContent = num(funnel.eligibility_waste.filtered_late)));
+const setM = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((n) => (n.textContent = v));
+
+// Totales de cada carril del embudo. Estaban escritos a mano en el HTML
+// ("32.624 visitas → 4.166 agendamientos"): si cambia la semilla o el modelo,
+// un número quemado deja de coincidir con su propio gráfico sin avisar.
+function renderFunnelTotals(funnel) {
+  const first = (steps) => num(steps[0]?.reached);
+  const last = (steps) => num(steps[steps.length - 1]?.reached);
+  setM("wasteLate", num(funnel.eligibility_waste.filtered_late));
+  setM("webSessions", first(funnel.web));
+  setM("webScheduled", last(funnel.web));
+  setM("waSessions", first(funnel.whatsapp));
+  setM("waScheduled", last(funnel.whatsapp));
 }
 
 // ── Embudos ───────────────────────────────────────────────────────────────
@@ -59,9 +70,15 @@ function renderEligibilityWaste(funnel) {
 // marca con color semántico (aviso, no error: es un dato analítico).
 // El paso 1 (abrir formulario/chat) se excluye: su caída es el "no estaba
 // interesado", no fricción del embudo.
+// Arranca en el índice 2, no en el 1: la caída de "landing → abre el
+// formulario/chat" es calidad de tráfico ("no estaba interesado"), no fricción
+// del embudo. Es la misma definición que usa el pipeline en 04-derive.js
+// (`funnel.web_funnel.slice(2)`); antes arrancaba en 1 y por eso marcaba el
+// rebote (58,4%) como fuga principal, contradiciendo al propio copy de la
+// página ("el cuello es el celular", 29,5%).
 function hotStep(steps) {
-  let best = 1;
-  for (let i = 2; i < steps.length; i++) {
+  let best = Math.min(2, steps.length - 1);
+  for (let i = best + 1; i < steps.length; i++) {
     if (steps[i].drop_off_rate > steps[best].drop_off_rate) best = i;
   }
   return best;
@@ -93,6 +110,18 @@ function renderFunnel(containerId, steps) {
     .join("");
 }
 
+// La fuga principal, como número grande en vez de párrafo. El paso y la cifra
+// salen del propio embudo: si cambia dónde se pierde la gente, cambia el texto.
+function renderLeak(containerId, steps, note) {
+  const s = steps[hotStep(steps)];
+  el(containerId).innerHTML = `
+    <div class="leak-n">−${num(s.drop_off)}</div>
+    <div class="leak-b">
+      <b>${s.label}</b> es donde más se pierde — ${pct(s.drop_off_rate)} de los que llegan. ${note}
+      <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
+    </div>`;
+}
+
 function renderWaFlow(steps) {
   const hotIdx = hotStep(steps);
   const chips = steps
@@ -103,12 +132,6 @@ function renderWaFlow(steps) {
     })
     .join('<span class="a" aria-hidden="true">→</span>');
   el("wa-flow").innerHTML = chips;
-  el("funnel-wa-insight").innerHTML = `
-    <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
-    <b>La fuga está entre el primer mensaje y la calificación:</b>
-    −${num(steps[hotIdx].drop_off)} personas (${pct(steps[hotIdx].drop_off_rate)} de los que escriben).
-    El asesor no da abasto — o la primera respuesta llega tarde.
-  `;
 }
 
 // ── Guardrail de capacidad (SVG sin dependencias) ─────────────────────────
@@ -261,11 +284,13 @@ async function main() {
     ]);
 
     renderOverviewStats(overview);
-    renderEligibilityWaste(funnel);
+    renderFunnelTotals(funnel);
     renderIceBars(backlog);
     renderFunnel("funnel-web", funnel.web);
     renderWaFlow(funnel.whatsapp);
     renderFunnel("funnel-wa", funnel.whatsapp);
+    renderLeak("funnel-web-insight", funnel.web, "Y hay quien entrega sus datos sin calificar.");
+    renderLeak("funnel-wa-insight", funnel.whatsapp, "El asesor no da abasto — o responde tarde.");
     renderCapacity(operations);
   } catch (err) {
     showError(err);

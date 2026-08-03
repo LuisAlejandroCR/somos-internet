@@ -358,6 +358,13 @@ td .small { font-size: 11.5px; color: var(--text-3); }
 }
 .chart-tooltip b { color: var(--text); font-family: "JetBrains Mono", monospace; font-size: 11px; }
 
+/* ── Fuga principal: número grande, no párrafo ── */
+.leak { display: flex; align-items: center; gap: 15px; margin-top: 16px; padding: 13px 16px; background: var(--bg-2); border: 1px solid var(--border); border-left: 3px solid var(--warn); border-radius: 12px; }
+.leak-n { font-family: "JetBrains Mono", monospace; font-size: 27px; font-weight: 700; letter-spacing: -1px; color: var(--warn); line-height: 1; flex: none; }
+.leak-b { font-size: 12.5px; color: var(--text-2); line-height: 1.45; }
+.leak-b b { color: var(--text); }
+.leak-b .lbl { margin-top: 5px; }
+
 /* ── Gráfico de prioridad ICE — barras horizontales, alimentadas por la API.
    Reemplaza texto: el orden se ve, no se lee. ── */
 .icebars { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
