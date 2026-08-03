@@ -19,7 +19,9 @@ function show(next) {
 // Segundos por slide = descubrimientos/16-guion-narracion-2min.md (suma 120s).
 // Vive aquí y no en el guion porque son tiempos de REFERENCIA para calibrar
 // contra el audio real exportado de ElevenLabs, no al revés.
-const SLIDE_SECONDS = [8, 12, 10, 10, 8, 10, 8, 10, 10, 12, 8, 14];
+// 11 slides (se cortó "Mapa: las tres ideas" — redundante con las 3 slides
+// de detalle que ya siguen — ver docs/memoria.md).
+const SLIDE_SECONDS = [12, 12, 10, 8, 10, 8, 10, 10, 12, 8, 20];
 let playing = false;
 let playTimer = null;
 function stopAutoplay() {

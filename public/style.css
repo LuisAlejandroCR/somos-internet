@@ -72,6 +72,12 @@
 
   --radius: 12px;
   --radius-lg: 16px;
+
+  /* Ink navy — la tarjeta oscura de cierre/portada (inspo: video adjunto,
+     ver docs/memoria.md). No reemplaza --text (texto de cuerpo); es solo
+     el fondo sólido de las quote-cards oscuras. */
+  --ink-navy: #140b33;
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -162,7 +168,17 @@ h1 em { color: var(--brand-mint); font-style: normal; }
 @keyframes kineticReveal { from { opacity: 0; transform: translateY(6px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 h1 em { display: inline-block; animation: kineticReveal .6s cubic-bezier(.16,1,.3,1) both; }
 .jh-node.has-marker { animation: kineticReveal .55s cubic-bezier(.16,1,.3,1) both; }
-@media (prefers-reduced-motion: reduce) { h1 em, .jh-node.has-marker { animation: none; } }
+
+/* ── Reveal escalonado del hero — mismo lenguaje que el deck del pitch
+   (titular primero, apoyo después, inspo directa del video adjunto). ── */
+.hero-stage > * { animation: kineticReveal .6s cubic-bezier(.16,1,.3,1) both; }
+.hero-stage > *:nth-child(1) { animation-delay: 0s; }
+.hero-stage > *:nth-child(2) { animation-delay: .12s; }
+.hero-stage > *:nth-child(3) { animation-delay: .26s; }
+.hero-stage > *:nth-child(4) { animation-delay: .4s; }
+.hero-stage > *:nth-child(5) { animation-delay: .54s; }
+.hero-stage > *:nth-child(n+6) { animation-delay: .68s; }
+@media (prefers-reduced-motion: reduce) { h1 em, .jh-node.has-marker, .hero-stage > * { animation: none; } }
 h2.section-title { font-size: clamp(22px, 2.2vw, 28px); font-weight: 700; margin: 54px 0 6px; letter-spacing: -0.7px; }
 h2 .sec-no { color: var(--brand-mint); font-family: "JetBrains Mono", monospace; font-size: 0.55em; vertical-align: super; margin-right: 8px; }
 h3.block-title { font-size: 16px; font-weight: 600; margin: 26px 0 8px; letter-spacing: -0.2px; }
@@ -234,6 +250,29 @@ h3.block-title { font-size: 16px; font-weight: 600; margin: 26px 0 8px; letter-s
 .j-mark { position: absolute; top: -10px; right: -8px; background: var(--brand-mint-vivid); color: #fff; font-size: 10px; font-weight: 700; width: 21px; height: 21px; border-radius: 999px; display: grid; place-items: center; box-shadow: 0 3px 8px rgba(13, 110, 103, 0.35); font-family: "JetBrains Mono", monospace; }
 .j-mark.pink { background: var(--brand-pink); box-shadow: 0 3px 8px rgba(86, 21, 193, 0.35); }
 .j-mark.cream { background: var(--brand-yellow); color: #070707; box-shadow: 0 3px 8px rgba(255, 209, 2, 0.35); }
+
+/* ── Quote-card + halftone dots — inspo directa del video adjunto (ver
+   docs/memoria.md): tarjeta sólida de color de marca, titular serif grande
+   con una palabra clave invertida de color, y una imagen/patrón de puntos
+   de media tinta como acompañamiento visual. Reemplaza el "fondo blanco +
+   párrafo" en los puntos de mayor peso narrativo — no en toda la página. ── */
+.quote-card { border-radius: 26px; padding: clamp(28px, 4vw, 48px); color: #fff; position: relative; overflow: hidden; }
+.quote-card.mint { background: var(--brand-mint-vivid); }
+.quote-card.pink { background: var(--brand-pink); }
+.quote-card.navy { background: var(--ink-navy); }
+.quote-card .qtext { font-family: var(--font-serif); font-weight: 500; font-size: clamp(24px, 3.4vw, 40px); line-height: 1.28; max-width: 820px; }
+.quote-card .qtext em { font-style: normal; color: var(--ink-navy); }
+.quote-card.navy .qtext em { color: var(--brand-mint-vivid); }
+.quote-card .qsub { margin-top: 14px; font-size: clamp(13px, 1.3vw, 15.5px); color: rgba(255,255,255,0.82); max-width: 680px; line-height: 1.5; }
+.quote-card .qattr { display: flex; align-items: center; gap: 12px; margin-top: 26px; }
+.quote-card .qattr .qavatar { width: 42px; height: 42px; border-radius: 999px; background: rgba(255,255,255,0.16); display: grid; place-items: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.quote-card .qattr .qname { font-weight: 700; font-size: 13.5px; }
+.quote-card .qattr .qrole { font-size: 11.5px; color: rgba(255,255,255,0.72); margin-top: 1px; }
+.quote-card a.link { font-weight: 700; color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.quote-card.navy a.link { color: var(--brand-mint-vivid); }
+
+.halftone { background-image: radial-gradient(currentColor 1.3px, transparent 1.5px); background-size: 6px 6px; }
+.halftone-fade { -webkit-mask-image: linear-gradient(to bottom, black 25%, transparent 92%); mask-image: linear-gradient(to bottom, black 25%, transparent 92%); }
 
 /* ── Visuales del detalle de cada hipótesis ── */
 .ba { display: grid; gap: 7px; margin-top: 10px; max-width: 640px; }

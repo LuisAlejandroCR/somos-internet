@@ -6,7 +6,7 @@
 <title>Somos CRO Lab — Pitch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <style>
 html, body { height: 100%; overflow: hidden; }
@@ -21,10 +21,24 @@ section.slide {
 section.slide.on { opacity: 1; pointer-events: auto; }
 .slide h1 { font-size: clamp(27px, 4vw, 50px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; max-width: 940px; }
 .slide h1 em { color: var(--mint); font-style: normal; }
-@keyframes kineticIn { from { opacity: 0; transform: translateY(7px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* ── Reveal escalonado, inspo directa del video adjunto (ver docs/memoria.md):
+   cada tarjeta del video muestra el titular primero y, ~1s después, una
+   línea de apoyo debajo — sin cortar a una tarjeta nueva. Aquí se logra
+   automáticamente animando cada hijo directo de la slide activa en cascada,
+   sin marcar contenido a mano por slide. ── */
+@keyframes kineticIn { from { opacity: 0; transform: translateY(9px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .slide.on h1 em { display: inline-block; animation: kineticIn .6s cubic-bezier(.16,1,.3,1) both; }
-.slide.on .principle { animation: kineticIn .6s .18s cubic-bezier(.16,1,.3,1) both; }
-@media (prefers-reduced-motion: reduce) { .slide.on h1 em, .slide.on .principle { animation: none; } }
+.slide.on > * { animation: kineticIn .6s cubic-bezier(.16,1,.3,1) both; }
+.slide.on > *:nth-child(1) { animation-delay: 0s; }
+.slide.on > *:nth-child(2) { animation-delay: .1s; }
+.slide.on > *:nth-child(3) { animation-delay: .22s; }
+.slide.on > *:nth-child(4) { animation-delay: .36s; }
+.slide.on > *:nth-child(5) { animation-delay: .5s; }
+.slide.on > *:nth-child(6) { animation-delay: .64s; }
+.slide.on > *:nth-child(n+7) { animation-delay: .78s; }
+.slide.on .principle { animation: kineticIn .6s .3s cubic-bezier(.16,1,.3,1) both; }
+@media (prefers-reduced-motion: reduce) { .slide.on h1 em, .slide.on > *, .slide.on .principle { animation: none; } }
 .slide .lead { color: var(--muted); font-size: clamp(13.5px, 1.4vw, 16.5px); margin-top: 14px; max-width: 780px; line-height: 1.55; }
 .giant { font-size: clamp(72px, 13.5vw, 178px); font-weight: 700; letter-spacing: -6px; line-height: 0.88; font-family: "JetBrains Mono", monospace; }
 .giant.mint { color: var(--mint); }
@@ -123,6 +137,33 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .ctile { display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card); font-size: 12px; font-weight: 600; color: var(--text-2); }
 .ctile .cn { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--mint); }
 .ctile.pink .cn { color: var(--pink); }
+
+/* ── Slides de color sólido (portada + cierre) — inspo directa del video
+   adjunto (ver docs/memoria.md): tarjeta llena de color de marca, titular
+   serif con la palabra clave invertida, resto de componentes recoloreados
+   para leerse sobre fondo oscuro/vívido en vez de blanco. ── */
+.slide.deck-navy, .slide.deck-mint { color: #fff; }
+.slide.deck-navy { background: var(--ink-navy); }
+.slide.deck-mint { background: var(--brand-mint-vivid); }
+.slide.deck-navy h1, .slide.deck-mint h1 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.5px; }
+.slide.deck-navy h1 em { color: var(--brand-mint-vivid); font-style: normal; }
+.slide.deck-mint h1 em { color: var(--ink-navy); font-style: normal; }
+.slide.deck-navy .lead, .slide.deck-mint .lead { color: rgba(255,255,255,0.85); }
+.slide.deck-navy .eyebrow, .slide.deck-mint .eyebrow { color: rgba(255,255,255,0.7); }
+.slide.deck-navy .ctile, .slide.deck-mint .ctile { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.22); color: #fff; }
+.slide.deck-navy .ctile .cn { color: var(--brand-mint-vivid); }
+.slide.deck-mint .ctile .cn { color: var(--ink-navy); }
+.slide.deck-navy .chip, .slide.deck-mint .chip { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.9); }
+.slide.deck-navy .chip b, .slide.deck-mint .chip b { color: #fff; }
+.slide.deck-navy .lbl, .slide.deck-mint .lbl { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); }
+.slide.deck-navy .principle, .slide.deck-mint .principle { border-left-color: var(--brand-yellow); background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); }
+.slide.deck-navy .principle b, .slide.deck-mint .principle b { color: #fff; }
+.slide.deck-navy .tag, .slide.deck-mint .tag { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); color: #fff; }
+.slide.deck-navy .halftone-deco, .slide.deck-mint .halftone-deco { position: absolute; pointer-events: none; }
+.qattr { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.qattr .qavatar { width: 44px; height: 44px; border-radius: 999px; background: rgba(255,255,255,0.16); display: grid; place-items: center; font-weight: 700; font-size: 15px; flex-shrink: 0; }
+.qattr .qname { font-weight: 700; font-size: 13.5px; }
+.qattr .qrole { font-size: 11.5px; color: rgba(255,255,255,0.72); margin-top: 1px; }
 
 /* ── Cuadrante (idea 02) ── */
 .quad { max-width: 430px; margin-top: 20px; }
@@ -277,20 +318,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 <div id="deck">
 
   <!-- 1 · Portada -->
-  <section class="slide on">
-    <svg class="cover-art" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-      <circle cx="200" cy="200" r="196" stroke="var(--brand-mint-vivid)" stroke-width="1.5" opacity="0.4"/>
-      <circle cx="200" cy="200" r="150" stroke="var(--brand-pink)" stroke-width="1.5" opacity="0.32"/>
-      <circle cx="200" cy="200" r="104" stroke="var(--brand-yellow)" stroke-width="1.5" opacity="0.6"/>
-      <circle cx="200" cy="200" r="58" stroke="var(--border-2)" stroke-width="1.5" opacity="0.7"/>
-      <circle cx="200" cy="200" r="12" fill="var(--brand-mint-vivid)" opacity="0.8"/>
-    </svg>
+  <section class="slide on quote-card deck-navy">
+    <div class="halftone halftone-fade halftone-deco" style="right:clamp(-40px,2vw,10px);bottom:-30px;width:clamp(220px,30vw,380px);height:clamp(220px,30vw,380px);border-radius:50%;color:var(--brand-mint-vivid);opacity:.55" aria-hidden="true"></div>
     <div class="eyebrow">Candidatura CRO · Somos Internet</div>
     <h1>Tres ideas <em>con nombre propio</em> para Somos.</h1>
     <p class="lead">
       Crecimiento para la industria más odiada de Colombia — con un método para probarlo, no opinión.
     </p>
-    <p class="lead" style="color:var(--muted-2);font-size:13px">
+    <p class="lead" style="font-size:13px">
       "No eres un analista de dashboards. Cierras el loop entre el dato y la decisión." — vacante de CRO
     </p>
     <div class="cover-tiles">
@@ -345,46 +380,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/04 · product/</p>
   </section>
 
-  <!-- 3 · Mapa: las tres ideas -->
-  <section class="slide">
-    <div class="eyebrow-row">
-      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>
-      <div class="eyebrow">Lo que nadie más lleva a esta entrevista <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
-    </div>
-    <h1>Tres ideas, <em>con nombre propio.</em></h1>
-    <div class="pgrid">
-      <div class="pcard mint">
-        <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg>
-        <div class="n">01</div>
-        <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg></span>"Somos [barrio]"</div>
-        <div class="s">El nombre ya hace pertenencia. Convertirlo en mecanismo.</div>
-        <div class="lim"><b>Riesgo:</b> fragmentación de marca.</div>
-      </div>
-      <div class="pcard pink">
-        <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
-        <div class="n">02</div>
-        <div class="t"><span class="icon-badge pink"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span>"El Nu de los ISP"</div>
-        <div class="s">Los fondos que apostaron a Nubank, en Somos.</div>
-        <div class="lim"><b>Riesgo:</b> confirmar con datos, no cita.</div>
-      </div>
-      <div class="pcard mint">
-        <svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
-        <div class="n">03</div>
-        <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></span>Wire → wireless</div>
-        <div class="s">El router ORB como activo de red.</div>
-        <div class="lim"><b>Riesgo:</b> <span data-r="blockersMapped">—</span> blockers — Colombia no está en Helium.</div>
-      </div>
-    </div>
-    <p class="lead" style="margin-top:14px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/10 · 13 · 14</p>
-  </section>
-
-  <!-- 4 · Idea 01 — Qué -->
+  <!-- 3 · Idea 01 — Qué -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg>
-      <div class="eyebrow">Idea 01 · Identidad hiperlocal <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
+      <div class="eyebrow">Idea 01 de 3 · Identidad hiperlocal <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
     </div>
     <h1>"Somos Laureles" — <em>el nombre como mecanismo.</em></h1>
+    <p class="lead" style="margin-top:2px;font-size:11.5px;color:var(--muted-2)"><b style="color:var(--pink)">Riesgo:</b> fragmentación de marca.</p>
     <div class="bldg-stage">
       <div class="bldg">
         <div class="sign">SOMOS <em>LAURELES</em></div>
@@ -407,7 +410,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </p>
   </section>
 
-  <!-- 5 · Idea 01 — Cómo se prueba -->
+  <!-- 4 · Idea 01 — Cómo se prueba -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -426,13 +429,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/10 · 13</p>
   </section>
 
-  <!-- 6 · Idea 02 — Qué -->
+  <!-- 5 · Idea 02 — Qué -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
-      <div class="eyebrow">Idea 02 · Posicionamiento <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
+      <div class="eyebrow">Idea 02 de 3 · Posicionamiento <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
     </div>
     <h1>Los que apostaron a Nubank <em>apuestan a Somos.</em></h1>
+    <p class="lead" style="margin-top:2px;font-size:11.5px;color:var(--muted-2)"><b style="color:var(--pink)">Riesgo:</b> confirmar con datos, no con la cita.</p>
     <div class="split" style="margin-top:10px">
       <div>
         <div class="quad">
@@ -470,7 +474,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </p>
   </section>
 
-  <!-- 7 · Idea 02 — Cómo se prueba -->
+  <!-- 6 · Idea 02 — Cómo se prueba -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -489,13 +493,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/13 · 09</p>
   </section>
 
-  <!-- 8 · Idea 03 — Qué -->
+  <!-- 7 · Idea 03 — Qué -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
-      <div class="eyebrow">Idea 03 · Expansión inalámbrica <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
+      <div class="eyebrow">Idea 03 de 3 · Expansión inalámbrica <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
     </div>
     <h1>La red instalada como <em>activo,</em> no como costo.</h1>
+    <p class="lead" style="margin-top:2px;font-size:11.5px;color:var(--muted-2)"><b style="color:var(--pink)">Riesgo:</b> <span data-r="blockersMapped">—</span> blockers — Colombia no está en Helium.</p>
     <div class="kpis">
       <div class="kpi mint"><div class="kv" data-r="heliumAccounts">—</div><div class="ku">cuentas Helium · Q4-25</div><div class="kt" data-r="heliumAccountsQoQ">—</div></div>
       <div class="kpi pink"><div class="kv" data-r="heliumHotspots">—</div><div class="ku">hotspots</div><div class="kt"><span data-r="heliumThirdParty">—</span> de terceros</div></div>
@@ -527,7 +532,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/14</p>
   </section>
 
-  <!-- 9 · Idea 03 — Cómo se prueba -->
+  <!-- 8 · Idea 03 — Cómo se prueba -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -555,7 +560,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </p>
   </section>
 
-  <!-- 10 · Por qué este orden (el guardrail) -->
+  <!-- 9 · Por qué este orden (el guardrail) -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>
@@ -600,7 +605,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <p class="lead" style="margin-top:14px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/13 §3 · descubrimientos/12</p>
   </section>
 
-  <!-- 11 · El método (30%) -->
+  <!-- 10 · El método (30%) -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/></svg>
@@ -632,12 +637,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </div>
   </section>
 
-  <!-- 12 · Cierre -->
-  <section class="slide">
-    <div class="eyebrow-row">
-      <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 5v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3M4 19v-4h4"/></svg>
-      <div class="eyebrow">Para cerrar</div>
-    </div>
+  <!-- 11 · Cierre -->
+  <section class="slide quote-card deck-mint">
+    <div class="halftone halftone-fade halftone-deco" style="left:clamp(-40px,2vw,10px);top:-30px;width:clamp(200px,26vw,320px);height:clamp(200px,26vw,320px);border-radius:50%;color:var(--ink-navy);opacity:.35" aria-hidden="true"></div>
+    <div class="eyebrow">Para cerrar</div>
     <h1>No soy un analista de dashboards.<br><em>Cierro el loop entre el dato y la decisión.</em></h1>
     <p class="lead">
       Tres ideas, cada una con su prueba y su límite. Lo que no funciona, documentado.
@@ -648,8 +651,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <span class="chip"><b>Capacidad de instalación</b></span>
       <span class="chip"><b>Lead → instalación</b></span>
     </div>
-    <div class="tags" style="margin-top:24px">
-      <span class="tag"><span class="orb sm"></span> Luis Cárdenas · Growth &amp; Data Analytics</span>
+    <div class="qattr">
+      <span class="qavatar">LC</span>
+      <div>
+        <div class="qname">Luis Cárdenas</div>
+        <div class="qrole">Growth &amp; Data Analytics</div>
+      </div>
+    </div>
+    <div class="tags" style="margin-top:16px">
       <a class="tag" href="/" style="text-decoration:none;color:inherit">Ver análisis →</a>
       <a class="tag" href="/metodologia" style="text-decoration:none;color:inherit">Metodología →</a>
     </div>
@@ -658,7 +667,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 </div>
 
 <div class="progress" id="progress"></div>
-<div class="slide-badge"><span class="orb sm"></span> <span id="slide-num" aria-live="polite">1 / 12</span></div>
+<div class="slide-badge"><span class="orb sm"></span> <span id="slide-num" aria-live="polite">1 / 11</span></div>
 <div class="deck-ctrl">
   <button id="prev" aria-label="Diapositiva anterior">←</button>
   <button id="play" aria-label="Reproducir automáticamente, cronometrado a 2 minutos">▶</button>
