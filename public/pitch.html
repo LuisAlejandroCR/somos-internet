@@ -21,6 +21,10 @@ section.slide {
 section.slide.on { opacity: 1; pointer-events: auto; }
 .slide h1 { font-size: clamp(27px, 4vw, 50px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; max-width: 940px; }
 .slide h1 em { color: var(--mint); font-style: normal; }
+@keyframes kineticIn { from { opacity: 0; transform: translateY(7px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.slide.on h1 em { display: inline-block; animation: kineticIn .6s cubic-bezier(.16,1,.3,1) both; }
+.slide.on .principle { animation: kineticIn .6s .18s cubic-bezier(.16,1,.3,1) both; }
+@media (prefers-reduced-motion: reduce) { .slide.on h1 em, .slide.on .principle { animation: none; } }
 .slide .lead { color: var(--muted); font-size: clamp(13.5px, 1.4vw, 16.5px); margin-top: 14px; max-width: 780px; line-height: 1.55; }
 .giant { font-size: clamp(72px, 13.5vw, 178px); font-weight: 700; letter-spacing: -6px; line-height: 0.88; font-family: "JetBrains Mono", monospace; }
 .giant.mint { color: var(--mint); }
@@ -190,6 +194,8 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
 .tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border-2); font-size: 13px; font-weight: 500; }
 .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.principle { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 7px 14px; border-left: 3px solid var(--brand-yellow); font-size: 12px; font-style: italic; color: var(--muted-2); background: rgba(255,209,2,.08); border-radius: 0 8px 8px 0; }
+.principle b { font-style: normal; color: var(--cream); font-weight: 600; }
 
 .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--brand-mint-vivid); transition: width 0.4s ease; z-index: 50; }
 .deck-nav { position: fixed; bottom: 20px; right: 26px; display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--muted-2); z-index: 50; }
@@ -300,6 +306,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <div class="tags" style="margin-top:26px">
       <span class="lbl obs">OBSERVACIÓN PÚBLICA</span><span class="lbl rec">+</span><span class="lbl hyp">HIPÓTESIS</span><span class="lbl rec">+</span><span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span>
     </div>
+    <div class="principle">"Make something people want" <b>— el filtro de las tres ideas</b></div>
   </section>
 
   <!-- 2 · El problema en 30 segundos -->
@@ -309,6 +316,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="eyebrow">El contexto · 30 segundos <span class="lbl obs" style="margin-left:8px">OBSERVACIÓN PÚBLICA</span></div>
     </div>
     <h1>El embudo pierde en 2 pasos — <em>no en el copy.</em></h1>
+    <div class="principle">"Solve real problems" <b>— no problemas inventados</b></div>
     <div class="journey" aria-label="El viaje del usuario de Somos en cinco pasos; los tres marcadores son los hallazgos que probaría">
       <div class="j-node">Home</div><span class="j-arrow" aria-hidden="true">→</span>
       <div class="j-node has-marker"><span class="j-mark">02</span>WhatsApp / checkout<span class="j-hint">tiempo de primera respuesta</span></div><span class="j-arrow" aria-hidden="true">→</span>
@@ -526,6 +534,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="eyebrow">Idea 03 · Cómo se prueba <span class="lbl req" style="margin-left:8px">REQUIERE VALIDACIÓN INTERNA</span></div>
     </div>
     <h1>MVP honesto: <em><span data-r="mvpBuildings">—</span> edificios, cero tokens.</em></h1>
+    <div class="principle">"Validate before you build" <b>— piloto antes que escala</b></div>
     <div class="mvp">
       <div class="mvp-label"><span>Piloto Passpoint · espacios comunes · <span data-r="mvpWeeks">—</span> semanas</span><span class="mono">fase 1</span></div>
       <div class="mvp-track"><div class="mvp-fill"><em><span data-r="mvpBuildings">—</span> edificios</em></div></div>
@@ -553,6 +562,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="eyebrow">El orden no es casual · el guardrail <span class="lbl req" style="margin-left:8px">REQUIERE VALIDACIÓN INTERNA</span></div>
     </div>
     <h1>Primero: ¿la instalación <em>absorbe</em> la demanda?</h1>
+    <div class="principle">"Revenue is the metric that matters" <b>— instalado, no solo agendado</b></div>
     <div class="split" style="margin-top:8px">
       <div>
         <div class="flow3">
@@ -651,9 +661,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 <div class="slide-badge"><span class="orb sm"></span> <span id="slide-num" aria-live="polite">1 / 12</span></div>
 <div class="deck-ctrl">
   <button id="prev" aria-label="Diapositiva anterior">←</button>
+  <button id="play" aria-label="Reproducir automáticamente, cronometrado a 2 minutos">▶</button>
   <button id="next" aria-label="Diapositiva siguiente">→</button>
 </div>
-<div class="deck-nav"><span>← → <b>navegar</b> · <kbd>F</kbd> pantalla completa · clic para avanzar</span></div>
+<div class="deck-nav"><span>← → <b>navegar</b> · <kbd>Espacio</kbd> reproducir/pausa · <kbd>F</kbd> pantalla completa</span></div>
 
 <script src="/pitch.js"></script>
 </body>

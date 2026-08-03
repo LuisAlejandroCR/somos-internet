@@ -41,10 +41,10 @@
         </p>
         <div class="journey-hero" aria-label="El viaje del usuario de Somos en cinco pasos; los tres marcadores son los hallazgos que probaría">
           <div class="jh-node">Home</div><span class="j-arrow" aria-hidden="true">→</span>
-          <div class="jh-node has-marker"><span class="j-mark">02</span>WhatsApp / checkout<span class="j-hint">tiempo de primera respuesta</span></div><span class="j-arrow" aria-hidden="true">→</span>
-          <div class="jh-node has-marker"><span class="j-mark pink">01</span>Elegibilidad<span class="j-hint">se pregunta al final</span></div><span class="j-arrow" aria-hidden="true">→</span>
+          <div class="jh-node has-marker" style="animation-delay:.05s"><span class="j-mark">02</span>WhatsApp / checkout<span class="j-hint">tiempo de primera respuesta</span></div><span class="j-arrow" aria-hidden="true">→</span>
+          <div class="jh-node has-marker" style="animation-delay:.18s"><span class="j-mark pink">01</span>Elegibilidad<span class="j-hint">se pregunta al final</span></div><span class="j-arrow" aria-hidden="true">→</span>
           <div class="jh-node">Agendamiento</div><span class="j-arrow" aria-hidden="true">→</span>
-          <div class="jh-node has-marker"><span class="j-mark cream">03</span>Instalación<span class="j-hint">la conversión real</span></div>
+          <div class="jh-node has-marker" style="animation-delay:.31s"><span class="j-mark cream">03</span>Instalación<span class="j-hint">la conversión real</span></div>
         </div>
         <p class="muted small" style="margin-top:10px">Los marcadores son los hallazgos que probaría — <a class="link" href="#hipotesis">las hipótesis</a>.</p>
         <div class="row" id="overview-stats" style="margin-top:26px;gap:13px" aria-label="Resumen de la simulación">
@@ -111,6 +111,7 @@
                   <div class="tline" aria-label="Timeline del mensaje de WhatsApp: la espera es el paso que se va">
                     <span class="tl-node">Mensaje</span><span class="tl-gap hot"><b data-m="waRespMin">—</b> min de espera</span><span class="tl-node">Primera respuesta</span><span class="tl-gap">calificación</span>
                   </div>
+                  <div class="m"><span class="k">Probado en vivo <span class="lbl obs" style="margin-left:4px">OBSERVACIÓN PÚBLICA</span></span><span class="v">2026-08-03: el bot responde en 1-2 min y valida cobertura solo — pero exige salir de WhatsApp a un buscador web y volver a pegar el resultado. La espera no es el cuello de botella; el cambio de app sí podría serlo.</span></div>
                 </div>
               </details>
             </div>
@@ -227,11 +228,7 @@
 
         <h3 class="block-title" style="margin-top:36px;display:flex;align-items:center;gap:9px" id="cap-title"><svg class="icon icon-sm" style="color:var(--brand-cream)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>Capacidad: el guardrail downstream <span class="lbl sim">RESULTADO SIMULADO</span></h3>
         <div class="rel-chips">Relacionado con: <a href="#h5-t">05 · Capacidad</a><a href="#h3-t">03 · Conversión real</a></div>
-        <p class="muted small" style="max-width:760px">
-          Si la demanda supera la capacidad, cualquier hipótesis que suba conversión se topa con
-          operaciones antes de convertirse en instalaciones.
-          <span class="lbl req" style="margin-left:6px">REQUIERE VALIDACIÓN INTERNA</span>
-        </p>
+        <p class="muted small" style="max-width:760px">El guardrail de la hipótesis <a class="link" href="#h5-t">05</a>, en números. <span class="lbl req" style="margin-left:6px">REQUIERE VALIDACIÓN INTERNA</span></p>
         <div class="cap-stats" id="cap-stats" style="margin-top:14px">
           <div class="cstat"><div class="v skeleton" style="height:30px;width:55%"></div><div class="k">Cargando…</div></div>
           <div class="cstat"><div class="v skeleton" style="height:30px;width:55%"></div><div class="k">Cargando…</div></div>

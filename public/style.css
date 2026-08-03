@@ -159,6 +159,10 @@ main { padding: 40px 0 90px; }
 /* ── Tipografía editorial ── */
 h1 { font-size: clamp(30px, 3.4vw, 44px); font-weight: 700; letter-spacing: -1.4px; line-height: 1.08; max-width: 880px; }
 h1 em { color: var(--brand-mint); font-style: normal; }
+@keyframes kineticReveal { from { opacity: 0; transform: translateY(6px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+h1 em { display: inline-block; animation: kineticReveal .6s cubic-bezier(.16,1,.3,1) both; }
+.jh-node.has-marker { animation: kineticReveal .55s cubic-bezier(.16,1,.3,1) both; }
+@media (prefers-reduced-motion: reduce) { h1 em, .jh-node.has-marker { animation: none; } }
 h2.section-title { font-size: clamp(22px, 2.2vw, 28px); font-weight: 700; margin: 54px 0 6px; letter-spacing: -0.7px; }
 h2 .sec-no { color: var(--brand-mint); font-family: "JetBrains Mono", monospace; font-size: 0.55em; vertical-align: super; margin-right: 8px; }
 h3.block-title { font-size: 16px; font-weight: 600; margin: 26px 0 8px; letter-spacing: -0.2px; }

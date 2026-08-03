@@ -3,6 +3,7 @@ const slides = [...document.querySelectorAll(".slide")];
 let idx = 0;
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
+const playBtn = document.getElementById("play");
 function show(next) {
   idx = Math.max(0, Math.min(slides.length - 1, next));
   slides.forEach((s, i) => s.classList.toggle("on", i === idx));
@@ -13,18 +14,51 @@ function show(next) {
   if (idx === 0) prevBtn.blur();
   if (idx === slides.length - 1) nextBtn.blur();
 }
-prevBtn.addEventListener("click", () => show(idx - 1));
-nextBtn.addEventListener("click", () => show(idx + 1));
+
+// ── Reproducción automática, cronometrada al guion de 2 minutos ──
+// Segundos por slide = descubrimientos/16-guion-narracion-2min.md (suma 120s).
+// Vive aquí y no en el guion porque son tiempos de REFERENCIA para calibrar
+// contra el audio real exportado de ElevenLabs, no al revés.
+const SLIDE_SECONDS = [8, 12, 10, 10, 8, 10, 8, 10, 10, 12, 8, 14];
+let playing = false;
+let playTimer = null;
+function stopAutoplay() {
+  playing = false;
+  clearTimeout(playTimer);
+  playBtn.textContent = "▶";
+  playBtn.setAttribute("aria-label", "Reproducir automáticamente, cronometrado a 2 minutos");
+}
+function scheduleNext() {
+  clearTimeout(playTimer);
+  const seconds = SLIDE_SECONDS[idx] ?? 8;
+  playTimer = setTimeout(() => {
+    if (idx >= slides.length - 1) { stopAutoplay(); return; }
+    show(idx + 1);
+    scheduleNext();
+  }, seconds * 1000);
+}
+function startAutoplay() {
+  playing = true;
+  playBtn.textContent = "❚❚";
+  playBtn.setAttribute("aria-label", "Pausar reproducción automática");
+  scheduleNext();
+}
+playBtn.addEventListener("click", () => (playing ? stopAutoplay() : startAutoplay()));
+
+function manualShow(next) { stopAutoplay(); show(next); }
+prevBtn.addEventListener("click", () => manualShow(idx - 1));
+nextBtn.addEventListener("click", () => manualShow(idx + 1));
 document.addEventListener("keydown", (e) => {
-  if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(idx + 1); }
-  else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(idx - 1); }
-  else if (e.key === "Home") show(0);
-  else if (e.key === "End") show(slides.length - 1);
+  if (["ArrowRight", "PageDown"].includes(e.key)) { e.preventDefault(); manualShow(idx + 1); }
+  else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); manualShow(idx - 1); }
+  else if (e.key === "Home") manualShow(0);
+  else if (e.key === "End") manualShow(slides.length - 1);
+  else if (e.key === " ") { e.preventDefault(); playing ? stopAutoplay() : startAutoplay(); }
   else if (e.key.toLowerCase() === "f") {
     document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   }
 });
-document.addEventListener("click", (e) => { if (!e.target.closest("a") && !e.target.closest("button") && !e.target.closest("details")) show(idx + 1); });
+document.addEventListener("click", (e) => { if (!e.target.closest("a") && !e.target.closest("button") && !e.target.closest("details")) manualShow(idx + 1); });
 show(0);
 
 // ── Todos los números salen de la API ──

@@ -19,7 +19,7 @@
     "experiments_run": 4,
     "experiments_shipped": 1,
     "experiments_killed": 3,
-    "test_count": 55
+    "test_count": 57
   },
   "operations": {
     "total_scheduled": 14905,
