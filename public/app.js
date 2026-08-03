@@ -25,6 +25,10 @@ const num = (v, digits) =>
 
 const el = (id) => document.getElementById(id);
 
+// Info icon markup for a metric — see info.js for the popover behavior and
+// the explanation registry keyed by these same strings.
+const infoIco = (key) => `<button class="info-ico" type="button" data-info="${key}" aria-label="Cómo se calculó" aria-expanded="false">i</button>`;
+
 const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Animates a number from 0 to its target, formatting every frame the same
@@ -76,13 +80,13 @@ async function get(path) {
 function renderOverviewStats(overview) {
   const h = overview.headline;
   const stats = [
-    { v: h.sessions, k: `Sesiones (${overview.generated.days} días)`, s: "estructura pública del embudo", fmt: (x) => num(Math.round(x)) },
-    { v: h.conversion, k: "Conversión global", s: "sesiones → agendamiento", fmt: (x) => pct(x, 2) },
-    { v: h.scheduled, k: "Agendamientos", s: "web + WhatsApp", fmt: (x) => num(Math.round(x)) },
-    { v: overview.operations.final_backlog, k: "En cola de instalación", s: `${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera`, fmt: (x) => num(Math.round(x)), cls: "warn2" },
+    { v: h.sessions, k: `Sesiones (${overview.generated.days} días)`, s: "estructura pública del embudo", fmt: (x) => num(Math.round(x)), info: "sessions" },
+    { v: h.conversion, k: "Conversión global", s: "sesiones → agendamiento", fmt: (x) => pct(x, 2), info: "conversion" },
+    { v: h.scheduled, k: "Agendamientos", s: "web + WhatsApp", fmt: (x) => num(Math.round(x)), info: "scheduled" },
+    { v: overview.operations.final_backlog, k: "En cola de instalación", s: `${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera`, fmt: (x) => num(Math.round(x)), cls: "warn2", info: "backlog" },
   ];
   el("overview-stats").innerHTML = stats
-    .map((s, i) => `<div class="cstat"><div class="v ${s.cls || ""}" id="ov-stat-${i}">0</div><div class="k">${s.k}</div><div class="s">${s.s}</div></div>`)
+    .map((s, i) => `<div class="cstat"><div class="v ${s.cls || ""}" id="ov-stat-${i}">0</div><div class="k">${s.k}${infoIco(s.info)}</div><div class="s">${s.s}</div></div>`)
     .join("");
   stats.forEach((s, i) => countUp(el(`ov-stat-${i}`), s.v, s.fmt));
 }
@@ -303,13 +307,13 @@ function renderCapacity(operations) {
       ? "la capacidad absorbió la demanda todos los días"
       : `por encima del 100% desde el día ${operations.daily[firstOverloadIdx].day_index + 1}`;
   const capStats = [
-    { v: o.avg_daily_scheduled, k: "Agendamientos por día", s: "demanda promedio simulada", fmt: (x) => num(x, 0) },
-    { v: o.avg_daily_capacity, k: "Capacidad de instalación", s: "por día", fmt: (x) => num(x, 0) },
-    { v: o.capacity_utilisation, k: "Uso de capacidad", s: overloadNote, fmt: (x) => pct(x, 0), cls: "warn2" },
-    { v: o.final_backlog, k: "En cola al cierre", s: `≈ ${o.backlog_days_recent.toLocaleString("es-CO")} días de espera`, fmt: (x) => num(x, 0) },
+    { v: o.avg_daily_scheduled, k: "Agendamientos por día", s: "demanda promedio simulada", fmt: (x) => num(x, 0), info: "demand" },
+    { v: o.avg_daily_capacity, k: "Capacidad de instalación", s: "por día", fmt: (x) => num(x, 0), info: "capacity" },
+    { v: o.capacity_utilisation, k: "Uso de capacidad", s: overloadNote, fmt: (x) => pct(x, 0), cls: "warn2", info: "utilisation" },
+    { v: o.final_backlog, k: "En cola al cierre", s: `≈ ${o.backlog_days_recent.toLocaleString("es-CO")} días de espera`, fmt: (x) => num(x, 0), info: "backlog" },
   ];
   el("cap-stats").innerHTML = capStats
-    .map((s, i) => `<div class="cstat"><div class="v ${s.cls || ""}" id="cap-stat-${i}">0</div><div class="k">${s.k}</div><div class="s">${s.s}</div></div>`)
+    .map((s, i) => `<div class="cstat"><div class="v ${s.cls || ""}" id="cap-stat-${i}">0</div><div class="k">${s.k}${infoIco(s.info)}</div><div class="s">${s.s}</div></div>`)
     .join("");
   capStats.forEach((s, i) => countUp(el(`cap-stat-${i}`), s.v, s.fmt));
 

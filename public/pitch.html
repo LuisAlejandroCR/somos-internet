@@ -503,9 +503,9 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <h1>La red instalada como <em>activo,</em> no como costo.</h1>
     <p class="lead" style="margin-top:2px;font-size:11.5px;color:var(--muted-2)"><b style="color:var(--pink)">Riesgo:</b> <span data-r="blockersMapped">—</span> blockers — Colombia no está en Helium.</p>
     <div class="kpis">
-      <div class="kpi mint"><div class="kv" data-r="heliumAccounts">—</div><div class="ku">cuentas Helium · Q4-25</div><div class="kt" data-r="heliumAccountsQoQ">—</div></div>
-      <div class="kpi pink"><div class="kv" data-r="heliumHotspots">—</div><div class="ku">hotspots</div><div class="kt"><span data-r="heliumThirdParty">—</span> de terceros</div></div>
-      <div class="kpi cream"><div class="kv" data-r="heliumOffload">—</div><div class="ku">offload · Q4-25</div><div class="kt" data-r="heliumOffloadQoQ">—</div></div>
+      <div class="kpi mint"><div class="kv" data-r="heliumAccounts">—</div><div class="ku">cuentas Helium · Q4-25<button class="info-ico" type="button" data-info="helium" aria-label="Cómo se calculó" aria-expanded="false">i</button></div><div class="kt" data-r="heliumAccountsQoQ">—</div></div>
+      <div class="kpi pink"><div class="kv" data-r="heliumHotspots">—</div><div class="ku">hotspots<button class="info-ico" type="button" data-info="helium" aria-label="Cómo se calculó" aria-expanded="false">i</button></div><div class="kt"><span data-r="heliumThirdParty">—</span> de terceros</div></div>
+      <div class="kpi cream"><div class="kv" data-r="heliumOffload">—</div><div class="ku">offload · Q4-25<button class="info-ico" type="button" data-info="helium" aria-label="Cómo se calculó" aria-expanded="false">i</button></div><div class="kt" data-r="heliumOffloadQoQ">—</div></div>
     </div>
     <div class="routes">
       <div class="route">
@@ -587,7 +587,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
         </div>
       </div>
       <div class="expcard" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--glow-neutral)">
-        <h3 style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--muted-2);text-transform:uppercase">Modelo de capacidad — <span class="lbl sim">SIMULACIÓN</span></h3>
+        <h3 style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--muted-2);text-transform:uppercase">Modelo de capacidad<button class="info-ico" type="button" data-info="utilisation" aria-label="Cómo se calculó" aria-expanded="false">i</button> — <span class="lbl sim">SIMULACIÓN</span></h3>
         <div class="giant cream" style="font-size:clamp(48px,6.5vw,88px);margin-top:6px" data-m="utilisation"></div>
         <p class="lead" style="font-size:11.5px;margin-top:6px" data-m="opsVerdict"></p>
         <div class="spark">
@@ -612,7 +612,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/></svg>
       <div class="eyebrow">El método · el 30% de este deck <span class="lbl sim" style="margin-left:8px">SIMULACIÓN</span></div>
     </div>
-    <h1>Un sistema para decidir, <em>no un informe.</em></h1>
+    <h1>Un sistema para decidir, <em>no un informe.</em><button class="info-ico" type="button" data-info="experiment" aria-label="Cómo se calculó" aria-expanded="false" style="vertical-align:middle">i</button></h1>
     <div class="loop">
       <span>Observación</span><span class="a">→</span><span>Hipótesis</span><span class="a">→</span><span>ICE</span><span class="a">→</span><span>Experimento</span><span class="a">→</span><span>Guardrails</span><span class="a">→</span><span>Decisión</span>
     </div>
@@ -677,6 +677,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 <div class="deck-nav"><span>← → <b>navegar</b> · <kbd>Espacio</kbd> reproducir/pausa · <kbd>F</kbd> pantalla completa</span></div>
 
 <audio id="pitch-audio" src="/somos_audio.mp3" preload="auto"></audio>
+<script src="/info.js"></script>
 <script src="/pitch.js"></script>
 </body>
 </html>
