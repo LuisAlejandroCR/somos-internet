@@ -30,12 +30,15 @@ const LEAD = 0; // seconds of intro before the narration starts
 // Cues = script sentence starts aligned to the measured pause structure
 // (long pauses = sentence boundaries), cross-checked with word-proportional
 // pacing over the window, then fine-tuned with the deck's calibration clock
-// (human ear + live currentTime): [0, 9, 22, 34, 41, 49, 57, 65, 75, 83, 92].
-const NARRATION_CUES = [0, 9, 22, 34, 41, 49, 57, 65, 75, 83, 92];
+// (human ear + live currentTime): [0, 9, 34, 41, 49, 57, 65, 75, 83, 92, 103].
+// Slide mapping: 1 portada · 2 embudo (incl. "tres ideas pensadas…") ·
+// 3 "Somos Laureles" · 4 framing · 5 Nubank · 6 datos propios ·
+// 7 red instalada · 8 MVP honesto · 9 absorbe · 10 método · 11 cierre.
+const NARRATION_CUES = [0, 9, 34, 41, 49, 57, 65, 75, 83, 92, 103];
 const NARRATION_WINDOW = {
   start: 0, // first audible word (silencedetect)
   end: 114.9, // last audible word (silencedetect)
-  words: [22, 27, 25, 21, 19, 18, 18, 20, 19, 26, 53], // per-slide script words
+  words: [22, 52, 21, 19, 18, 18, 20, 19, 26, 20, 33], // script words per deck slide
 };
 audio.dataset.lead = String(LEAD);
 audio.dataset.narrStart = String(NARRATION_WINDOW.start);
@@ -90,7 +93,7 @@ audio.addEventListener("ended", stopAutoplay);
 
 // Fallback: if the audio file can't load (e.g. not recorded yet), keep a
 // timed dwell plan so the deck still presents itself at ~2 minutes.
-const FALLBACK_SECONDS = [9, 13, 12, 7, 8, 8, 8, 10, 8, 9, 23];
+const FALLBACK_SECONDS = [9, 25, 7, 8, 8, 8, 10, 8, 9, 11, 12];
 let fallbackTimer = null;
 function fallbackAutoplay() {
   playing = true;
