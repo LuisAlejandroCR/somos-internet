@@ -1,3 +1,5 @@
+// 04-derive.js — pipeline stage 4: computes the ICE-scored proposal backlog,
+// the operations capacity check, and every other derived/summary figure.
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -25,16 +27,15 @@ function countTests() {
 }
 
 /**
- * The hypothesis backlog. These are the proposals already written up in
- * descubrimientos/07-propuestas-priorizadas.md — this file is where they stop
- * being a document and become a scored, sortable queue the product/dev team can
- * actually work from.
+ * The hypothesis backlog. These proposals started as written-up research —
+ * this is where they stop being a document and become a scored, sortable
+ * queue the product/dev team can actually work from.
  */
 const BACKLOG = [
   {
     id: "P1",
     title: "Jerarquía WhatsApp-primero en el home",
-    doc: "descubrimientos/07-propuestas-priorizadas.md",
+    doc: "análisis propio de priorización — backlog ICE",
     hypothesis: "WhatsApp es el canal de mayor apertura en Colombia; hacerlo el CTA primario debería subir la conversión combinada.",
     primary_metric: "combined_conversion",
     guardrail: "Tiempo de primera respuesta en WhatsApp",
@@ -46,7 +47,7 @@ const BACKLOG = [
   {
     id: "P2",
     title: "Simplificar el selector de país (+57 fijo)",
-    doc: "descubrimientos/04-embudo-conversion-hipotesis-ab.md",
+    doc: "hipótesis propia del embudo de checkout",
     hypothesis: "Un selector de ~200 países en un servicio 100% Colombia es fricción pura en el campo más sensible del formulario.",
     primary_metric: "step1_completion",
     guardrail: "Validez de teléfonos capturados",
@@ -58,7 +59,7 @@ const BACKLOG = [
   {
     id: "P3",
     title: "Adelantar el filtro de elegibilidad (portería)",
-    doc: "descubrimientos/04-embudo-conversion-hipotesis-ab.md",
+    doc: "hipótesis propia del embudo de checkout",
     hypothesis: "Preguntar por portería antes de pedir datos personales sube la calidad del lead y evita capturar datos de gente no elegible.",
     primary_metric: "qualified_lead_rate",
     guardrail: "Completitud total del Paso 1",
@@ -70,7 +71,7 @@ const BACKLOG = [
   {
     id: "P4",
     title: "Copy anti-inercia en el checkout",
-    doc: "descubrimientos/07-propuestas-priorizadas.md",
+    doc: "análisis propio de priorización — backlog ICE",
     hypothesis: "El mercado casi no crece: la mayoría de clientes nuevos vienen de otro operador, así que el obstáculo real es la inercia de cambiarse, no el precio.",
     primary_metric: "scheduled_rate",
     guardrail: "Cancelaciones antes de instalar",
@@ -82,7 +83,7 @@ const BACKLOG = [
   {
     id: "P5",
     title: "Calificación automática en WhatsApp — lo que no necesita criterio humano",
-    doc: "descubrimientos/05-whatsapp-optimizacion.md",
+    doc: "hipótesis propia de optimización de WhatsApp",
     hypothesis: "Elegibilidad (ciudad + tipo de vivienda) es una regla determinista, no un juicio: resolverla en los primeros 2 mensajes ataca la fuga de la calificación y libera al asesor para cerrar. Precedente de categoría documentado, no validado en Somos.",
     primary_metric: "wa_qualified_rate",
     guardrail: "Percepción de atención / solicitudes de hablar con humano",
@@ -94,7 +95,7 @@ const BACKLOG = [
   {
     id: "P7",
     title: "Framing identitario en referidos y activación de edificio",
-    doc: "descubrimientos/10-concepto-identidad-hiperlocal.md",
+    doc: "concepto propio de identidad hiperlocal",
     hypothesis: "'Ayuda a que tu edificio también SEA Somos' apela a pertenencia, no a una recompensa transaccional.",
     primary_metric: "referral_completion_rate",
     guardrail: "Percepción de marca / fragmentación",
@@ -106,7 +107,7 @@ const BACKLOG = [
   {
     id: "P8",
     title: "Trabajo de calle y pasacalles como canal formal de demanda",
-    doc: "descubrimientos/10-concepto-identidad-hiperlocal.md",
+    doc: "concepto propio de identidad hiperlocal",
     hypothesis: "Las activaciones de calle ya demostraron tracción (pasacalles); formalizarlas como canal con métricas propias — leads, costo por lead, conversión a instalación — las vuelve escalables y optimizables.",
     primary_metric: "qualified_lead_rate",
     guardrail: "Costo por lead vs. canales digitales",
@@ -150,7 +151,7 @@ function analyzeOperations(operations) {
         ? `En el modelo, la demanda agendada (${avgScheduled.toFixed(0)}/día) supera la capacidad de instalación (${avgCapacity.toFixed(0)}/día): una hipótesis de sistema, no un diagnóstico de Somos. Si se confirma con datos internos, subir la conversión sin ampliar capacidad alargaría la lista de espera (${finalBacklog} pendientes) en vez de mejorar el resultado — requiere validación.`
         : `En el modelo, la capacidad de instalación (${avgCapacity.toFixed(0)}/día) todavía absorbe la demanda agendada (${avgScheduled.toFixed(0)}/día): la conversión seguiría siendo la palanca correcta, sujeto a validación con datos internos.`,
     note:
-      "Este es el chequeo que decide si una propuesta de CRO tiene sentido AHORA. Ver descubrimientos/07-propuestas-priorizadas.md, sección de advertencia.",
+      "Este es el chequeo que decide si una propuesta de CRO tiene sentido AHORA, antes de priorizar cuál probar primero.",
   };
 }
 

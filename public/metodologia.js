@@ -1,9 +1,10 @@
-// La página de metodología también se alimenta del API.
+// metodologia.js — feeds the methodology page from the API, same as every
+// other page.
 //
-// Antes esta página tenía las cifras escritas a mano ("55 invariantes",
-// "86.806 sesiones", "α = 0,05", "MDE 8%"). Eso contradecía la regla del
-// propio proyecto: si el pipeline cambia, un número quemado en el HTML pasa a
-// mentir en silencio. Ahora todos salen de /api/*.
+// This page used to have hand-typed figures ("55 invariants", "86,806
+// sessions", "α = 0.05", "MDE 8%"). That contradicted the project's own rule:
+// if the pipeline changes, a number baked into the HTML silently starts
+// lying. Now every one of them comes from /api/*.
 
 const set = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((el) => (el.textContent = v));
 
@@ -19,10 +20,10 @@ Promise.all([
     set("mde", `${(experiments.target_mde * 100).toFixed(0)}%`);
     set("alpha", experiments.alpha);
     set("power", `${(experiments.power * 100).toFixed(0)}%`);
-    // El intervalo se deriva de alpha: 1 − 0,05 = 95%. No se escribe "95%".
+    // The interval is derived from alpha: 1 − 0.05 = 95%. Never write "95%" by hand.
     set("ci", `${((1 - experiments.alpha) * 100).toFixed(0)}%`);
   })
   .catch(() => {
-    // Sin datos, los placeholders "—" se quedan visibles: un hueco marcado es
-    // mejor que una cifra vieja escrita a mano que parece correcta.
+    // With no data, the "—" placeholders stay visible: a marked gap is better
+    // than a stale hand-typed number that looks correct.
   });

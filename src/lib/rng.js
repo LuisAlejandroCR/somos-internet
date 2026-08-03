@@ -1,6 +1,7 @@
-// Seeded PRNG so the whole synthetic dataset is reproducible: anyone who runs
-// `npm run run-all` gets byte-identical output. That reproducibility is the
-// point — a demo built on unseeded randomness can't be audited by a reviewer.
+// rng.js — seeded PRNG so the whole synthetic dataset is reproducible: anyone
+// who runs `npm run run-all` gets byte-identical output. That reproducibility
+// is the point — a demo built on unseeded randomness can't be audited by a
+// reviewer.
 
 // mulberry32: small, fast, good enough distribution for simulation work.
 export function makeRng(seed) {

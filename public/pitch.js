@@ -1,4 +1,6 @@
-// ── Navegación del deck ──
+// pitch.js — deck navigation, autoplay timing, and data bindings for pitch.html.
+//
+// ── Deck navigation ──
 const slides = [...document.querySelectorAll(".slide")];
 let idx = 0;
 const prevBtn = document.getElementById("prev");
@@ -15,12 +17,11 @@ function show(next) {
   if (idx === slides.length - 1) nextBtn.blur();
 }
 
-// ── Reproducción automática, cronometrada al guion de 2 minutos ──
-// Segundos por slide = descubrimientos/16-guion-narracion-2min.md (suma 120s).
-// Vive aquí y no en el guion porque son tiempos de REFERENCIA para calibrar
-// contra el audio real exportado de ElevenLabs, no al revés.
-// 11 slides (se cortó "Mapa: las tres ideas" — redundante con las 3 slides
-// de detalle que ya siguen — ver docs/memoria.md).
+// ── Autoplay, timed to the 2-minute narration script (sums to 120s) ──
+// These are REFERENCE timings meant to be calibrated against the real
+// ElevenLabs export once it exists, not the other way around.
+// 11 slides: the old "map of the three ideas" preview slide was cut as
+// redundant with the three detail slides that immediately follow it.
 const SLIDE_SECONDS = [12, 12, 10, 8, 10, 8, 10, 10, 12, 8, 20];
 let playing = false;
 let playTimer = null;
@@ -63,16 +64,16 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("click", (e) => { if (!e.target.closest("a") && !e.target.closest("button") && !e.target.closest("details")) manualShow(idx + 1); });
 show(0);
 
-// ── Todos los números salen de la API ──
-// Ni una cifra del deck está escrita a mano: si el pipeline cambia, el pitch
-// cambia con él. Un número quemado en el HTML es un número que algún día va a
-// contradecir al dashboard.
+// ── Every number comes from the API ──
+// Not a single figure in the deck is hand-typed: if the pipeline changes, the
+// pitch changes with it. A number baked into the HTML is a number that will
+// eventually contradict the dashboard.
 const pct = (v, d = 1) =>
   v == null ? "—" : `${(v * 100).toLocaleString("es-CO", { minimumFractionDigits: d, maximumFractionDigits: d })}%`;
 const num = (v) => (v == null ? "—" : v.toLocaleString("es-CO"));
 const set = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((el) => (el.textContent = v));
-// Rellena por id solo si el elemento existe (el deck cambia de estructura;
-// un hook huérfano no puede tumbar la carga del resto).
+// Fills by id only if the element exists (the deck's structure changes over
+// time; an orphaned hook shouldn't be able to break the rest of the load).
 const fill = (id, html) => {
   const el = document.getElementById(id);
   if (el) el.innerHTML = html;
@@ -89,14 +90,15 @@ const DECISION_TERM = {
   sin_datos: ['c', "SIN DATOS"],
 };
 
-// ── Mini embudos (slide 2) ──
-// Cuatro barras por canal, cada una contra el paso anterior. La fuga mayor se
-// pinta con el color semántico de aviso (análisis, no error).
+// ── Mini funnels (slide 2) ──
+// Four bars per channel, each measured against the previous step. The
+// biggest leak is painted with the semantic warning color (analysis, not
+// an error state).
 function miniFunnel(steps, keys) {
   const picked = keys.map((k) => steps.find((s) => s.step === k)).filter(Boolean);
   if (!picked.length) return "";
-  // Índice 2 en adelante: el rebote de "landing → abre el formulario/chat" es
-  // calidad de tráfico, no fricción. Misma definición que 04-derive.js.
+  // Index 2 onward: the "landing → opens form/chat" bounce is traffic
+  // quality, not friction. Same definition used in 04-derive.js.
   let hot = Math.min(2, picked.length - 1);
   for (let i = hot + 1; i < picked.length; i++) {
     if (picked[i].drop_off_rate > picked[hot].drop_off_rate) hot = i;
@@ -115,9 +117,9 @@ function miniFunnel(steps, keys) {
     .join("");
 }
 
-// ── Sparkline del guardrail (slide 10) ──
-// Los paths se pintan con setAttribute("d", …): un innerHTML crearía texto de
-// contenido dentro del path, no su atributo de dibujo.
+// ── Guardrail sparkline (slide 9) ──
+// Paths are painted with setAttribute("d", …): innerHTML would create text
+// content inside the path element instead of its drawing attribute.
 function renderSpark(daily) {
   const W = 560, H = 150, PAD = 8, TOP = 10, BOT = 130;
   const maxV = Math.max(...daily.map((d) => d.scheduled), ...daily.map((d) => d.capacity));
@@ -141,9 +143,10 @@ Promise.all([
   .then(([overview, funnel, experiments, backlog, operations, research]) => {
     const ops = overview.operations;
 
-    // ── Cifras externas verificadas (/api/research) ────────────────────────
-    // No las produce el pipeline, pero tampoco se escriben a mano: vienen del
-    // mismo API, con su fuente, y lo derivado se calcula allá (no acá).
+    // ── Verified external facts (/api/research) ────────────────────────────
+    // The pipeline doesn't produce these, but they aren't hand-typed either:
+    // they come from the same API, with their source, and anything derived
+    // from them is computed there (not here).
     const setR = (k, v) => document.querySelectorAll(`[data-r="${k}"]`).forEach((el) => (el.textContent = v));
     const F = research.facts;
     const D = research.derived;
@@ -166,16 +169,16 @@ Promise.all([
     setR("blockersLeft", D.blockers_remaining);
     setR("mvpBuildings", `${F.mvp.buildings_min.value}-${F.mvp.buildings_max.value}`);
     setR("mvpWeeks", `${F.mvp.weeks_min.value}-${F.mvp.weeks_max.value}`);
-    // Ejemplo ilustrativo de la idea 01 — no una cifra de Somos.
+    // Illustrative example for idea 01 — not a real Somos figure.
     setR("neighbors", num(F.hyperlocal.neighbors_example.value));
 
-    // El intervalo de confianza se deriva de alpha, no se escribe "95%".
+    // The confidence interval is derived from alpha; never write "95%" by hand.
     set("ci", pct(1 - experiments.alpha, 0));
 
-    // Slide 11 — método: conteo de tests
+    // Slide 10 — method: test count
     set("testCount", overview.headline.test_count ?? "—");
 
-    // Slide 2 — embudos mini + chips del canal WhatsApp
+    // Slide 2 — mini funnels + WhatsApp channel chips
     fill("mini-web", miniFunnel(funnel.web, ["landing", "form_start", "phone", "scheduled"]));
     fill("mini-wa", miniFunnel(funnel.whatsapp, ["landing", "wa_first_message", "wa_qualified", "scheduled"]));
     const totalLanding = funnel.totals.sessions;
@@ -188,23 +191,23 @@ Promise.all([
     const qualStep = funnel.whatsapp.find((s) => s.step === "wa_qualified");
     set("waQualLoss", qualStep ? pct(qualStep.drop_off_rate, 0) : "—");
 
-    // Slide 5 — idea 01: validación externa (trabajo de calle, #1 del backlog)
+    // Slide 4 — idea 01: external validation (street work, #1 in the backlog)
     const topItem = backlog.items[0];
     set("p8", topItem ? `ICE ${topItem.ice.toFixed(1)} · #1 del backlog` : "—");
 
-    // Slide 10 — guardrail: capacidad + sparkline
+    // Slide 9 — guardrail: capacity + sparkline
     set("utilisation", pct(ops.capacity_utilisation, 0));
     set("opsVerdict", ops.verdict);
-    // Estaban escritos a mano ("2.558", "14,9") junto a un gráfico que sí
-    // venía del API: la cola y la espera cambian con la semilla.
+    // These used to be hand-typed ("2,558", "14.9") next to a chart that DID
+    // come from the API: the queue and wait time change with the seed.
     set("queue", num(ops.final_backlog));
     set("queueDays", ops.backlog_days_recent.toLocaleString("es-CO"));
     renderSpark(operations.daily ?? []);
 
-    // Slide 11 — resultado de los experimentos como gráfico.
-    // Antes acá se repetía el embudo web, que ya se muestra en la slide 2. Un
-    // gráfico de lift cuenta lo que el embudo no: que el experimento con el
-    // lift más grande es justamente el que se bloquea por guardia rota.
+    // Slide 10 — experiment results as a chart.
+    // This used to repeat the web funnel, already shown on slide 2. A lift
+    // chart tells the story the funnel can't: the experiment with the
+    // biggest lift is exactly the one blocked by a broken guardrail.
     const maxLift = Math.max(...experiments.results.map((r) => Math.abs(r.relative_lift ?? 0)), 0.01);
     fill("lifts", experiments.results
       .map((r) => {
@@ -228,7 +231,7 @@ Promise.all([
       })
       .join(""));
 
-    // Slide 11 — terminal: se arma desde los resultados reales
+    // Slide 10 — terminal: built from the real experiment results
     set("expCount", experiments.results.length);
     set("mde", pct(experiments.target_mde, 0));
     set("power", experiments.power);
@@ -243,7 +246,7 @@ Promise.all([
       .join("<br>") + "<br>");
 
 
-    // Slide 11 — próximo experimento (del planning del pipeline, en /api/overview)
+    // Slide 10 — next experiment (from the pipeline's planning, in /api/overview)
     const next = overview.next_experiment_planning;
     if (next) {
       set("neBaseline", pct(next.baseline_rate, 1));
@@ -252,7 +255,7 @@ Promise.all([
       set("neDays", next.estimated_days);
     }
 
-    // Slide 11 — top 3 del backlog por ICE
+    // Slide 10 — top 3 backlog items by ICE
     fill("top3", backlog.items
       .slice(0, 3)
       .map((b) => `<b>${b.id}</b> ${b.title} <span class="mono">${b.ice.toFixed(1)}</span>`)

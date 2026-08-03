@@ -1,3 +1,4 @@
+// csv.js — minimal CSV read/write for the pipeline's own generated files.
 import { writeFileSync, readFileSync } from "node:fs";
 
 function escapeCsvField(value) {
@@ -42,8 +43,7 @@ function parseCsvLine(line) {
   return fields;
 }
 
-// Minimal reader for our own generated CSVs — controlled output, so no need
-// for a general-purpose CSV library. Known limitation: no multiline fields.
+// Known limitation: no multiline fields (not needed for our controlled output).
 export function readCsv(path) {
   const text = readFileSync(path, "utf-8").replace(/\r\n/g, "\n").trim();
   if (!text) return [];

@@ -1,4 +1,4 @@
-// Main page rendering. Deliberately a dumb view layer: it formats and paints,
+// app.js — main page (index.html) rendering. Deliberately a dumb view layer: it formats and paints,
 // it never recomputes a metric. Every number here was produced by the pipeline
 // and served by the API, so the page and the CSVs can never disagree.
 //
@@ -13,8 +13,8 @@ const pct = (v, digits = 1) =>
   v === null || v === undefined
     ? "—"
     : `${(v * 100).toLocaleString("es-CO", { minimumFractionDigits: digits, maximumFractionDigits: digits })}%`;
-// El segundo argumento se ignoraba: `num(165.6, 0)` devolvía "165,6" mientras
-// el veredicto del pipeline decía "166/día" para el mismo dato.
+// The second argument used to be ignored: `num(165.6, 0)` returned "165.6"
+// while the pipeline's own verdict said "166/day" for the same figure.
 const num = (v, digits) =>
   v === null || v === undefined
     ? "—"
@@ -31,7 +31,7 @@ async function get(path) {
   return res.json();
 }
 
-// ── Resumen (tesis) ───────────────────────────────────────────────────────
+// ── Overview (thesis) ──────────────────────────────────────────────────────
 function renderOverviewStats(overview) {
   const h = overview.headline;
   el("overview-stats").innerHTML = `
@@ -41,9 +41,9 @@ function renderOverviewStats(overview) {
     <div class="cstat"><div class="v warn2">${num(overview.operations.final_backlog)}</div><div class="k">En cola de instalación</div><div class="s">${overview.operations.backlog_days_recent.toLocaleString("es-CO")} días de espera</div></div>`;
 }
 
-// ── Backlog por ICE — gráfico, no tabla ─────────────────────────────────
-// El orden de trabajo se ve de un vistazo: la barra más larga es lo primero.
-// El puntaje viene del pipeline; aquí solo se escala contra el máximo.
+// ── ICE backlog — a chart, not a table ──────────────────────────────────
+// The work order is visible at a glance: the longest bar goes first. The
+// score comes from the pipeline; this just scales it against the max.
 function renderIceBars(backlog) {
   const items = backlog.items;
   const max = Math.max(...items.map((i) => i.ice));
@@ -62,9 +62,9 @@ function renderIceBars(backlog) {
 
 const setM = (k, v) => document.querySelectorAll(`[data-m="${k}"]`).forEach((n) => (n.textContent = v));
 
-// Totales de cada carril del embudo. Estaban escritos a mano en el HTML
-// ("32.624 visitas → 4.166 agendamientos"): si cambia la semilla o el modelo,
-// un número quemado deja de coincidir con su propio gráfico sin avisar.
+// Totals for each funnel lane. These used to be hand-typed in the HTML
+// ("32,624 visits → 4,166 scheduled"): if the seed or the model changes, a
+// baked-in number silently stops matching its own chart.
 function renderFunnelTotals(funnel) {
   const first = (steps) => num(steps[0]?.reached);
   const last = (steps) => num(steps[steps.length - 1]?.reached);
@@ -75,16 +75,16 @@ function renderFunnelTotals(funnel) {
   setM("waScheduled", last(funnel.whatsapp));
 }
 
-// ── Embudos ───────────────────────────────────────────────────────────────
-// Cada barra se escala contra el paso anterior: una barra corta significa
-// "aquí se van", no "este paso es pequeño en total". La fuga principal se
-// marca con color semántico (aviso, no error: es un dato analítico).
-// Arranca en el índice 2, no en el 1: la caída de "landing → abre el
-// formulario/chat" es calidad de tráfico ("no estaba interesado"), no fricción
-// del embudo. Es la misma definición que usa el pipeline en 04-derive.js
-// (`funnel.web_funnel.slice(2)`); antes arrancaba en 1 y por eso marcaba el
-// rebote (58,4%) como fuga principal, contradiciendo al propio copy de la
-// página ("el cuello es el celular", 29,5%).
+// ── Funnels ─────────────────────────────────────────────────────────────
+// Each bar is scaled against the previous step: a short bar means "people
+// leave here," not "this step is small overall." The biggest leak is marked
+// with the semantic warning color (a warning, not an error — it's analytical
+// data). Starts at index 2, not 1: the "landing → opens form/chat" drop-off
+// is traffic quality ("wasn't interested"), not funnel friction. This is the
+// same definition the pipeline uses in 04-derive.js
+// (`funnel.web_funnel.slice(2)`); it used to start at 1, which marked that
+// bounce (58.4%) as the main leak — contradicting the page's own copy ("the
+// bottleneck is the phone field", 29.5%).
 function hotStep(steps) {
   let best = Math.min(2, steps.length - 1);
   for (let i = best + 1; i < steps.length; i++) {
@@ -119,8 +119,9 @@ function renderFunnel(containerId, steps) {
     .join("");
 }
 
-// La fuga principal, como número grande en vez de párrafo. El paso y la cifra
-// salen del propio embudo: si cambia dónde se pierde la gente, cambia el texto.
+// The main leak, as a big number instead of a paragraph. The step and the
+// figure both come from the funnel itself: if where people drop off changes,
+// the text changes with it.
 function renderLeak(containerId, steps, note) {
   const s = steps[hotStep(steps)];
   el(containerId).innerHTML = `
@@ -143,13 +144,13 @@ function renderWaFlow(steps) {
   el("wa-flow").innerHTML = chips;
 }
 
-// ── Guardrail de capacidad (SVG sin dependencias) ─────────────────────────
+// ── Capacity guardrail (dependency-free SVG) ──────────────────────────────
 const SVG = (w, h, aria, body) =>
   `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${aria}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
 
-// Un tooltip HTML reutilizado por gráfico, posicionado con el mouse — el SVG
-// aria-label ya cubre accesibilidad; esto es una mejora progresiva al pasar
-// el cursor, no la única forma de leer el dato.
+// One HTML tooltip reused per chart, positioned by the mouse — the SVG
+// aria-label already covers accessibility; this is a progressive enhancement
+// on hover, not the only way to read the data.
 function chartTooltip(container) {
   let t = container.querySelector(".chart-tooltip");
   if (!t) {
@@ -168,7 +169,7 @@ function positionTooltip(tooltip, container, clientX, clientY) {
   tooltip.style.top = `${top}px`;
 }
 
-// Línea de guía + dos puntos que siguen el día más cercano al cursor.
+// A guide line plus two dots that follow the day closest to the cursor.
 function attachLineHover(svgEl, container, daily, { W, H, PAD, x, y }) {
   const tooltip = chartTooltip(container);
   const guide = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -207,7 +208,7 @@ function attachLineHover(svgEl, container, daily, { W, H, PAD, x, y }) {
   });
 }
 
-// Resalta la barra bajo el cursor y muestra su valor exacto.
+// Highlights the bar under the cursor and shows its exact value.
 function attachBarHover(svgEl, container, daily) {
   const tooltip = chartTooltip(container);
   svgEl.querySelectorAll(".chart-bar-rect").forEach((rect, i) => {
@@ -228,8 +229,8 @@ function attachBarHover(svgEl, container, daily) {
 
 function renderCapacity(operations) {
   const o = operations.summary;
-  // "desde el día N" estaba escrito a mano ("día 3"). Se calcula: el primer
-  // día en que la demanda agendada supera a la capacidad de instalación.
+  // "since day N" used to be hand-typed ("day 3"). It's computed instead: the
+  // first day scheduled demand exceeds install capacity.
   const firstOverloadIdx = operations.daily.findIndex((d) => d.scheduled > d.capacity);
   const overloadNote =
     firstOverloadIdx === -1
@@ -278,7 +279,7 @@ function renderCapacity(operations) {
   attachBarHover(el("backlog-chart").querySelector("svg"), el("backlog-chart").closest(".chart"), daily);
 }
 
-// ── Carga ─────────────────────────────────────────────────────────────────
+// ── Loading ─────────────────────────────────────────────────────────────────
 function showError(err) {
   const box = document.createElement("div");
   box.className = "error-box";
@@ -301,11 +302,11 @@ async function main() {
       get("/api/research"),
     ]);
 
-    // Ventana del dataset y cifras externas verificadas: también del API.
+    // Dataset window and verified external facts: also from the API.
     setM("days", overview.generated.days);
     setM("countryOptions", research.facts.somos.form_country_options.value);
-    // Tiempo de primera respuesta (guardrail del experimento de WhatsApp),
-    // para el detalle de la hipótesis 02 — no escrito a mano.
+    // First-response time (the WhatsApp experiment's guardrail), for
+    // hypothesis card 02's detail — not hand-typed.
     const waResp = experiments.results.map((r) => r.guardrail).find((g) => g && g.kind === "duration");
     setM("waRespMin", waResp ? waResp.control_value.toLocaleString("es-CO") : "—");
 

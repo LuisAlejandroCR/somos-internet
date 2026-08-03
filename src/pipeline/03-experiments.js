@@ -1,3 +1,5 @@
+// 03-experiments.js — pipeline stage 3: simulates the four A/B experiments
+// and analyzes each with real two-proportion significance tests.
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";

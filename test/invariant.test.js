@@ -1,3 +1,4 @@
+// invariant.test.js — properties that must hold for ANY generated dataset.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { generateDataset } from "../src/pipeline/01-generate.js";
@@ -5,9 +6,9 @@ import { computeFunnel } from "../src/pipeline/02-funnel.js";
 import { analyzeExperiments } from "../src/pipeline/03-experiments.js";
 import { deriveProductLayer } from "../src/pipeline/04-derive.js";
 
-// Properties that must hold for ANY generated dataset. These are the guardrails
-// on the demo itself: if one of these breaks, a number on the dashboard is
-// lying, and a lying dashboard is worse than no dashboard.
+// These are the guardrails on the demo itself: if one of these breaks, a
+// number on the dashboard is lying, and a lying dashboard is worse than no
+// dashboard.
 
 // A smaller window keeps the suite fast while exercising the same code paths.
 const data = generateDataset({ seed: 424242, days: 30 });

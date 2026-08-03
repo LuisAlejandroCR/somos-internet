@@ -1,3 +1,5 @@
+// 01-generate.js — pipeline stage 1: generates the synthetic session-level
+// dataset (raw/sessions.json) that every later stage builds on.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -13,11 +15,11 @@ const RAW_DIR = join(ROOT, "raw");
 //
 // Somos Internet does not publish funnel data, and none was ever accessed. The
 // generator below is calibrated to the *publicly observable structure* of the
-// funnel (documented in somos-knowledge-base/product/embudo-y-producto.md) and
-// to plausible industry ranges — not to real Somos numbers. Every artifact this
-// pipeline writes carries a `synthetic: true` marker for that reason.
+// funnel and to plausible industry ranges — not to real Somos numbers. Every
+// artifact this pipeline writes carries a `synthetic: true` marker for that
+// reason.
 //
-// What IS grounded in real research (see descubrimientos/):
+// What IS grounded in real, independently verifiable observation:
 //   - the funnel shape: home → WhatsApp CTA | web form → eligibility → install
 //   - the ~200-country phone selector on a Colombia-only service
 //   - eligibility (portería/administración) being asked AFTER personal data

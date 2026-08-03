@@ -1,3 +1,5 @@
+// fuzz.test.js — randomized property tests for the stats module (bounds and
+// invariants that should hold for any valid input, not just fixed examples).
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {

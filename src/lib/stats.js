@@ -1,4 +1,4 @@
-// Frequentist A/B test math for two-proportion experiments.
+// stats.js — frequentist A/B test math for two-proportion experiments.
 //
 // This file is the reason the demo exists: the job posting asks for
 // experiments with "hipótesis, métricas primarias, métricas de guardia y

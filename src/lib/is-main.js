@@ -1,3 +1,4 @@
+// is-main.js — detects whether a module was run directly vs. imported.
 import { argv } from "node:process";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";

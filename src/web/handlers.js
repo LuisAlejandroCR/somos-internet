@@ -1,4 +1,4 @@
-// Single source of truth for every API response.
+// handlers.js — single source of truth for every API response.
 //
 // These functions are PURE: they take the already-loaded dataset and return
 // plain objects. That matters because the same logic runs in two very different

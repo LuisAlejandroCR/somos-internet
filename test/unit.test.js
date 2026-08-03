@@ -1,3 +1,6 @@
+// unit.test.js — targeted unit tests for individual functions across
+// src/lib, src/pipeline, and src/web (as opposed to invariant.test.js's
+// whole-dataset property checks).
 import { test } from "node:test";
 import { allFacts, researchPayload } from "../src/lib/research.js";
 import assert from "node:assert/strict";
@@ -319,10 +322,11 @@ test("analyzeExperiments blocks a win that breaks its guardrail", () => {
   assert.equal(result.decision, "no_lanzar_guardia");
 });
 
-// ── Cifras externas: la regla es que ninguna exista sin su fuente ──────────
-// Estos números no los produce el pipeline (rondas de Somos, tracción de
-// Helium, el formulario observado). Se sirven por /api/research y este test
-// impide que alguien agregue uno "solo por ahora" sin decir de dónde salió.
+// ── External facts: the rule is none may exist without a source ───────────
+// These numbers aren't produced by the pipeline (Somos funding rounds, Helium
+// traction, the observed signup form). They're served via /api/research, and
+// this test stops anyone from adding one "just for now" without saying where
+// it came from.
 test("every research fact carries a source and a date", () => {
   const facts = allFacts();
   assert.ok(facts.length > 0, "no research facts registered");
@@ -335,9 +339,9 @@ test("every research fact carries a source and a date", () => {
 
 test("research payload derives totals instead of restating them", () => {
   const { facts, derived } = researchPayload();
-  // La portada del pitch decía "US$58M" a mano; ahora es una suma.
+  // The pitch cover used to say "US$58M" by hand; now it's a sum.
   assert.equal(derived.funding_total_musd, facts.somos.serie_a_musd.value + facts.somos.serie_b_musd.value);
-  // El chip "+2 blockers más" ahora es una resta.
+  // The "+2 more blockers" chip is now a subtraction.
   assert.equal(derived.blockers_remaining, facts.mvp.blockers_mapped.value - facts.mvp.blockers_shown.value);
   assert.ok(derived.blockers_remaining >= 0, "shown blockers cannot exceed mapped blockers");
 });

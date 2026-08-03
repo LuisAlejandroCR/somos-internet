@@ -1,3 +1,5 @@
+// 02-funnel.js — pipeline stage 2: turns raw sessions into web/WhatsApp
+// funnel breakdowns with Wilson confidence intervals per step.
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";

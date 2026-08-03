@@ -1,3 +1,5 @@
+// run-all.js — runs the full pipeline (generate → funnel → experiments →
+// derive) in sequence and prints a summary.
 import { runGenerate } from "./01-generate.js";
 import { runFunnel } from "./02-funnel.js";
 import { runExperiments } from "./03-experiments.js";

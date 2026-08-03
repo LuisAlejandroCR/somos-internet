@@ -1,3 +1,5 @@
+// server.js — local Node dev server: serves static files from public/ and
+// mounts the shared API handlers behind a rate limiter.
 import { createServer } from "node:http";
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";

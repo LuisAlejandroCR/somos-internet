@@ -1,5 +1,5 @@
-// Token-bucket rate limiter, shared by the local Node server and the
-// Cloudflare Pages Function so both enforce the same policy.
+// rate-limit.js — token-bucket rate limiter, shared by the local Node server
+// and the Cloudflare Pages Function so both enforce the same policy.
 //
 // Why a token bucket and not a fixed window: a fixed window lets a caller fire
 // the entire quota in the last millisecond of one window and again in the first
@@ -10,7 +10,7 @@
 // limits per isolate, not globally across the edge, so it is a guardrail
 // against accidental hammering and cheap scraping — not a defence against a
 // distributed attack. Real global limiting needs Durable Objects or the
-// Cloudflare Rate Limiting rules; see docs/verificacion.md.
+// Cloudflare Rate Limiting rules.
 
 const DEFAULTS = {
   capacity: 60, // burst size

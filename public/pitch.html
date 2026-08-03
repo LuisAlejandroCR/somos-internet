@@ -1,3 +1,5 @@
+<!-- pitch.html — the 2-minute pitch deck: the 70% of the site (research, the
+     three named ideas, the operations finding, the method). -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,11 +24,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .slide h1 { font-size: clamp(27px, 4vw, 50px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; max-width: 940px; }
 .slide h1 em { color: var(--mint); font-style: normal; }
 
-/* ── Reveal escalonado, inspo directa del video adjunto (ver docs/memoria.md):
-   cada tarjeta del video muestra el titular primero y, ~1s después, una
-   línea de apoyo debajo — sin cortar a una tarjeta nueva. Aquí se logra
-   automáticamente animando cada hijo directo de la slide activa en cascada,
-   sin marcar contenido a mano por slide. ── */
+/* ── Staggered reveal: the headline appears first, then a supporting line
+   fades in below it about a second later — without cutting to a new card.
+   Achieved automatically by animating every direct child of the active slide
+   in a cascade, so no content needs to be hand-marked per slide. ── */
 @keyframes kineticIn { from { opacity: 0; transform: translateY(9px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .slide.on h1 em { display: inline-block; animation: kineticIn .6s cubic-bezier(.16,1,.3,1) both; }
 .slide.on > * { animation: kineticIn .6s cubic-bezier(.16,1,.3,1) both; }
@@ -57,7 +58,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .pcard .lim { margin-top: 10px; padding-top: 9px; border-top: 1px dashed var(--border-2); font-size: 11px; color: var(--muted-2); line-height: 1.45; }
 .pcard .lim b { color: var(--cream); }
 
-/* ── Mini embudos (slide 2) ── */
+/* ── Mini funnels (slide 2) ── */
 .mini-funnels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; max-width: 1040px; }
 @media (max-width: 860px) { .mini-funnels { grid-template-columns: 1fr; } }
 .mf { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; box-shadow: var(--glow-neutral); }
@@ -73,7 +74,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .mf-note b { color: var(--cream); }
 .mf-note.pink b { color: var(--pink); }
 
-/* ── Chips compactos ── */
+/* ── Compact chips ── */
 .chiprow { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; max-width: 1100px; }
 .chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; background: var(--card); border: 1px solid var(--border-2); font-size: 11.5px; color: var(--muted); line-height: 1.4; }
 .chip b { color: var(--cream); font-weight: 600; }
@@ -82,7 +83,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .chip.pink { border-color: rgba(86,21,193,.25); background: rgba(86,21,193,.05); }
 .chip.cream { border-color: rgba(255,209,2,.4); background: rgba(255,209,2,.1); }
 
-/* ── Journey con marcadores (slide 2) ── */
+/* ── Journey with markers (slide 2) ── */
 .journey { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; margin-top: 16px; max-width: 1120px; }
 .journey .j-arrow { align-self: center; color: var(--mint); font-weight: 700; font-size: 13px; margin-top: 14px; }
 .journey .j-node { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 13px; font-size: 11.5px; font-weight: 600; color: var(--text-2); text-align: center; min-width: 104px; }
@@ -92,12 +93,12 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .j-mark.pink { background: var(--brand-pink); box-shadow: 0 3px 8px rgba(86,21,193,.35); }
 .j-mark.cream { background: var(--brand-yellow); color: #070707; box-shadow: 0 3px 8px rgba(255,209,2,.35); }
 
-/* ── Micro-mockups de los embudos (slide 2) ── */
+/* ── Funnel micro-mockups (slide 2) ── */
 .mf-mock { display: inline-flex; align-items: center; gap: 7px; background: var(--card-2); border: 1px solid var(--border-2); border-radius: 7px; padding: 3px 9px; margin-left: 7px; vertical-align: middle; }
 .mf-mock .ph { font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 700; color: var(--mint); border-right: 1px solid var(--border-2); padding-right: 7px; }
 .mf-mock .ph-dots { width: 74px; height: 10px; border-radius: 3px; background: var(--card); border: 1px dashed var(--border-2); }
 
-/* ── Edificio (idea 01) ── */
+/* ── Building (idea 01) ── */
 .bldg-stage { display: flex; gap: 42px; align-items: center; margin-top: 26px; flex-wrap: wrap; }
 .bldg { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: none; }
 .bldg .sign { font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: var(--brand-yellow); color: #070707; padding: 5px 12px; border-radius: 7px 7px 0 0; }
@@ -112,14 +113,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .mech-row { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 15px; font-size: 12px; color: var(--muted); line-height: 1.5; }
 .mech-row b { color: var(--cream); font-weight: 600; }
 
-/* ── Mecanismos en 2×2 (idea 01 · qué) ── */
+/* ── 2x2 mechanisms grid (idea 01 · what) ── */
 .mech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 640px; }
 @media (max-width: 700px) { .mech-grid { grid-template-columns: 1fr; } }
 .mech-card { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 15px; box-shadow: var(--glow-neutral); }
 .mech-card .mt { font-size: 12.5px; font-weight: 600; color: var(--cream); }
 .mech-card .ms { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin-top: 2px; }
 
-/* ── KPI strip (idea 03 · qué) ── */
+/* ── KPI strip (idea 03 · what) ── */
 .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; max-width: 1080px; }
 @media (max-width: 800px) { .kpis { grid-template-columns: 1fr; } }
 .kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 18px 16px; box-shadow: var(--glow-neutral); position: relative; overflow: hidden; }
@@ -131,17 +132,16 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .kpi.pink::after { background: var(--brand-pink); }
 .kpi.cream::after { background: var(--brand-yellow); }
 
-/* ── Portada: arte y tiles de agenda ── */
+/* ── Cover: art and agenda tiles ── */
 .cover-art { position: absolute; right: clamp(-30px, 2vw, 70px); bottom: clamp(-90px, -5vw, -30px); width: clamp(280px, 34vw, 470px); pointer-events: none; }
 .cover-tiles { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
 .ctile { display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card); font-size: 12px; font-weight: 600; color: var(--text-2); }
 .ctile .cn { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--mint); }
 .ctile.pink .cn { color: var(--pink); }
 
-/* ── Slides de color sólido (portada + cierre) — inspo directa del video
-   adjunto (ver docs/memoria.md): tarjeta llena de color de marca, titular
-   serif con la palabra clave invertida, resto de componentes recoloreados
-   para leerse sobre fondo oscuro/vívido en vez de blanco. ── */
+/* ── Solid-color slides (cover + closing): a full brand-color card, a serif
+   headline with its keyword color-flipped, and every other component
+   recolored to read on a dark/vivid background instead of white. ── */
 .slide.deck-navy, .slide.deck-mint { color: #fff; }
 .slide.deck-navy { background: var(--ink-navy); }
 .slide.deck-mint { background: var(--brand-mint-vivid); }
@@ -165,12 +165,12 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .qattr .qname { font-weight: 700; font-size: 13.5px; }
 .qattr .qrole { font-size: 11.5px; color: rgba(255,255,255,0.72); margin-top: 1px; }
 
-/* ── Cuadrante (idea 02) ── */
+/* ── Quadrant (idea 02) ── */
 .quad { max-width: 430px; margin-top: 20px; }
 .quad svg { width: 100%; height: auto; display: block; }
 .quad-dot { font-size: 11px; font-weight: 600; }
 
-/* ── Rutas (idea 03) ── */
+/* ── Routes (idea 03) ── */
 .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; max-width: 1080px; }
 @media (max-width: 900px) { .routes { grid-template-columns: 1fr; } }
 .route { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 17px; box-shadow: var(--glow-neutral); }
@@ -179,7 +179,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .route .rs { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
 .route .rf { margin-top: 9px; padding-top: 8px; border-top: 1px dashed var(--border-2); font-size: 10.5px; color: var(--muted-2); }
 
-/* ── MVP bar (idea 03 · cómo) ── */
+/* ── MVP bar (idea 03 · how) ── */
 .mvp { margin-top: 22px; max-width: 640px; }
 .mvp .mvp-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted-2); margin-bottom: 6px; }
 .mvp-track { height: 26px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--border); overflow: hidden; position: relative; }
@@ -192,13 +192,13 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .spark-legend { display: flex; gap: 16px; margin-top: 6px; font-size: 10.5px; color: var(--muted-2); }
 .spark-legend .sw { display: inline-block; width: 14px; height: 4px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
 
-/* ── Flow de 3 nodos (guardrail) ── */
+/* ── 3-node flow (guardrail) ── */
 .flow3 { display: flex; align-items: center; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
 .flow3 .f3 { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card); font-size: 12px; color: var(--muted); }
 .flow3 .f3.danger { border-color: rgba(86,21,193,.3); background: rgba(86,21,193,.05); color: var(--pink); font-weight: 600; }
 .flow3 .a { color: var(--mint); font-weight: 700; }
 
-/* ── Tarjeta de experimento (cómo se prueba) ── */
+/* ── Experiment card (how it's tested) ── */
 .xcard { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px; margin-top: 22px; max-width: 980px; }
 @media (max-width: 760px) { .xcard { grid-template-columns: 1fr; } }
 .xcell { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px; }
@@ -207,13 +207,13 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .xcell .xv b { color: var(--cream); }
 .xcell.key { border-color: rgba(30,187,178,.3); box-shadow: var(--glow-mint); }
 
-/* ── Mini stats con icono ── */
+/* ── Mini stats with icon ── */
 .stat3 { display: flex; flex-direction: column; gap: 16px; margin-top: 18px; max-width: 480px; }
 .stat3-row { display: flex; gap: 13px; align-items: flex-start; }
 .stat3-row .t2 { font-size: 13px; color: var(--cream); font-weight: 600; }
 .stat3-row .s2 { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin-top: 3px; }
 
-/* ── Embudo completo (método) ── */
+/* ── Full funnel (method) ── */
 .pfunnel { margin-top: 26px; max-width: 720px; }
 .pf-row { display: grid; grid-template-columns: 190px 1fr 96px; gap: 13px; align-items: center; margin-bottom: 9px; font-size: 13px; }
 .pf-track { background: var(--card-2); border-radius: 8px; height: 28px; overflow: hidden; }
@@ -253,14 +253,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
    de carga sea visible en vez de silencioso. */
 [data-m]:empty::after { content: "···"; color: var(--muted-2); }
 
-/* ── Etiquetas de honestidad ── */
+/* ── Honesty labels ── */
 .lbl { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--border-2); color: var(--muted); }
 .lbl.hyp { color: var(--mint); border-color: rgba(30,187,178,.35); }
 .lbl.sim { color: var(--pink); border-color: rgba(86,21,193,.35); }
 .lbl.rec { color: var(--cream); border-color: rgba(255,209,2,.3); }
 .lbl.obs { color: var(--muted); border-color: var(--border-2); }
 
-/* ── Eyebrow con icono ── */
+/* ── Eyebrow with icon ── */
 .eyebrow-row { display: flex; align-items: center; gap: 9px; }
 .eyebrow-row .eyebrow { margin-bottom: 0; }
 
@@ -268,12 +268,12 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .split { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 36px; margin-top: 22px; max-width: 1180px; align-items: start; }
 @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
 
-/* ── Loop del sistema (método) ── */
+/* ── System loop (method) ── */
 .loop { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin: 20px 0 4px; font-size: 11.5px; max-width: 1150px; }
 .loop span { background: var(--card-2); border: 1px solid var(--border-2); padding: 5px 11px; border-radius: 999px; color: var(--cream); font-weight: 600; }
 .loop .a { background: none; border: none; color: var(--mint); padding: 0; font-weight: 700; }
 
-/* ── Motor de decisiones (método) ── */
+/* ── Decision engine (method) ── */
 .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; max-width: 1120px; }
 @media (max-width: 900px) { .outcomes { grid-template-columns: 1fr; } }
 .ocard { border-radius: var(--radius-lg); padding: 14px 16px; border: 1px solid var(--border); background: var(--card); }
@@ -293,7 +293,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
   .pf-lost { text-align: left; }
 }
 
-/* ── Impresión / PDF: el deck se vuelve un documento de 12 páginas ── */
+/* ── Print / PDF: the deck becomes an 11-page document ── */
 @page { size: 1280px 720px; margin: 0; }
 @media print {
   html, body { height: auto; overflow: visible !important; background: #fff; }
@@ -317,7 +317,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
 <div id="deck">
 
-  <!-- 1 · Portada -->
+  <!-- 1 · Cover -->
   <section class="slide on quote-card deck-navy">
     <div class="halftone halftone-fade halftone-deco" style="right:clamp(-40px,2vw,10px);bottom:-30px;width:clamp(220px,30vw,380px);height:clamp(220px,30vw,380px);border-radius:50%;color:var(--brand-mint-vivid);opacity:.55" aria-hidden="true"></div>
     <div class="eyebrow">Candidatura CRO · Somos Internet</div>
@@ -344,7 +344,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <div class="principle">"Make something people want" <b>— el filtro de las tres ideas</b></div>
   </section>
 
-  <!-- 2 · El problema en 30 segundos -->
+  <!-- 2 · The problem in 30 seconds -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -377,10 +377,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <span class="chip"><span data-m="waShare"></span> del tráfico entra por WhatsApp</span>
       <span class="chip"><span data-m="waResponse"></span> min a la primera respuesta</span>
     </div>
-    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/04 · product/</p>
+    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: observación directa del sitio público de Somos</p>
   </section>
 
-  <!-- 3 · Idea 01 — Qué -->
+  <!-- 3 · Idea 01 — What -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg>
@@ -406,11 +406,11 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       </div>
     </div>
     <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">
-      Fuente: descubrimientos/10
+      Concepto propio, no un dato de Somos
     </p>
   </section>
 
-  <!-- 4 · Idea 01 — Cómo se prueba -->
+  <!-- 4 · Idea 01 — How it's tested -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -426,10 +426,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <div class="chiprow">
       <span class="chip cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>El equipo ya lo validó: <b>trabajo de calle · P8 · <span data-m="p8"></span></b></span>
     </div>
-    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/10 · 13</p>
+    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Concepto e hipótesis propios</p>
   </section>
 
-  <!-- 5 · Idea 02 — Qué -->
+  <!-- 5 · Idea 02 — What -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
@@ -470,11 +470,11 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       </div>
     </div>
     <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">
-      Fuente: descubrimientos/01 · business/conexiones-inversionistas.md
+      Fuente: Forbes Colombia (rondas de Somos) · registros públicos de USV y Ribbit Capital (Nubank)
     </p>
   </section>
 
-  <!-- 6 · Idea 02 — Cómo se prueba -->
+  <!-- 6 · Idea 02 — How it's tested -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -490,10 +490,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <div class="chiprow">
       <span class="chip mint"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>Encuesta a clientes nuevos: <b>¿de dónde vienen y por qué?</b> — dato propio, legal</span>
     </div>
-    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/13 · 09</p>
+    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Hipótesis propia de posicionamiento</p>
   </section>
 
-  <!-- 7 · Idea 03 — Qué -->
+  <!-- 7 · Idea 03 — What -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>
@@ -529,10 +529,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     <div class="chiprow" style="margin-top:12px">
       <span class="chip mint">Diferencial: <b>Somos controla el firmware</b> del ORB</span>
     </div>
-    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/14</p>
+    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: Helium Foundation (reporte Q4-2025) · CRC (régimen OMV)</p>
   </section>
 
-  <!-- 8 · Idea 03 — Cómo se prueba -->
+  <!-- 8 · Idea 03 — How it's tested -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -556,11 +556,11 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <span class="chip">+<span data-r="blockersLeft">—</span> blockers más</span>
     </div>
     <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">
-      El wireless crece el mercado; no quita la cola. · descubrimientos/14
+      El wireless crece el mercado; no quita la cola.
     </p>
   </section>
 
-  <!-- 9 · Por qué este orden (el guardrail) -->
+  <!-- 9 · Why this order (the guardrail) -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>
@@ -602,10 +602,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
         </div>
       </div>
     </div>
-    <p class="lead" style="margin-top:14px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/13 §3 · descubrimientos/12</p>
+    <p class="lead" style="margin-top:14px;font-size:11px;color:var(--muted-2)">Fuente: pipeline sintético — ver <a class="link" href="/metodologia">metodología</a></p>
   </section>
 
-  <!-- 10 · El método (30%) -->
+  <!-- 10 · The method (30%) -->
   <section class="slide">
     <div class="eyebrow-row">
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/></svg>
@@ -637,7 +637,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </div>
   </section>
 
-  <!-- 11 · Cierre -->
+  <!-- 11 · Closing -->
   <section class="slide quote-card deck-mint">
     <div class="halftone halftone-fade halftone-deco" style="left:clamp(-40px,2vw,10px);top:-30px;width:clamp(200px,26vw,320px);height:clamp(200px,26vw,320px);border-radius:50%;color:var(--ink-navy);opacity:.35" aria-hidden="true"></div>
     <div class="eyebrow">Para cerrar</div>

@@ -1,4 +1,4 @@
-// Cloudflare Pages Function — serves every /api/* route.
+// [[route]].js — Cloudflare Pages Function, serves every /api/* route.
 //
 // Two things differ from a Node server and both are deliberate:
 //
@@ -8,7 +8,7 @@
 // 2. Rate limiting is per-isolate. Cloudflare may run many isolates, so this
 //    throttles accidental hammering and cheap scraping, not a distributed
 //    attack. For that, use Cloudflare's own Rate Limiting rules or a Durable
-//    Object — noted in docs/verificacion.md rather than silently overclaimed.
+//    Object instead — not silently overclaimed here.
 
 import meta from "../../raw/meta.json";
 import funnel from "../../raw/funnel.json";

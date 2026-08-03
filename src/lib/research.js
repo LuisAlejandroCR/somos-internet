@@ -1,28 +1,28 @@
-// Cifras externas verificadas — el otro origen de verdad del sitio.
+// research.js — verified external facts; the site's second source of truth.
 //
-// El pipeline produce los números SINTÉTICOS. Pero las páginas también muestran
-// hechos del mundo real (rondas de Somos, tracción de Helium, el formulario
-// observado). Esos no puede producirlos el pipeline, y escribirlos a mano en el
-// HTML tenía el mismo problema de siempre: si la investigación se corrige, la
-// página sigue mostrando el dato viejo sin avisar.
+// The pipeline produces the SYNTHETIC numbers. But the pages also show
+// real-world facts (Somos funding rounds, Helium traction, the observed
+// signup form). The pipeline can't produce those, and hand-typing them into
+// HTML has the usual problem: if the research gets corrected, the page keeps
+// showing the stale number with no warning.
 //
-// Acá viven una sola vez, con su fuente y su fecha, y se sirven por /api/research
-// igual que el resto. Regla: ningún número de este archivo puede existir sin
-// `source` y `as_of` — hay un test que lo verifica.
+// They live here exactly once, each with its source and date, and are served
+// via /api/research like everything else. Rule: no number in this file may
+// exist without `source` and `as_of` — a test enforces it.
 //
-// Los valores se guardan como NÚMEROS, no como texto ya formateado: así lo
-// derivado (el total de funding, el % de terceros) se calcula, no se transcribe.
+// Values are stored as NUMBERS, not pre-formatted text, so anything derived
+// (funding total, third-party %) gets computed, never transcribed by hand.
 
-/** Somos Internet — hechos públicos. Detalle en descubrimientos/01. */
+/** Somos Internet — publicly reported facts. */
 const SOMOS = {
   serie_a_musd: { value: 18, source: "Forbes Colombia", as_of: "2024" },
   serie_b_musd: { value: 40, source: "Forbes Colombia", as_of: "2026-04" },
   users_public: { value: 90000, source: "somosinternet.com", as_of: "2026-07-27" },
-  // Observado directamente en el formulario público, no reportado por nadie.
+  // Observed directly on the public signup form, not reported anywhere.
   form_country_options: { value: 200, approx: true, source: "my.somosinternet.com (observación directa)", as_of: "2026-07-27" },
 };
 
-/** Red Helium / DePIN. Detalle y blockers en descubrimientos/14. */
+/** Helium network / DePIN traction. */
 const HELIUM = {
   accounts: { value: 595800, qoq: 0.29, source: "Helium Foundation — reporte Q4-2025", as_of: "2025-Q4" },
   hotspots: { value: 121138, third_party_share: 0.705, source: "Helium Foundation — reporte Q4-2025", as_of: "2025-Q4" },
@@ -31,24 +31,24 @@ const HELIUM = {
   omv_obi_months: { value: 4, source: "CRC — Res. 5108/2017, régimen OMV", as_of: "2017" },
 };
 
-/** Ejemplo ilustrativo de la idea 01 — no una cifra de Somos. */
+/** Illustrative example for idea 01 — not a real Somos figure. */
 const HYPERLOCAL = {
-  neighbors_example: { value: 127, source: "ejemplo ilustrativo (descubrimientos/10 §1)", as_of: "2026-08-02" },
+  neighbors_example: { value: 127, source: "ejemplo ilustrativo, no una cifra real de Somos", as_of: "2026-08-02" },
 };
 
-/** Alcance del MVP propuesto — estimación propia, no un dato de terceros. */
+/** Proposed MVP scope — own estimate, not third-party data. */
 const MVP = {
-  buildings_min: { value: 5, source: "propuesta propia (descubrimientos/14 §4-5)", as_of: "2026-08-02" },
-  buildings_max: { value: 10, source: "propuesta propia (descubrimientos/14 §4-5)", as_of: "2026-08-02" },
-  weeks_min: { value: 8, source: "propuesta propia (descubrimientos/14 §4-5)", as_of: "2026-08-02" },
-  weeks_max: { value: 12, source: "propuesta propia (descubrimientos/14 §4-5)", as_of: "2026-08-02" },
-  blockers_mapped: { value: 7, source: "análisis propio (descubrimientos/14)", as_of: "2026-08-02" },
-  blockers_shown: { value: 5, source: "análisis propio (descubrimientos/14)", as_of: "2026-08-02" },
+  buildings_min: { value: 5, source: "propuesta propia — piloto Passpoint, alcance estimado", as_of: "2026-08-02" },
+  buildings_max: { value: 10, source: "propuesta propia — piloto Passpoint, alcance estimado", as_of: "2026-08-02" },
+  weeks_min: { value: 8, source: "propuesta propia — piloto Passpoint, duración estimada", as_of: "2026-08-02" },
+  weeks_max: { value: 12, source: "propuesta propia — piloto Passpoint, duración estimada", as_of: "2026-08-02" },
+  blockers_mapped: { value: 7, source: "análisis propio del despliegue de Helium en Colombia", as_of: "2026-08-02" },
+  blockers_shown: { value: 5, source: "análisis propio del despliegue de Helium en Colombia", as_of: "2026-08-02" },
 };
 
 export const RESEARCH_FACTS = { somos: SOMOS, helium: HELIUM, hyperlocal: HYPERLOCAL, mvp: MVP };
 
-/** Todo hecho, aplanado — para que el test pueda auditarlos de una pasada. */
+/** Every fact, flattened — so the test suite can audit all of them in one pass. */
 export function allFacts() {
   return Object.entries(RESEARCH_FACTS).flatMap(([group, facts]) =>
     Object.entries(facts).map(([key, fact]) => ({ id: `${group}.${key}`, ...fact }))
@@ -56,9 +56,9 @@ export function allFacts() {
 }
 
 /**
- * Lo que consume el frontend: valores crudos + los DERIVADOS calculados aquí
- * (no escritos a mano en la página). Formatear es cosa de la vista; calcular,
- * de este módulo.
+ * What the frontend consumes: raw values plus the DERIVED figures computed
+ * here (never hand-typed on the page). Formatting is the view's job;
+ * computing is this module's.
  */
 export function researchPayload() {
   const s = RESEARCH_FACTS.somos;
@@ -67,9 +67,9 @@ export function researchPayload() {
   return {
     facts: RESEARCH_FACTS,
     derived: {
-      // 18 + 40 — antes escrito "US$58M" a mano en la portada del pitch.
+      // 18 + 40 — used to be hand-typed as "US$58M" on the pitch cover.
       funding_total_musd: s.serie_a_musd.value + s.serie_b_musd.value,
-      // 7 mapeados − 5 mostrados — antes escrito "+2 blockers más".
+      // 7 mapped minus 5 shown — used to be hand-typed as "+2 more blockers".
       blockers_remaining: m.blockers_mapped.value - m.blockers_shown.value,
       helium_third_party_pct: h.hotspots.third_party_share,
     },

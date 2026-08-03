@@ -1,3 +1,6 @@
+// data-node.js — loads the pipeline's raw/*.json output from disk, cached.
+// Node-only: the Cloudflare Function does the equivalent with static JSON
+// imports, because Workers have no filesystem at runtime.
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -5,8 +8,6 @@ import { dirname, join } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RAW_DIR = join(__dirname, "..", "..", "raw");
 
-// Node-only loader. The Cloudflare Function does the equivalent with static
-// JSON imports, because Workers have no filesystem at runtime.
 let cache = null;
 
 export function loadData({ force = false } = {}) {
