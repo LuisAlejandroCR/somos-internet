@@ -140,17 +140,6 @@ const fill = (id, html) => {
   if (el) el.innerHTML = html;
 };
 
-const DECISION_TERM = {
-  lanzar: ['hl', "LANZAR"],
-  no_lanzar_guardia: ['bad', "GUARDIA ROTA"],
-  descartar: ['c', "DESCARTAR"],
-  listo_para_descartar: ['c', "DESCARTAR"],
-  listo_para_decidir: ['hl', "DECIDIR"],
-  en_curso: ['c', "EN CURSO"],
-  no_concluyente: ['c', "NO CONCLUYENTE"],
-  sin_datos: ['c', "SIN DATOS"],
-};
-
 // ── Mini funnels (slide 2) ──
 // Four bars per channel, each measured against the previous step. The
 // biggest leak is painted with the semantic warning color (analysis, not
@@ -209,20 +198,26 @@ Promise.all([
     // they come from the same API, with their source, and anything derived
     // from them is computed there (not here).
     const setR = (k, v) => document.querySelectorAll(`[data-r="${k}"]`).forEach((el) => (el.textContent = v));
+    const setRHtml = (k, v) => document.querySelectorAll(`[data-r="${k}"]`).forEach((el) => (el.innerHTML = v));
     const F = research.facts;
     const D = research.derived;
     const musd = (v) => `US$${v}M`;
-    const signedPct = (v) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(0)}% QoQ`;
+    // Trend arrow instead of a plain +/- sign — the fintech-dashboard
+    // convention for a delta next to a KPI.
+    const signedPct = (v) => {
+      const up = v >= 0;
+      return `<span class="trend ${up ? "up" : "down"}">${up ? "▲" : "▼"}</span> ${up ? "+" : ""}${(v * 100).toFixed(0)}% QoQ`;
+    };
     setR("fundingTotal", musd(D.funding_total_musd));
     setR("serieA", musd(F.somos.serie_a_musd.value));
     setR("serieB", musd(F.somos.serie_b_musd.value));
     setR("usersPublic", num(F.somos.users_public.value));
     setR("heliumAccounts", num(F.helium.accounts.value));
-    setR("heliumAccountsQoQ", signedPct(F.helium.accounts.qoq));
+    setRHtml("heliumAccountsQoQ", signedPct(F.helium.accounts.qoq));
     setR("heliumHotspots", num(F.helium.hotspots.value));
     setR("heliumThirdParty", pct(D.helium_third_party_pct));
     setR("heliumOffload", `${num(F.helium.offload_tb.value)} TB`);
-    setR("heliumOffloadQoQ", signedPct(F.helium.offload_tb.qoq));
+    setRHtml("heliumOffloadQoQ", signedPct(F.helium.offload_tb.qoq));
     setR("obiMonths", F.helium.omv_obi_months.value);
     setR("tokenVol", `${F.helium.token_volatility_x.value.toLocaleString("es-CO")}x`);
     setR("tokenWindow", F.helium.token_volatility_x.window_months);
@@ -292,20 +287,12 @@ Promise.all([
       })
       .join(""));
 
-    // Slide 10 — terminal: built from the real experiment results
+    // Slide 10 — terminal: aggregate stats only. Per-experiment lift/decision
+    // is already the .lifts chart below; repeating it line-by-line here was
+    // the same 4 numbers shown twice on one slide.
     set("expCount", experiments.results.length);
     set("mde", pct(experiments.target_mde, 0));
     set("power", experiments.power);
-    const pad = (s, n) => String(s).padEnd(n, " ");
-    fill("term-lines", experiments.results
-      .map((r) => {
-        const [cls, label] = DECISION_TERM[r.decision] ?? ["c", r.decision.toUpperCase()];
-        const lift = r.relative_lift == null ? "—" : `${r.relative_lift > 0 ? "+" : ""}${(r.relative_lift * 100).toFixed(1)}%`;
-        const p = r.p_value == null ? "—" : r.p_value < 0.0001 ? "p<0.0001" : `p=${r.p_value.toFixed(4)}`;
-        return `<span class="p">${r.id}</span> ${pad(r.name.slice(0, 26), 28)}${pad(lift, 8)}${pad(p, 11)}→ <span class="${cls}">${label}</span>`;
-      })
-      .join("<br>") + "<br>");
-
 
     // Slide 10 — next experiment (from the pipeline's planning, in /api/overview)
     const next = overview.next_experiment_planning;
