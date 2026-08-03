@@ -29,8 +29,9 @@ const LEAD = 0; // seconds of intro before the narration starts
 // speech runs ~0.0s → ~114.9s of the 115.25s file (no leading silence).
 // Cues = script sentence starts aligned to the measured pause structure
 // (long pauses = sentence boundaries), cross-checked with word-proportional
-// pacing over the window: [0, 9, 22, 33, 41, 49, 57, 65, 75, 83, 92].
-const NARRATION_CUES = [0, 9, 22, 32.5, 41, 49, 57, 65, 75, 83, 92];
+// pacing over the window, then fine-tuned with the deck's calibration clock
+// (human ear + live currentTime): [0, 9, 22, 34, 41, 49, 57, 65, 75, 83, 92].
+const NARRATION_CUES = [0, 9, 22, 34, 41, 49, 57, 65, 75, 83, 92];
 const NARRATION_WINDOW = {
   start: 0, // first audible word (silencedetect)
   end: 114.9, // last audible word (silencedetect)
@@ -89,7 +90,7 @@ audio.addEventListener("ended", stopAutoplay);
 
 // Fallback: if the audio file can't load (e.g. not recorded yet), keep a
 // timed dwell plan so the deck still presents itself at ~2 minutes.
-const FALLBACK_SECONDS = [9, 13, 10.5, 8.5, 8, 8, 8, 10, 8, 9, 23];
+const FALLBACK_SECONDS = [9, 13, 12, 7, 8, 8, 8, 10, 8, 9, 23];
 let fallbackTimer = null;
 function fallbackAutoplay() {
   playing = true;
