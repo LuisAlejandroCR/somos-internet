@@ -97,6 +97,9 @@ function renderHypothesisPriority(backlog) {
   const p2 = byId("P2"); // country selector → hypothesis 04
   if (p3) el("ice-h1").textContent = `ICE ${p3.ice.toFixed(1)}`;
   if (p2) el("ice-h4").textContent = `ICE ${p2.ice.toFixed(1)}`;
+  // Executive-summary callout: the top backlog item, already sorted by ICE.
+  const top = backlog.items[0];
+  if (top) el("exec-top-ice").textContent = `${top.title} (ICE ${top.ice.toFixed(1)})`;
 }
 
 // ── ICE backlog — a chart, not a table ──────────────────────────────────
@@ -290,6 +293,8 @@ function attachBarHover(svgEl, container, daily) {
 
 function renderCapacity(operations) {
   const o = operations.summary;
+  // Also feeds the executive-summary callout above the hypothesis list.
+  setM("utilisation", pct(o.capacity_utilisation, 0));
   // "since day N" used to be hand-typed ("day 3"). It's computed instead: the
   // first day scheduled demand exceeds install capacity.
   const firstOverloadIdx = operations.daily.findIndex((d) => d.scheduled > d.capacity);
