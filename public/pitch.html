@@ -42,13 +42,16 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 @media (max-width: 860px) { .mini-funnels { grid-template-columns: 1fr; } }
 .mf { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; box-shadow: var(--glow-neutral); }
 .mf h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted-2); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.mf-row { display: grid; grid-template-columns: 148px 1fr 58px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 11.5px; }
+.mf-row { display: grid; grid-template-columns: 132px 1fr 64px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 11.5px; }
 .mf-row .l { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mf-track { background: var(--card-2); border-radius: 6px; height: 20px; overflow: hidden; }
+.mf-track { background: var(--card-2); border-radius: 6px; height: 24px; overflow: hidden; }
 .mf-bar { height: 100%; background: linear-gradient(90deg, var(--brand-mint-vivid), #2fd6a0); border-radius: 6px; min-width: 3px; }
 .mf-bar.hot { background: linear-gradient(90deg, var(--brand-pink), #b58ae8); }
 .mf-val { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted-2); text-align: right; }
 .mf-lost { color: var(--pink); font-family: "JetBrains Mono", monospace; font-size: 10.5px; text-align: right; white-space: nowrap; }
+.mf-note { margin-top: 10px; padding-top: 9px; border-top: 1px dashed var(--border-2); font-size: 11.5px; color: var(--muted-2); }
+.mf-note b { color: var(--cream); }
+.mf-note.pink b { color: var(--pink); }
 
 /* ── Chips compactos ── */
 .chiprow { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; max-width: 1100px; }
@@ -64,8 +67,8 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .bldg { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: none; }
 .bldg .sign { font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: var(--brand-yellow); color: #070707; padding: 5px 12px; border-radius: 7px 7px 0 0; }
 .bldg .sign em { font-style: normal; }
-.bldg .floor { display: grid; grid-template-columns: repeat(3, 22px); gap: 4px; background: var(--card-2); border: 1px solid var(--border); border-radius: 4px; padding: 5px; position: relative; }
-.bldg .win { height: 14px; border-radius: 2px; background: #fff; border: 1px solid var(--border-2); }
+.bldg .floor { display: grid; grid-template-columns: repeat(3, 26px); gap: 5px; background: var(--card-2); border: 1px solid var(--border); border-radius: 4px; padding: 5px; position: relative; }
+.bldg .win { height: 16px; border-radius: 2px; background: #fff; border: 1px solid var(--border-2); }
 .bldg .floor.hot { border-color: var(--brand-mint); box-shadow: var(--glow-mint); }
 .bldg .floor.hot .win { background: rgba(30,187,178,.3); border-color: rgba(30,187,178,.6); }
 .bldg .floor.hot .badge { position: absolute; right: -14px; top: -9px; background: var(--brand-mint); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 12px rgba(13,110,103,.35); }
@@ -73,6 +76,32 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 .mech { display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
 .mech-row { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 15px; font-size: 12px; color: var(--muted); line-height: 1.5; }
 .mech-row b { color: var(--cream); font-weight: 600; }
+
+/* ── Mecanismos en 2×2 (idea 01 · qué) ── */
+.mech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 640px; }
+@media (max-width: 700px) { .mech-grid { grid-template-columns: 1fr; } }
+.mech-card { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 15px; box-shadow: var(--glow-neutral); }
+.mech-card .mt { font-size: 12.5px; font-weight: 600; color: var(--cream); }
+.mech-card .ms { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin-top: 2px; }
+
+/* ── KPI strip (idea 03 · qué) ── */
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; max-width: 1080px; }
+@media (max-width: 800px) { .kpis { grid-template-columns: 1fr; } }
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 18px 16px; box-shadow: var(--glow-neutral); position: relative; overflow: hidden; }
+.kpi .kv { font-family: "JetBrains Mono", monospace; font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -1px; line-height: 1; }
+.kpi .ku { font-size: 11px; color: var(--muted-2); margin-top: 4px; font-weight: 500; }
+.kpi .kt { font-size: 11.5px; color: var(--muted); margin-top: 9px; line-height: 1.45; }
+.kpi::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; }
+.kpi.mint::after { background: var(--brand-mint-vivid); }
+.kpi.pink::after { background: var(--brand-pink); }
+.kpi.cream::after { background: var(--brand-yellow); }
+
+/* ── Portada: arte y tiles de agenda ── */
+.cover-art { position: absolute; right: clamp(-30px, 2vw, 70px); bottom: clamp(-90px, -5vw, -30px); width: clamp(280px, 34vw, 470px); pointer-events: none; }
+.cover-tiles { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.ctile { display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border-2); background: var(--card); font-size: 12px; font-weight: 600; color: var(--text-2); }
+.ctile .cn { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--mint); }
+.ctile.pink .cn { color: var(--pink); }
 
 /* ── Cuadrante (idea 02) ── */
 .quad { max-width: 430px; margin-top: 20px; }
@@ -209,21 +238,28 @@ section.slide.on { opacity: 1; pointer-events: auto; }
 
   <!-- 1 · Portada -->
   <section class="slide on">
+    <svg class="cover-art" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+      <circle cx="200" cy="200" r="196" stroke="var(--brand-mint-vivid)" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="200" cy="200" r="150" stroke="var(--brand-pink)" stroke-width="1.5" opacity="0.32"/>
+      <circle cx="200" cy="200" r="104" stroke="var(--brand-yellow)" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="200" cy="200" r="58" stroke="var(--border-2)" stroke-width="1.5" opacity="0.7"/>
+      <circle cx="200" cy="200" r="12" fill="var(--brand-mint-vivid)" opacity="0.8"/>
+    </svg>
     <div class="eyebrow">Candidatura CRO · Somos Internet</div>
     <h1>Tres ideas <em>con nombre propio</em> para Somos.</h1>
     <p class="lead">
-      Ideas de crecimiento para la industria más odiada de Colombia — y un método para
-      probarlas con datos, no con opinión.
+      Crecimiento para la industria más odiada de Colombia — con un método para probarlo, no opinión.
     </p>
     <p class="lead" style="color:var(--muted-2);font-size:13px">
       "No eres un analista de dashboards. Cierras el loop entre el dato y la decisión." — vacante de CRO
     </p>
+    <div class="cover-tiles">
+      <span class="ctile"><span class="cn">01</span> "Somos [barrio]"</span>
+      <span class="ctile pink"><span class="cn">02</span> "El Nu de los ISP"</span>
+      <span class="ctile"><span class="cn">03</span> Wire → wireless</span>
+    </div>
     <div class="tags" style="margin-top:26px">
-      <span class="lbl obs">OBSERVACIÓN PÚBLICA</span>
-      <span class="lbl rec">+</span>
-      <span class="lbl hyp">HIPÓTESIS</span>
-      <span class="lbl rec">+</span>
-      <span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span>
+      <span class="lbl obs">OBSERVACIÓN PÚBLICA</span><span class="lbl rec">+</span><span class="lbl hyp">HIPÓTESIS</span><span class="lbl rec">+</span><span class="lbl req">REQUIERE VALIDACIÓN INTERNA</span>
     </div>
   </section>
 
@@ -233,30 +269,29 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
       <div class="eyebrow">El contexto · 30 segundos <span class="lbl obs" style="margin-left:8px">OBSERVACIÓN PÚBLICA</span></div>
     </div>
-    <h1>El embudo no pierde <em>donde creemos.</em></h1>
-    <div class="chiprow" style="margin-top:16px">
-      <span class="chip"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>Serie A + B · <b>US$58M</b></span>
-      <span class="chip"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg>Dos capas: <b>fibra hoy, IA mañana</b></span>
-      <span class="chip cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>Crecimiento <b>orgánico</b>, no pauta</span>
+    <h1>El embudo pierde en 2 pasos — <em>no en el copy.</em></h1>
+    <div class="chiprow" style="margin-top:14px">
+      <span class="chip">Serie A + B · <b>US$58M</b></span>
+      <span class="chip">Dos capas: <b>fibra hoy, IA mañana</b></span>
+      <span class="chip cream">Crecimiento <b>orgánico</b>, no pauta</span>
     </div>
     <div class="mini-funnels">
       <div class="mf">
         <h3><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6l1 1 2-2M4.5 12l1 1 2-2M4.5 18l1 1 2-2"/></svg>Embudo web</h3>
         <div id="mini-web"></div>
+        <div class="mf-note">El cuello: <b>el celular</b></div>
       </div>
       <div class="mf">
         <h3><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.7L3 21l1.8-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>Embudo WhatsApp</h3>
         <div id="mini-wa"></div>
+        <div class="mf-note pink"><span data-m="waQualLoss"></span> se pierde en <b>calificación</b></div>
       </div>
     </div>
     <div class="chiprow">
       <span class="chip"><span data-m="waShare"></span> del tráfico entra por WhatsApp</span>
-      <span class="chip pink"><span data-m="waQualLoss"></span> se pierde en calificación</span>
       <span class="chip"><span data-m="waResponse"></span> min a la primera respuesta</span>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">
-      Los cuellos: el celular en web, la calificación en WhatsApp — no el copy. · Fuente: descubrimientos/04 · product/embudo-y-producto.md
-    </p>
+    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/04 · product/embudo-y-producto.md</p>
   </section>
 
   <!-- 3 · Mapa: las tres ideas -->
@@ -271,22 +306,22 @@ section.slide.on { opacity: 1; pointer-events: auto; }
         <div class="n">01</div>
         <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/></svg></span>"Somos [barrio]"</div>
         <div class="s">El nombre ya hace pertenencia. Convertirlo en mecanismo.</div>
-        <div class="lim"><b>Límite:</b> fragmentación de marca sin un sistema visual único.</div>
+        <div class="lim"><b>Riesgo:</b> fragmentación de marca.</div>
       </div>
       <div class="pcard pink">
         <div class="n">02</div>
         <div class="t"><span class="icon-badge pink"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span>"El Nu de los ISP"</div>
-        <div class="s">Los mismos fondos que apostaron a Nubank, ahora en Somos.</div>
-        <div class="lim"><b>Límite:</b> razonamiento propio confirmado con datos, no cita de Somos.</div>
+        <div class="s">Los fondos que apostaron a Nubank, en Somos.</div>
+        <div class="lim"><b>Riesgo:</b> confirmar con datos, no cita.</div>
       </div>
       <div class="pcard mint">
         <div class="n">03</div>
         <div class="t"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></span>Wire → wireless</div>
-        <div class="s">El router ORB como activo de red, no como costo.</div>
-        <div class="lim"><b>Límite:</b> 7 blockers mapeados — Colombia no está en Helium.</div>
+        <div class="s">El router ORB como activo de red.</div>
+        <div class="lim"><b>Riesgo:</b> 7 blockers — Colombia no está en Helium.</div>
       </div>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/10 · descubrimientos/13 · descubrimientos/14</p>
+    <p class="lead" style="margin-top:14px;font-size:11px;color:var(--muted-2)">Fuente: descubrimientos/10 · 13 · 14</p>
   </section>
 
   <!-- 4 · Idea 01 — Qué -->
@@ -306,14 +341,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
         <div class="floor"><span class="win"></span><span class="win"></span><span class="win"></span></div>
         <div class="ground"></div>
       </div>
-      <div class="mech">
-        <div class="mech-row"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6 15 2-6 6-2z"/><path d="M14 14l6 6"/></svg></span><div><b>Campañas hiperlocales</b> — "Somos Laureles", "Somos Robledo": el barrio como parte de la identidad visible.</div></div>
-        <div class="mech-row"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9"/></svg></span><div><b>Prueba social localizada</b> — "127 vecinos de tu zona ya son Somos [barrio]" pesa más que 90.000 a nivel nacional.</div></div>
-        <div class="mech-row"><span class="icon-badge cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><div><b>Referidos identitarios</b> — "ayuda a que tu edificio también SEA Somos": no traer un cliente, expandir la pertenencia.</div></div>
-        <div class="mech-row"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></span><div><b>Mensaje al administrador</b> — "su" copropiedad SE vuelve Somos: un cambio de status, no solo de proveedor.</div></div>
+      <div class="mech-grid">
+        <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6 15 2-6 6-2z"/><path d="M14 14l6 6"/></svg></span><div><div class="mt">Campañas hiperlocales</div><div class="ms">"Somos Laureles", "Somos Robledo" — el barrio en la identidad.</div></div></div>
+        <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9"/></svg></span><div><div class="mt">Prueba social localizada</div><div class="ms">"127 vecinos de tu zona" pesa más que 90.000.</div></div></div>
+        <div class="mech-card"><span class="icon-badge cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="mt">Referidos identitarios</div><div class="ms">"Ayuda a que tu edificio SEA Somos" — no traer un cliente, expandir pertenencia.</div></div></div>
+        <div class="mech-card"><span class="icon-badge"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></span><div><div class="mt">Mensaje al administrador</div><div class="ms">"Su" copropiedad SE vuelve Somos: status, no proveedor.</div></div></div>
       </div>
     </div>
-    <p class="lead" style="margin-top:18px;font-size:11.5px;color:var(--muted-2)">
+    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">
       Lo que ya funciona en el campo se vuelve sistema. · Fuente: descubrimientos/10
     </p>
   </section>
@@ -326,16 +361,15 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </div>
     <h1>Se prueba con <em>framing,</em> no con logo.</h1>
     <div class="xcard">
-      <div class="xcell key"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>Hipótesis</div><div class="xv">Enmarcar referidos y activación con lenguaje de pertenencia ("tu barrio ya es") en vez de transaccional ("invita y gana") <b>sube la tasa de referidos y de aprobación de administradores</b>.</div></div>
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>Métrica</div><div class="xv">Conversión del CTA de referidos bajo cada framing — y tasa de aprobación de administradores.</div></div>
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>Guardia</div><div class="xv">Que no se perciba como manipulador — opt-out y bloqueos en WhatsApp, sentimiento de las respuestas.</div></div>
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--cream)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg>Descarte</div><div class="xv">Sin diferencia tras la muestra mínima → el framing no era la fricción: era el incentivo o la operación.</div></div>
+      <div class="xcell key"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>Hipótesis</div><div class="xv">Framing de pertenencia — "tu barrio ya es" — <b>sube referidos y aprobación de administradores</b> frente al transaccional "invita y gana".</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>Métrica</div><div class="xv">Conversión del CTA de referidos · aprobación de administradores.</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>Guardia</div><div class="xv">No percibirse como manipulador: opt-out, bloqueos, sentimiento.</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--cream)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg>Descarte</div><div class="xv">Sin diferencia → la fricción era el incentivo o la operación.</div></div>
     </div>
     <div class="chiprow">
       <span class="chip cream"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>El equipo ya validó la táctica: <b>pasacalles éxito — trabajo de calle · P8 · <span data-m="p8"></span></b></span>
-      <span class="chip">Sistema visual único por debajo de las variantes — solo el sufijo cambia</span>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/10 · descubrimientos/13</p>
+    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/10 · 13</p>
   </section>
 
   <!-- 6 · Idea 02 — Qué -->
@@ -371,14 +405,14 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       </div>
       <div>
         <div class="stat3" style="margin-top:6px">
-          <div class="stat3-row"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t2">USV + Ribbit — Serie A, US$18M</div><div class="s2">La misma pareja que acompañó a Nubank desde temprano.</div></div></div>
-          <div class="stat3-row"><span class="icon-badge pink"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span><div><div class="t2">Bracket + Ribbit — Serie B, US$40M (2026)</div><div class="s2">El capital va a infraestructura de IA (FiberX), no a pauta — la conversión orgánica pesa más aquí.</div></div></div>
-          <div class="stat3-row"><span class="icon-badge cream"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></span><div><div class="t2">Un ISP que el mercado no mira como banco</div><div class="s2">Ahí está el arbitraje de percepción: los incumbentes compiten en precio.</div></div></div>
+          <div class="stat3-row"><span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="t2">USV + Ribbit — Serie A, US$18M</div><div class="s2">La pareja que acompañó a Nubank.</div></div></div>
+          <div class="stat3-row"><span class="icon-badge pink"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span><div><div class="t2">Bracket + Ribbit — Serie B, US$40M (2026)</div><div class="s2">Capital a FiberX/IA — la conversión orgánica pesa más.</div></div></div>
+          <div class="stat3-row"><span class="icon-badge cream"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></span><div><div class="t2">Un ISP que no mira como banco</div><div class="s2">Los incumbentes compiten en precio.</div></div></div>
         </div>
       </div>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">
-      Razonamiento propio confirmado con datos — no frase de pasillo. · Fuente: descubrimientos/01 · business/conexiones-inversionistas.md
+    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">
+      Razonamiento propio, confirmado con datos. · Fuente: descubrimientos/01 · business/conexiones-inversionistas.md
     </p>
   </section>
 
@@ -390,15 +424,15 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </div>
     <h1>El posicionamiento se prueba <em>con datos propios.</em></h1>
     <div class="xcard">
-      <div class="xcell key"><div class="xk"><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>Hipótesis</div><div class="xv">El naming "el Nu de los ISP" <b>sube la disposición a pagar</b> frente a "otro ISP barato": el caso Nubank es reconocible para quien decide.</div></div>
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>Métrica</div><div class="xv">Conversión del CTA bajo cada framing de marca (identidad vs. precio) — con datos propios de primera mano.</div></div>
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>Guardia</div><div class="xv">Que no se lea como arrogancia — validarlo con clientes y con el equipo, no solo con el naming.</div></div>
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--cream)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg>Descarte</div><div class="xv">Sin diferencia significativa → el posicionamiento no era la fricción; el problema estaba en el embudo.</div></div>
+      <div class="xcell key"><div class="xk"><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>Hipótesis</div><div class="xv">El naming "el Nu de los ISP" <b>sube la disposición a pagar</b> frente a "otro ISP barato".</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>Métrica</div><div class="xv">Conversión del CTA por framing de marca (identidad vs. precio).</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--pink)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M12 9v4"/><circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>Guardia</div><div class="xv">Que no se lea como arrogancia — validar con clientes y equipo.</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--cream)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.6 2.2c-.9.5-1.1 1-1.1 1.9"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg>Descarte</div><div class="xv">Sin diferencia → la fricción era el embudo, no la marca.</div></div>
     </div>
     <div class="chiprow">
-      <span class="chip mint"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>Encuesta a clientes nuevos: <b>¿de qué operador vienen y por qué?</b> — 100% legal, dato de primera mano</span>
+      <span class="chip mint"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>Encuesta a clientes nuevos: <b>¿de qué operador vienen y por qué?</b> — 100% legal, dato propio</span>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/13 · descubrimientos/09</p>
+    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/13 · 09</p>
   </section>
 
   <!-- 8 · Idea 03 — Qué -->
@@ -408,36 +442,35 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="eyebrow">Idea 03 · Expansión inalámbrica <span class="lbl hyp" style="margin-left:8px">HIPÓTESIS</span></div>
     </div>
     <h1>La red instalada como <em>activo,</em> no como costo.</h1>
-    <div class="chiprow" style="margin-top:14px">
-      <span class="chip"><b>595.800</b> cuentas Helium Mobile (Q4-2025, +29% QoQ)</span>
-      <span class="chip"><b>121.138</b> hotspots — <b>70,5% de terceros</b></span>
-      <span class="chip pink"><b>4.388 TB</b> offload Q4-2025 (+61% QoQ)</span>
+    <div class="kpis">
+      <div class="kpi mint"><div class="kv">595.800</div><div class="ku">cuentas Helium Mobile · Q4-2025</div><div class="kt">+29% QoQ</div></div>
+      <div class="kpi pink"><div class="kv">121.138</div><div class="ku">hotspots</div><div class="kt">70,5% de terceros</div></div>
+      <div class="kpi cream"><div class="kv">4.388 TB</div><div class="ku">offload · Q4-2025</div><div class="kt">+61% QoQ</div></div>
     </div>
     <div class="routes">
       <div class="route">
         <div class="rl">A</div>
         <div class="rt">Helium Plus</div>
-        <div class="rs">Convertir routers ORB en nodos Passpoint: cobertura + offload, CapEx ~0.</div>
-        <div class="rf">Requiere país activo — Colombia está en waitlist internacional.</div>
+        <div class="rs">ORB → nodos Passpoint: cobertura + offload, CapEx ~0.</div>
+        <div class="rf">Requiere país activo — waitlist.</div>
       </div>
       <div class="route">
         <div class="rl" style="color:var(--brand-cream)">B</div>
         <div class="rt">"Somos WiFi" propio</div>
-        <div class="rs">SSID comunitario sin tokens: banda libre + Registro TIC, control total.</div>
-        <div class="rf">100% legal en Colombia — sin dependencia de terceros.</div>
+        <div class="rs">SSID comunitario sin tokens — banda libre.</div>
+        <div class="rf">100% legal, control total.</div>
       </div>
       <div class="route">
         <div class="rl" style="color:var(--brand-pink)">C</div>
         <div class="rt">OMV — datos móviles</div>
-        <div class="rs">Acceso mayorista por derecho regulatorio (OBI, máx. 4 meses) — el "mobile provider".</div>
-        <div class="rf">El blocker estructural: negociar con los OMR que compiten en fibra.</div>
+        <div class="rs">Acceso mayorista por derecho (OBI ≤ 4 meses).</div>
+        <div class="rf">Negociar con OMR que compiten en fibra.</div>
       </div>
     </div>
-    <p class="lead" style="margin-top:18px;font-size:12px">
-      El 70% de la red Helium crece con hardware de terceros — el ORB de Somos es exactamente ese caso,
-      con una ventaja extra: <b>Somos controla el firmware.</b>
+    <p class="lead" style="margin-top:16px;font-size:12px">
+      El 70% de la red Helium es hardware de terceros — y Somos <b>controla el firmware</b> del suyo.
     </p>
-    <p class="lead" style="margin-top:12px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/14</p>
+    <p class="lead" style="margin-top:10px;font-size:11.5px;color:var(--muted-2)">Fuente: descubrimientos/14</p>
   </section>
 
   <!-- 9 · Idea 03 — Cómo se prueba -->
@@ -452,7 +485,7 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <div class="mvp-track"><div class="mvp-fill"><em>5-10 edificios</em></div></div>
     </div>
     <div class="xcard" style="grid-template-columns:1fr">
-      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>Métrica</div><div class="xv"><b>Conversión de invitados a clientes fijos</b> + uso y calidad percibida por clientes pagadores (métrica de guardia: el offload no toca la experiencia del que paga fibra).</div></div>
+      <div class="xcell"><div class="xk"><svg class="icon icon-sm" style="color:var(--mint)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>Métrica</div><div class="xv">Invitados → clientes fijos. Guardia: el offload no toca al que paga fibra.</div></div>
     </div>
     <div class="chiprow">
       <span class="chip pink">Colombia no activo en Helium</span>
@@ -460,10 +493,10 @@ section.slide.on { opacity: 1; pointer-events: auto; }
       <span class="chip pink">QoS del cliente pagador</span>
       <span class="chip">Volatilidad de tokens (4,5x en 3 meses)</span>
       <span class="chip pink">Conflicto mayorista con los OMR</span>
-      <span class="chip">+2 blockers más mapeados</span>
+      <span class="chip">+2 blockers más</span>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:11.5px;color:var(--muted-2)">
-      El wireless crece el mercado; no quita la cola de instalación — se dice junto. · Fuente: descubrimientos/14 §4-5
+    <p class="lead" style="margin-top:14px;font-size:11.5px;color:var(--muted-2)">
+      El wireless crece el mercado; no quita la cola de instalación. · Fuente: descubrimientos/14 §4-5
     </p>
   </section>
 
@@ -481,9 +514,9 @@ section.slide.on { opacity: 1; pointer-events: auto; }
           <span class="f3">Agendamiento</span><span class="a">→</span>
           <span class="f3 danger">Instalación</span>
         </div>
-        <p class="lead" style="font-size:12.5px;margin-top:18px">
-          Cada idea se probaría <b>después</b> de validar que la instalación absorbe lo que la
-          conversión produce. Es una hipótesis de sistema, no un diagnóstico.
+        <p class="lead" style="font-size:12.5px;margin-top:16px">
+          Cada idea se probaría <b>después</b> de validar que la instalación absorbe la demanda —
+          hipótesis de sistema, no diagnóstico.
         </p>
         <div class="flow3" style="margin-top:16px">
           <span class="chip"><b>2.558</b> en cola</span>
@@ -550,8 +583,8 @@ section.slide.on { opacity: 1; pointer-events: auto; }
     </div>
     <h1>No soy un analista de dashboards.<br><em>Cierro el loop entre el dato y la decisión.</em></h1>
     <p class="lead">
-      Tres ideas con nombre propio — cada una con su prueba, su límite y su orden. Y lo que no
-      funciona, documentado: no escondido.
+      Tres ideas — cada una con su prueba, su límite y su orden. Lo que no funciona,
+      documentado: no escondido.
     </p>
     <div class="chiprow" style="margin-top:18px">
       <span class="chip">Con datos internos empezaría por: <b>Paso 1 del checkout</b></span>
