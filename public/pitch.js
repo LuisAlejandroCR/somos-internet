@@ -24,7 +24,7 @@ function show(next) {
 // Calibrate NARRATION_CUES by ear: each entry is the narrated second at
 // which that slide's spoken line begins. Narration spans 0…(duration − LEAD).
 const audio = document.getElementById("pitch-audio");
-const LEAD = 8; // seconds of intro before the narration starts
+const LEAD = 3; // seconds of intro before the narration starts
 const NARRATION_CUES = [0, 15, 34, 41, 47, 52, 58, 65, 72, 86, 94];
 audio.dataset.lead = String(LEAD);
 audio.dataset.cues = NARRATION_CUES.join(",");
